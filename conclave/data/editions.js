@@ -201,14 +201,6 @@ window.CONCLAVE_EDITIONS = {
         bio: "Leads internal audit for Reliance Retail as Senior Vice President."
       },
       {
-        name: "Manish Motwani",
-        role: "Managing Director",
-        org: "Deloitte", logo: "assets/img/orgs/deloitte.png",
-        sector: "Consulting", cxo: false,
-        photo: "assets/img/speakers/manish-motwani.jpg",
-        bio: "Previously Digital Customer Offering Leader and Salesforce Talent Group Lead within the firm."
-      },
-      {
         name: "Vivek Wadhwa",
         role: "Head – Organized Trade",
         org: "Marico", logo: "assets/img/orgs/marico.png",
@@ -256,7 +248,7 @@ window.CONCLAVE_EDITIONS = {
       image: "assets/img/gallery/closing-group.jpg", // TODO(confirm): 2025 placeholder photo
       takeaways: [
         { word: "Ideas",   text: "AI as the engine of India's next decade of growth" },
-        { word: "Insight", text: "How CXOs across seven sectors are putting AI to work" },
+        { word: "Insight", text: "How CXOs across six sectors are putting AI to work" },
         { word: "Impact",  text: "Connections between future managers and today's leaders" }
       ]
     },

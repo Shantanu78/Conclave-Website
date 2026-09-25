@@ -94,6 +94,9 @@
     var faces = (ed.speakers || []).slice(0, 12).map(function (s, i) {
       return '<figure class="mosaic__tile duo ' + duo(i) + '" style="--i:' + i + '"><img src="' + esc(s.photo) + '" alt="" loading="eager"></figure>';
     }).join("");
+    // Keep the 4-column mosaic even: fill spare cells with a brand-pattern tile.
+    var count = Math.min((ed.speakers || []).length, 12);
+    for (var k = count; count && k % 4; k++) faces += '<figure class="mosaic__tile mosaic__tile--brand" style="--i:' + k + '"></figure>';
     var tag = has(ed.tagline) ? '<p class="hero__tagline">' + ed.tagline.map(esc).join("<i>|</i>") + "</p>" : "";
     return '' +
       '<section class="hero" id="top">' +

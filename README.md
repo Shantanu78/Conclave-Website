@@ -31,7 +31,7 @@ The 2026 page reads top to bottom as a story:
 
 | Section | What it shows |
 | --- | --- |
-| Hero | Edition, theme, date, venue, and a mosaic of the 12 speakers |
+| Hero | Edition, theme, date, venue, and a mosaic of the 11 speakers |
 | Numbers | Speakers, C-suite leaders, organisations and sectors (counted from the speaker list), plus attendees |
 | 01 The Idea | Why the Conclave exists and the 2026 theme |
 | 02 The Voices | Speaker cards with a sector filter and a profile pop-up, and an organisation logo strip |
@@ -61,10 +61,9 @@ Taken from the BITSoM Brand Guidelines:
 - **Colours:** red `#B72F26`, blue `#252A60`, orange `#F68722`. The watermark
   tones (`#A12325`, `#241F55`, `#E37126`) are used only for tone-on-tone
   patterns.
-- **Type:** Brandon Grotesque for uppercase headlines and sub-heads, Didot
-  for mixed headline accents, Noto Sans JP for body copy. Brandon and Didot
-  are licensed; if the main site already loads them they are picked up
-  automatically, otherwise Jost and Bodoni Moda stand in.
+- **Type:** Brandon Grotesque for all headlines and sub-heads (uppercase),
+  Noto Sans JP for body copy. Brandon is licensed; if the main site already
+  loads it, it is picked up automatically, otherwise Jost stands in.
 - **Design language 1:** the logo-derived pattern (stripes, chevrons,
   rings) in full colour on white ribbons (`pattern.svg`), and tone on tone on
   coloured sections (`pattern-mono.svg`).

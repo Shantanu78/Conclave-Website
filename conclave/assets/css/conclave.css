@@ -276,7 +276,6 @@ button { font: inherit; color: inherit; }
 .speaker__photo { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; }
 .speaker__photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .5s var(--ease); }
 .speaker__btn:hover .speaker__photo img { transform: scale(1.05); }
-.speaker__badge { position: absolute; z-index: 1; left: 12px; top: 12px; font-family: var(--f-head); font-weight: 700; font-size: 11px; letter-spacing: .18em; padding: 5px 8px 3px; background: var(--white); color: var(--red); border-radius: 2px; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
 .speaker__info { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px 6px; flex: 1; }
 .speaker__name { font-family: var(--f-head); font-weight: 700; font-size: 18px; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); line-height: 1.15; }
 .speaker__role { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.4; }

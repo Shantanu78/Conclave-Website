@@ -192,7 +192,7 @@
               return '<li class="speaker reveal" data-sector="' + esc(s.sector) + '" style="--d:' + (i % 4) * 70 + 'ms">' +
                 '<button type="button" class="speaker__btn" data-speaker="' + i + '" aria-haspopup="dialog">' +
                   '<span class="speaker__photo duo ' + duo(i) + '"><img src="' + esc(s.photo) + '" alt="" loading="lazy">' +
-                    (s.cxo ? '<span class="speaker__badge">CXO</span>' : "") + "</span>" +
+                    "</span>" +
                   '<span class="speaker__info">' +
                     '<span class="speaker__name">' + esc(s.name) + "</span>" +
                     '<span class="speaker__role">' + esc(s.role) + "</span>" +

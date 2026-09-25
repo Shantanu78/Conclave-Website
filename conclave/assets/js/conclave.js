@@ -102,7 +102,7 @@
       for (var c = 0; c < size; c++, n++) {
         var s = people[n];
         var style = "--i:" + n + (c === 0 && size < 4 ? ";grid-column-start:" + (5 - size) : "");
-        faces += '<figure class="mosaic__tile duo ' + duo(n) + (c % 2 ? " is-low" : "") + '" style="' + style + '"><img src="' + esc(s.photo) + '" alt="" loading="eager"></figure>';
+        faces += '<figure class="mosaic__tile duo ' + duo(n) + '" style="' + style + '"><img src="' + esc(s.photo) + '" alt="" loading="eager"></figure>';
       }
     });
     var tag = has(ed.tagline) ? '<p class="hero__tagline">' + ed.tagline.map(esc).join("<i>|</i>") + "</p>" : "";

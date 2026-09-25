@@ -91,12 +91,20 @@
   }
 
   function hero() {
-    var faces = (ed.speakers || []).slice(0, 12).map(function (s, i) {
-      return '<figure class="mosaic__tile duo ' + duo(i) + '" style="--i:' + i + '"><img src="' + esc(s.photo) + '" alt="" loading="eager"></figure>';
-    }).join("");
-    // Keep the 4-column mosaic even: fill spare cells with a brand-pattern tile.
-    var count = Math.min((ed.speakers || []).length, 12);
-    for (var k = count; count && k % 4; k++) faces += '<figure class="mosaic__tile mosaic__tile--brand" style="--i:' + k + '"></figure>';
+    // Mosaic rows of up to 4. Short rows go in the middle and are centred
+    // (e.g. 11 speakers -> 4 / 3 / 4), so the block never has an empty slot.
+    var people = (ed.speakers || []).slice(0, 12);
+    var rows = Math.ceil(people.length / 4), sizes = [];
+    for (var r = 0; r < rows; r++) sizes.push(4);
+    for (var d = rows * 4 - people.length, m = 0; d > 0; d--, m++) sizes[(Math.floor(rows / 2) + m) % rows]--;
+    var faces = "", n = 0;
+    sizes.forEach(function (size) {
+      for (var c = 0; c < size; c++, n++) {
+        var s = people[n];
+        var style = "--i:" + n + (c === 0 && size < 4 ? ";grid-column-start:" + (5 - size) : "");
+        faces += '<figure class="mosaic__tile duo ' + duo(n) + (c % 2 ? " is-low" : "") + '" style="' + style + '"><img src="' + esc(s.photo) + '" alt="" loading="eager"></figure>';
+      }
+    });
     var tag = has(ed.tagline) ? '<p class="hero__tagline">' + ed.tagline.map(esc).join("<i>|</i>") + "</p>" : "";
     return '' +
       '<section class="hero" id="top">' +

@@ -27,7 +27,7 @@ window.CONCLAVE_EDITIONS = {
     year: "2025",
     status: "published",
     edition: "Edition 2025",
-    date: "7–8 February 2025",
+    date: "7 February 2025",
     dateISO: "2025-02-07",
     venue: "BITS Pilani, Mumbai Campus",
     theme: {
@@ -37,9 +37,9 @@ window.CONCLAVE_EDITIONS = {
 
     about: {
       lead: "The 2025 BITSoM Business Conclave focused on harnessing creativity and collaboration to drive business growth, redefine industry standards and shape the future of commerce and technology.",
-      body: "Day 1 put the spotlight on FMCG and FMCD. Day 2 turned to SaaS, IT and BFSI.",
+      body: "The panels spanned two worlds: FMCG and FMCD, and SaaS, IT and BFSI.",
       pillars: [
-        { icon: "mic",     title: "Keynote Speech",      text: "Leaders set the tone for two days of ideas" },
+        { icon: "mic",     title: "Keynote Speech",      text: "Leaders set the tone for a day of ideas" },
         { icon: "panel",   title: "Panel Discussions",   text: "Industry voices on FMCG, FMCD, SaaS, IT and BFSI" },
         { icon: "huddle",  title: "Breakout Sessions",   text: "Small groups where students and speakers dug deeper" },
         { icon: "trophy",  title: "Performances",        text: "Student performances on the Conclave stage" }
@@ -49,23 +49,23 @@ window.CONCLAVE_EDITIONS = {
     stats: [
       { value: "auto:speakers",      label: "Industry speakers" },
       { value: "auto:organisations", label: "Organisations" },
-      { value: 2,                    label: "Days" },
+      { value: "auto:sectors",       label: "Sectors represented" },
       { value: "auto:sponsors",      label: "Sponsors & partners" }
     ],
 
     /* Two-day structure from the 2025 event overview. No session times. */
     timeline: [
-      { time: "Day 1", title: "Lamp Lighting & Keynote",   icon: "mic",     image: "assets/img/gallery/2025/lamp-lighting.jpg",
+      { time: "", title: "Lamp Lighting & Keynote",   icon: "mic",     image: "assets/img/gallery/2025/lamp-lighting.jpg",
         text: "The Conclave opened with the ceremonial lamp lighting and a keynote address." },
-      { time: "Day 1", title: "FMCG & FMCD Panels",        icon: "panel",   image: "assets/img/gallery/2025/panel-stage.jpg",
+      { time: "", title: "FMCG & FMCD Panels",        icon: "panel",   image: "assets/img/gallery/2025/panel-stage.jpg",
         text: "Leaders from PepsiCo, Mondelēz, Hershey's, Kimberly-Clark and more on the future of consumer business." },
-      { time: "Day 1–2", title: "Breakout Sessions",       icon: "huddle",  image: "assets/img/gallery/2025/huddle-library.jpg",
+      { time: "", title: "Breakout Sessions",       icon: "huddle",  image: "assets/img/gallery/2025/huddle-library.jpg",
         text: "Students and speakers met in small groups to work through real business questions." },
-      { time: "Day 2", title: "SaaS, IT & BFSI Panels",    icon: "panel",   image: "assets/img/gallery/2025/fireside-chat.jpg",
+      { time: "", title: "SaaS, IT & BFSI Panels",    icon: "panel",   image: "assets/img/gallery/2025/fireside-chat.jpg",
         text: "Adobe, Mastercard, Sify, JioStar and others on how AI and changing consumers are reshaping products." },
-      { time: "Day 1–2", title: "Networking",                icon: "tea",     image: "assets/img/gallery/2025/hallway-conversations.jpg",
+      { time: "", title: "Networking",                icon: "tea",     image: "assets/img/gallery/2025/hallway-conversations.jpg",
         text: "Conversations carried on in the corridors between sessions." },
-      { time: "Day 1–2", title: "Performances",            icon: "trophy",
+      { time: "", title: "Performances",            icon: "trophy",
         text: "Student performances on the Conclave stage." }
     ],
 
@@ -282,12 +282,12 @@ window.CONCLAVE_EDITIONS = {
     ],
 
     finale: {
-      title: "Two days. Twenty leaders. One campus.",
+      title: "One day. Twenty leaders. One campus.",
       text: "Conclave 2025 closed with speakers, students and the organising team together on the main stage.",
       image: "assets/img/gallery/2025/closing-group.jpg",
       takeaways: [
-        { word: "Day 1", text: "FMCG & FMCD: how consumer brands grow and change" },
-        { word: "Day 2", text: "SaaS, IT & BFSI: AI and the products people use" },
+        { word: "Consumer", text: "FMCG & FMCD: how consumer brands grow and change" },
+        { word: "Tech", text: "SaaS, IT & BFSI: AI and the products people use" },
         { word: "Campus", text: "Students in the room with twenty industry leaders" }
       ]
     },

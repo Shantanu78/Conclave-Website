@@ -339,8 +339,21 @@ window.CONCLAVE_EDITIONS = {
       { value: 350, suffix: "+",     label: "Attendees" } // TODO(confirm): deck figure was "350+ expected"
     ],
 
-    /* Chapter: how the day unfolded. Awaiting the 2026 run of show. */
-    timeline: [],
+    /* Chapter: how the day unfolded. Highlights from the 14 March 2026 schedule. */
+    timeline: [
+      { time: "10:00 AM", title: "Opening & Keynote", icon: "mic", image: "assets/img/gallery/2026/keynote.jpg",
+        text: "The day opened with the lamp-lighting ceremony and a keynote on how generative AI is becoming accessible at every level." },
+      { time: "10:45 AM", title: "Fireside Chats", icon: "podcast", image: "assets/img/gallery/2026/fireside-sanchayan-paul.jpg",
+        text: "One-on-one conversations with Sanchayan Paul of Network18 and Rakesh Tiwary of Raymond." },
+      { time: "11:30 AM", title: "Panel Discussions", icon: "panel", image: "assets/img/gallery/2026/panel-2.jpg",
+        text: "Two panels, including “India's AI Economy: Who Will Build It, Fund It, and Scale It?”" },
+      { time: "12:30 PM", title: "Focus Group Discussions", icon: "huddle", image: "assets/img/gallery/2026/focus-group-vidhyasagar-tyagi.jpg",
+        text: "Small groups in the library, where students sat down with speakers around one table." },
+      { time: "1:15 PM", title: "Guest Speaker", icon: "trophy", image: "assets/img/gallery/2026/guest-dhanushkodi-sivanandhan.jpg",
+        text: "A special session with Dhanushkodi Sivanandhan, former Police Commissioner of Mumbai." },
+      { time: "5:30 PM", title: "Student Excellence Showcase", icon: "tea", image: "assets/img/gallery/2026/showcase-speaker.jpg",
+        text: "Students presented their case-competition wins to speakers over snacks at COE Plaza." }
+    ],
 
     /*
      * Speakers. `cxo: true` counts toward the C-suite stat.
@@ -420,7 +433,7 @@ window.CONCLAVE_EDITIONS = {
         bio: "Previously Deputy Vice President and Head of Digital Sales Transformation at Angel One."
       },
       {
-        name: "Vidyasagar Tyagi",
+        name: "Vidhyasagar Tyagi",
         role: "SVP & Head of Internal Audit",
         org: "Reliance Retail", logo: "assets/img/orgs/reliance-retail.png",
         sector: "Retail & Lifestyle", cxo: false,
@@ -443,16 +456,42 @@ window.CONCLAVE_EDITIONS = {
      * { title: "AI in Consumer Business", moderator: "Student name",
      *   speakers: ["Vivek Wadhwa", "Sashidhar Velaga"] }
      */
-    panels: [],
+    panels: [
+      { title: "India's AI Economy: Who Will Build It, Fund It, and Scale It?",
+        speakers: ["Sambasivan G", "Vidhyasagar Tyagi", "Neetu Ailsinghani", "Dr. Monica Sood Bhatia"] }
+    ],
 
-    /* Gallery. Awaiting 2026 photos. size: "wide" | "tall" | "" (normal) */
-    gallery: [],
+    /* Gallery. size: "wide" | "tall" | "" (normal); ordered so the grid fills evenly */
+    gallery: [
+      { src: "assets/img/gallery/2026/panel-2.jpg",                       caption: "Panel 2: India's AI economy",           size: "wide" },
+      { src: "assets/img/gallery/2026/keynote.jpg",                       caption: "The keynote",                           size: "tall" },
+      { src: "assets/img/gallery/2026/fireside-rakesh-tiwary.jpg",        caption: "Fireside chat with Rakesh Tiwary",      size: "" },
+      { src: "assets/img/gallery/2026/fireside-sanchayan-paul.jpg",       caption: "Fireside chat with Sanchayan Paul",     size: "" },
+      { src: "assets/img/gallery/2026/panel-2-closeup.jpg",               caption: "Neetu Ailsinghani on the panel",        size: "" },
+      { src: "assets/img/gallery/2026/guest-dhanushkodi-sivanandhan.jpg", caption: "Dhanushkodi Sivanandhan in conversation", size: "wide" },
+      { src: "assets/img/gallery/2026/focus-group-library.jpg",           caption: "Focus group in the library",            size: "tall" },
+      { src: "assets/img/gallery/2026/focus-group-window.jpg",            caption: "Round-table discussion",                size: "" },
+      { src: "assets/img/gallery/2026/focus-group-vidhyasagar-tyagi.jpg", caption: "Focus group with Vidhyasagar Tyagi",    size: "" },
+      { src: "assets/img/gallery/2026/showcase-atrium.jpg",               caption: "Student Excellence Showcase",           size: "wide" },
+      { src: "assets/img/gallery/2026/showcase-speaker.jpg",              caption: "Speakers meet the case champions",      size: "" },
+      { src: "assets/img/gallery/2026/library-group-small.jpg",           caption: "Students with Vidhyasagar Tyagi",       size: "wide" },
+      { src: "assets/img/gallery/2026/library-group-large.jpg",           caption: "A focus group after the session",       size: "wide" }
+    ],
 
     /* Speaker reflections. Leave empty to hide the block. */
     testimonials: [],
 
-    /* Chapter: how the day closed. Awaiting 2026 photos and recap. */
-    finale: null,
+    /* Chapter: how the day closed. Background: the Conclave team on stage. */
+    finale: {
+      title: "The day closed. The conversations carry on.",
+      text: "Club performances and the event closure brought the Assembly Hall together one last time, and the Conclave team gathered on stage. The evening carried on with the Student Excellence Showcase and games.",
+      image: "assets/img/gallery/2026/conclave-team.jpg",
+      takeaways: [
+        { word: "Ideas",   text: "AI as the engine of India's next decade of growth" },
+        { word: "Insight", text: "How CXOs across six sectors are putting AI to work" },
+        { word: "Impact",  text: "Connections between future managers and today's leaders" }
+      ]
+    },
 
     next: {
       title: "See you at Conclave 2027",

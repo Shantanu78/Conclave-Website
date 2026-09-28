@@ -22,9 +22,8 @@ python3 -m http.server 8000
 # open http://localhost:8000/?edition=2026
 ```
 
-`?edition=2025`, `2026` and `2027` switch editions. 2025 is complete; 2026
-has its hero, numbers, idea and speakers, and its day, gallery and finale
-appear once that data is added; 2027 shows a "coming soon" state.
+`?edition=2025`, `2026` and `2027` switch editions. 2025 and 2026 are
+published; 2027 shows a "coming soon" state.
 
 ## The story
 

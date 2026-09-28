@@ -65,7 +65,7 @@ Taken from the BITSoM Brand Guidelines:
   Noto Sans JP for body copy. Brandon is licensed; if the main site already
   loads it, it is picked up automatically, otherwise Jost stands in.
 - **Design language 1:** the logo-derived pattern (stripes, chevrons,
-  rings) in full colour on white ribbons (`ribbon.svg`), and tone on tone on
+  rings) in full colour on white ribbons (`ribbon.png`, taken from the guideline pattern), and tone on tone on
   coloured sections (`pattern-mono.svg`).
 - **Design language 2:** a large tone-on-tone crop of the logo in the hero,
   kept separate from design language 1 as the guidelines ask.

@@ -339,22 +339,18 @@ window.CONCLAVE_EDITIONS = {
       { value: 350, suffix: "+",     label: "Attendees" } // TODO(confirm): deck figure was "350+ expected"
     ],
 
-    /* Chapter: how the day unfolded. Speaker sessions from the 14 March 2026 run of show. */
+    /* Chapter: how the day unfolded. Highlights from the 14 March 2026 run of show. */
     timeline: [
       { time: "10:15 AM", title: "Keynote Session", icon: "mic", image: "assets/img/gallery/2026/keynote.jpg",
         text: "After the opening address and lamp lighting, Sanchit Suneja of Motilal Oswal delivered the keynote on how generative AI is becoming accessible at every level." },
-      { time: "10:45 AM", title: "Fireside Chat 01", icon: "podcast", image: "assets/img/gallery/2026/fireside-rakesh-tiwary.jpg",
-        text: "Rakesh Tiwary, Group CFO of Raymond, in conversation." },
-      { time: "11:30 AM", title: "Panel Discussion 01", icon: "panel",
-        text: "Shirshendu Bhattacharya (Dr. Reddy's), Sashidhar Velaga (Nykaa Fashion) and Vivek Wadhwa (Marico) on stage together." },
+      { time: "10:45 AM", title: "Fireside Chats", icon: "podcast", image: "assets/img/gallery/2026/fireside-rakesh-tiwary.jpg",
+        text: "One-on-one conversations with Rakesh Tiwary, Group CFO of Raymond, and Sanchayan Paul, CHRO of Network18." },
+      { time: "11:30 AM", title: "Panel Discussions", icon: "panel", image: "assets/img/gallery/2026/panel-2.jpg",
+        text: "Two panels: Shirshendu Bhattacharya, Sashidhar Velaga and Vivek Wadhwa; then Sambasivan G, Vidhyasagar Tyagi, Neetu Ailsinghani and Dr. Monica Sood Bhatia on India's AI economy." },
       { time: "12:30 PM", title: "Focus Group Discussions", icon: "huddle", image: "assets/img/gallery/2026/focus-group-library.jpg",
         text: "Students sat down with speakers, including Dhanushkodi Sivanandhan and Sanchit Suneja, in small groups in the library." },
       { time: "1:15 PM", title: "Guest Speaker", icon: "trophy", image: "assets/img/gallery/2026/guest-dhanushkodi-sivanandhan.jpg",
         text: "Dhanushkodi Sivanandhan, former Police Commissioner of Mumbai, took the stage as the day's guest speaker." },
-      { time: "3:00 PM", title: "Panel Discussion 02", icon: "panel", image: "assets/img/gallery/2026/panel-2.jpg",
-        text: "Sambasivan G, Vidhyasagar Tyagi, Neetu Ailsinghani and Dr. Monica Sood Bhatia on India's AI economy: who will build it, fund it and scale it." },
-      { time: "3:45 PM", title: "Fireside Chat 02", icon: "podcast", image: "assets/img/gallery/2026/fireside-sanchayan-paul.jpg",
-        text: "Sanchayan Paul, CHRO of Network18, closed the speaker sessions in conversation." },
       { time: "4:15 PM", title: "Performances, Closure & Networking", icon: "tea", image: "assets/img/gallery/2026/showcase-atrium.jpg",
         text: "Club performances and the event closure, followed by snacks and networking at COE Plaza." }
     ],

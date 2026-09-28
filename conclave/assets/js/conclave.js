@@ -61,6 +61,7 @@
       case "cxos": return sp.filter(function (s) { return s.cxo; }).length;
       case "organisations": return unique(sp.map(function (s) { return s.org; })).length;
       case "sectors": return unique(sp.map(function (s) { return s.sector; })).length;
+      case "sponsors": return (ed.sponsors || []).length;
     }
     return 0;
   }
@@ -225,7 +226,7 @@
             t.map(function (s, i) {
               return '<li class="moment reveal">' +
                 '<div class="moment__node">' + icon(s.icon || "mic") + "</div>" +
-                '<div class="moment__card">' +
+                '<div class="moment__card' + (s.image ? "" : " moment__card--text") + '">' +
                   (s.image ? '<div class="moment__img"><img src="' + esc(s.image) + '" alt="" loading="lazy"></div>' : "") +
                   '<div class="moment__text">' +
                     '<p class="moment__time"><span>' + pad(i + 1) + "</span>" + esc(s.time || "") + "</p>" +
@@ -296,6 +297,22 @@
                 "<span><strong>" + esc(q.name) + "</strong>" + esc(q.role || "") + "</span></figcaption></figure>";
             }).join("") +
           "</div>" +
+        "</div>" +
+      "</section>";
+  }
+
+  function partners() {
+    if (!has(ed.sponsors)) return "";
+    var n = chapter("partners", "Partners");
+    return '' +
+      '<section class="chapter chapter--partners" id="partners">' +
+        '<div class="wrap">' +
+          sectionHead(n, "Partners", "The brands that backed Conclave " + ed.year, true) +
+          '<ul class="sponsors">' +
+            ed.sponsors.map(function (sp, i) {
+              return '<li class="sponsor reveal" style="--d:' + (i % 5) * 60 + 'ms"><img src="' + esc(sp.logo) + '" alt="' + esc(sp.name) + '" loading="lazy"></li>';
+            }).join("") +
+          "</ul>" +
         "</div>" +
       "</section>";
   }
@@ -378,7 +395,7 @@
       root.innerHTML = subnav() + breadcrumb() + comingSoon();
       return;
     }
-    var body = hero() + numbers() + about() + voices() + day() + panels() + gallery() + testimonials() + finale() + next();
+    var body = hero() + numbers() + about() + voices() + day() + panels() + gallery() + testimonials() + partners() + finale() + next();
     root.innerHTML = subnav() + breadcrumb() + body;
   }
 
@@ -454,7 +471,7 @@
           "<h3>" + esc(s.name) + "</h3>" +
           '<p class="speaker-modal__role">' + esc(s.role) + (s.org ? ", " + esc(s.org) : "") + "</p>" +
           (s.logo ? '<img class="speaker-modal__logo" src="' + esc(s.logo) + '" alt="' + esc(s.org) + '">' : "") +
-          "<p>" + brand(s.bio) + "</p>" +
+          (s.bio ? "<p>" + brand(s.bio) + "</p>" : "") +
         "</div>";
       dlg.showModal();
     });

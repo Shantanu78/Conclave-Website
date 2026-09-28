@@ -22,12 +22,13 @@ python3 -m http.server 8000
 # open http://localhost:8000/?edition=2026
 ```
 
-`?edition=2025`, `2026` and `2027` switch editions. 2025 and 2027 show a
-"coming soon" state until their data is filled in.
+`?edition=2025`, `2026` and `2027` switch editions. 2025 is complete; 2026
+has its hero, numbers, idea and speakers, and its day, gallery and finale
+appear once that data is added; 2027 shows a "coming soon" state.
 
 ## The story
 
-The 2026 page reads top to bottom as a story:
+Each edition reads top to bottom as a story:
 
 | Section | What it shows |
 | --- | --- |
@@ -39,6 +40,7 @@ The 2026 page reads top to bottom as a story:
 | The Panels | Who sat on which panel (hidden until filled in) |
 | 04 In Frame | Photo gallery with lightbox |
 | Reflections | Speaker quotes (hidden until filled in) |
+| Partners | Sponsor logo wall (hidden until filled in) |
 | 05 The Finale | How the day closed: Ideas, Insight, Impact |
 | Next edition | Call to action for the next Conclave |
 

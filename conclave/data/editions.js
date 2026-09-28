@@ -25,8 +25,278 @@ window.CONCLAVE_EDITIONS = {
   /* ------------------------------------------------------------------ */
   "2025": {
     year: "2025",
-    status: "coming-soon",
-    message: "We're putting together the story of Conclave 2025. Check back soon."
+    status: "published",
+    edition: "Edition 2025",
+    date: "7–8 February 2025",
+    dateISO: "2025-02-07",
+    venue: "BITS Pilani, Mumbai Campus",
+    theme: {
+      kicker: "Theme 2025",
+      title: "Innovation Beyond Boundaries"
+    },
+
+    about: {
+      lead: "The 2025 BITSoM Business Conclave focused on harnessing creativity and collaboration to drive business growth, redefine industry standards and shape the future of commerce and technology.",
+      body: "Day 1 put the spotlight on FMCG and FMCD. Day 2 turned to SaaS, IT and BFSI.",
+      pillars: [
+        { icon: "mic",     title: "Keynote Speech",      text: "Leaders set the tone for two days of ideas" },
+        { icon: "panel",   title: "Panel Discussions",   text: "Industry voices on FMCG, FMCD, SaaS, IT and BFSI" },
+        { icon: "huddle",  title: "Breakout Sessions",   text: "Small groups where students and speakers dug deeper" },
+        { icon: "trophy",  title: "Performances",        text: "Student performances on the Conclave stage" }
+      ]
+    },
+
+    stats: [
+      { value: "auto:speakers",      label: "Industry speakers" },
+      { value: "auto:organisations", label: "Organisations" },
+      { value: 2,                    label: "Days" },
+      { value: "auto:sponsors",      label: "Sponsors & partners" }
+    ],
+
+    /* Two-day structure from the 2025 event overview. No session times. */
+    timeline: [
+      { time: "Day 1", title: "Lamp Lighting & Keynote",   icon: "mic",     image: "assets/img/gallery/2025/lamp-lighting.jpg",
+        text: "The Conclave opened with the ceremonial lamp lighting and a keynote address." },
+      { time: "Day 1", title: "FMCG & FMCD Panels",        icon: "panel",   image: "assets/img/gallery/2025/panel-stage.jpg",
+        text: "Leaders from PepsiCo, Mondelēz, Hershey's, Kimberly-Clark and more on the future of consumer business." },
+      { time: "Day 1–2", title: "Breakout Sessions",       icon: "huddle",  image: "assets/img/gallery/2025/huddle-library.jpg",
+        text: "Students and speakers met in small groups to work through real business questions." },
+      { time: "Day 2", title: "SaaS, IT & BFSI Panels",    icon: "panel",   image: "assets/img/gallery/2025/fireside-chat.jpg",
+        text: "Adobe, Mastercard, Sify, JioStar and others on how AI and changing consumers are reshaping products." },
+      { time: "Day 1–2", title: "Networking",                icon: "tea",     image: "assets/img/gallery/2025/hallway-conversations.jpg",
+        text: "Conversations carried on in the corridors between sessions." },
+      { time: "Day 1–2", title: "Performances",            icon: "trophy",
+        text: "Student performances on the Conclave stage." }
+    ],
+
+    speakers: [
+      {
+        name: "Raghavendra Purwar",
+        role: "Associate Director – Manufacturing",
+        org: "PepsiCo", logo: "assets/img/orgs/2025/raghavendra-purwar.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/raghavendra-purwar.jpg",
+        bio: ""
+      },
+      {
+        name: "Anoop Tiwari",
+        role: "Lead – Regulatory Affairs & Compliance",
+        org: "Mondelēz International", logo: "assets/img/orgs/2025/anoop-tiwari.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/anoop-tiwari.jpg",
+        bio: ""
+      },
+      {
+        name: "Payal Agrawaal",
+        role: "Managing Director, India & South Asia",
+        org: "Abbott", logo: "assets/img/orgs/2025/payal-agrawaal.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/payal-agrawaal.jpg",
+        bio: ""
+      },
+      {
+        name: "Amol Peshattiwar",
+        role: "Associate VP – Quality & Regulatory Compliance",
+        org: "Hershey's", logo: "assets/img/orgs/2025/amol-peshattiwar.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/amol-peshattiwar.jpg",
+        bio: ""
+      },
+      {
+        name: "Sunil Nat",
+        role: "Head – Digital Strategy & Ecommerce",
+        org: "Galderma", logo: "assets/img/orgs/2025/sunil-nat.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/sunil-nat.jpg",
+        bio: ""
+      },
+      {
+        name: "Mohit Mahajan",
+        role: "Associate VP",
+        org: "Wendy's", logo: "assets/img/orgs/2025/mohit-mahajan.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/mohit-mahajan.jpg",
+        bio: ""
+      },
+      {
+        name: "Anubhav Agarwal",
+        role: "Director – Ecommerce",
+        org: "Kimberly-Clark", logo: "assets/img/orgs/2025/anubhav-agarwal.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/anubhav-agarwal.jpg",
+        bio: ""
+      },
+      {
+        name: "Jitendra Chauhan",
+        role: "National Head – Rural Business",
+        org: "Crompton Greaves", logo: "assets/img/orgs/2025/jitendra-chauhan.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/jitendra-chauhan.jpg",
+        bio: ""
+      },
+      {
+        name: "Midhula Devabhaktuni",
+        role: "Co-founder & CMO",
+        org: "Mivi", logo: "assets/img/orgs/2025/midhula-devabhaktuni.png",
+        sector: "FMCG & Luxury", cxo: true,
+        photo: "assets/img/speakers/2025/midhula-devabhaktuni.jpg",
+        bio: ""
+      },
+      {
+        name: "Nishant Agarwal",
+        role: "Senior AD",
+        org: "Kellanova", logo: "assets/img/orgs/2025/nishant-agarwal.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/nishant-agarwal.jpg",
+        bio: ""
+      },
+      {
+        name: "VN Narayanan",
+        role: "Founder",
+        org: "strategii@work", logo: "assets/img/orgs/2025/vn-narayanan.png",
+        sector: "FMCG & Luxury", cxo: false,
+        photo: "assets/img/speakers/2025/vn-narayanan.jpg",
+        bio: ""
+      },
+      {
+        name: "Raghuraman R.",
+        role: "Vice President",
+        org: "Mercedes-Benz", logo: "assets/img/orgs/2025/raghuraman-r.png",
+        sector: "Product & IT", cxo: false,
+        photo: "assets/img/speakers/2025/raghuraman-r.jpg",
+        bio: ""
+      },
+      {
+        name: "Ravindra Soni",
+        role: "Associate VP",
+        org: "Hershey's", logo: "assets/img/orgs/2025/ravindra-soni.png",
+        sector: "Product & IT", cxo: false,
+        photo: "assets/img/speakers/2025/ravindra-soni.jpg",
+        bio: ""
+      },
+      {
+        name: "Anand Shrivatsava",
+        role: "Director – Product",
+        org: "Talkdesk", logo: "assets/img/orgs/2025/anand-shrivatsava.png",
+        sector: "Product & IT", cxo: false,
+        photo: "assets/img/speakers/2025/anand-shrivatsava.jpg",
+        bio: ""
+      },
+      {
+        name: "Ranjan Mishra",
+        role: "Chief Human Resources Officer",
+        org: "Diebold Nixdorf", logo: "assets/img/orgs/2025/ranjan-mishra.png",
+        sector: "Product & IT", cxo: true,
+        photo: "assets/img/speakers/2025/ranjan-mishra.jpg",
+        bio: ""
+      },
+      {
+        name: "Abhishek Shukla",
+        role: "Group Product Manager",
+        org: "Adobe", logo: "assets/img/orgs/2025/abhishek-shukla.png",
+        sector: "Product & IT", cxo: false,
+        photo: "assets/img/speakers/2025/abhishek-shukla.jpg",
+        bio: ""
+      },
+      {
+        name: "Naveen Chhabra",
+        role: "Chief Revenue Officer",
+        org: "Sify", logo: "assets/img/orgs/2025/naveen-chhabra.png",
+        sector: "Product & IT", cxo: true,
+        photo: "assets/img/speakers/2025/naveen-chhabra.jpg",
+        bio: ""
+      },
+      {
+        name: "Sunil Patil",
+        role: "Director – Head of PMO",
+        org: "Mastercard", logo: "assets/img/orgs/2025/sunil-patil.png",
+        sector: "Product & IT", cxo: false,
+        photo: "assets/img/speakers/2025/sunil-patil.jpg",
+        bio: ""
+      },
+      {
+        name: "Govind Maheshwari",
+        role: "Director – Entertainment Business",
+        org: "JioStar", logo: "assets/img/orgs/2025/govind-maheshwari.png",
+        sector: "Product & IT", cxo: false,
+        photo: "assets/img/speakers/2025/govind-maheshwari.jpg",
+        bio: ""
+      },
+      {
+        name: "Ramya Venkatesh",
+        role: "Director – Product",
+        org: "Brightly", logo: "assets/img/orgs/2025/ramya-venkatesh.png",
+        sector: "Product & IT", cxo: false,
+        photo: "assets/img/speakers/2025/ramya-venkatesh.jpg",
+        bio: ""
+      }
+    ],
+
+    panels: [],
+
+    gallery: [
+      // Order and sizes are chosen so the grid fills evenly at 4 and 2 columns.
+      { src: "assets/img/gallery/2025/panel-stage.jpg",           caption: "Panellists on the main stage",       size: "wide" },
+      { src: "assets/img/gallery/2025/keynote-podium.jpg",        caption: "The keynote",                        size: "tall" },
+      { src: "assets/img/gallery/2025/fireside-chat.jpg",         caption: "A fireside conversation",            size: "" },
+      { src: "assets/img/gallery/2025/huddle-library.jpg",        caption: "Breakout session in the library",    size: "" },
+      { src: "assets/img/gallery/2025/networking-corridor.jpg",   caption: "Networking between sessions",        size: "" },
+      { src: "assets/img/gallery/2025/hallway-conversations.jpg", caption: "Conversations between sessions",     size: "tall" },
+      { src: "assets/img/gallery/2025/lamp-lighting.jpg",         caption: "Lamp lighting to open the Conclave", size: "wide" },
+      { src: "assets/img/gallery/2025/fireside-close.jpg",        caption: "In conversation on stage",           size: "" },
+      { src: "assets/img/gallery/2025/panel-lineup.jpg",          caption: "The panel line-up",                  size: "wide" },
+      { src: "assets/img/gallery/2025/group-portrait.jpg",        caption: "Speakers with the organising team",  size: "wide" }
+    ],
+
+    /* Verbatim from speakers' LinkedIn posts */
+    testimonials: [
+      { name: "Abhishek Shukla", role: "Group Product Manager, Adobe", photo: "assets/img/speakers/2025/abhishek-shukla.jpg",
+        quote: "From the moment I took my flight to Mumbai to the time I returned home, the entire experience was seamless. The hospitality and organization by the student-led team was truly commendable." },
+      { name: "Raghuraman R.", role: "Vice President, Mercedes-Benz", photo: "assets/img/speakers/2025/raghuraman-r.jpg",
+        quote: "Excellent topic and a wonderfully organised event. Enjoyed the immersive interactions and the college campus vibes. Thanks folks" },
+      { name: "Ramya Venkatesh", role: "Director – Product, Brightly", photo: "assets/img/speakers/2025/ramya-venkatesh.jpg",
+        quote: "Grateful for the invitation to speak on my fav topic AI. Thank you for the warm welcome! The campus energy is truly contagious." }
+    ],
+
+    sponsors: [
+      { name: "Business Standard", logo: "assets/img/sponsors/2025/business-standard.jpg" },
+      { name: "Solastaa Salon", logo: "assets/img/sponsors/2025/solastaa-salon.jpg" },
+      { name: "Arayie – The Earth Store", logo: "assets/img/sponsors/2025/arayie.jpg" },
+      { name: "Fortis", logo: "assets/img/sponsors/2025/fortis.jpg" },
+      { name: "EaseMyTrip", logo: "assets/img/sponsors/2025/easemytrip.jpg" },
+      { name: "Taju's Sweet Flavours", logo: "assets/img/sponsors/2025/tajus-sweet-flavours.jpg" },
+      { name: "White Kiwi", logo: "assets/img/sponsors/2025/white-kiwi.jpg" },
+      { name: "Awear Beauty", logo: "assets/img/sponsors/2025/awear-beauty.jpg" },
+      { name: "Oaks and Olives Cafe", logo: "assets/img/sponsors/2025/oaks-and-olives.jpg" },
+      { name: "Edutech", logo: "assets/img/sponsors/2025/edutech.jpg" },
+      { name: "Domino's", logo: "assets/img/sponsors/2025/dominos.jpg" },
+      { name: "SBI", logo: "assets/img/sponsors/2025/sbi.jpg" },
+      { name: "Mad Over Donuts", logo: "assets/img/sponsors/2025/mod-donuts.jpg" },
+      { name: "Good Flippin' Burgers", logo: "assets/img/sponsors/2025/good-flippin-burgers.jpg" },
+      { name: "3 Sisters", logo: "assets/img/sponsors/2025/3-sisters.jpg" },
+      { name: "True Elements", logo: "assets/img/sponsors/2025/true-elements.jpg" },
+      { name: "Palvit Photobooth", logo: "assets/img/sponsors/2025/palvit-photobooth.jpg" },
+      { name: "EBSCO", logo: "assets/img/sponsors/2025/ebsco.jpg" },
+      { name: "Teatopia", logo: "assets/img/sponsors/2025/teatopia.jpg" },
+      { name: "LK", logo: "assets/img/sponsors/2025/lk.jpg" }
+    ],
+
+    finale: {
+      title: "Two days. Twenty leaders. One campus.",
+      text: "Conclave 2025 closed with speakers, students and the organising team together on the main stage.",
+      image: "assets/img/gallery/2025/closing-group.jpg",
+      takeaways: [
+        { word: "Day 1", text: "FMCG & FMCD: how consumer brands grow and change" },
+        { word: "Day 2", text: "SaaS, IT & BFSI: AI and the products people use" },
+        { word: "Campus", text: "Students in the room with twenty industry leaders" }
+      ]
+    },
+
+    next: {
+      title: "Continue to Conclave 2026",
+      text: "See how the story moved on: Reimagining Bharat.",
+      cta: { label: "View 2026", href: "?edition=2026" }
+    }
   },
 
   /* ------------------------------------------------------------------ */
@@ -69,51 +339,8 @@ window.CONCLAVE_EDITIONS = {
       { value: 350, suffix: "+",     label: "Attendees" } // TODO(confirm): deck figure was "350+ expected"
     ],
 
-    /* Chapter: how the day unfolded. Times are from the run-of-show deck. */
-    timeline: [ // TODO(confirm): times and order against the actual day
-      {
-        time: "10:00 AM",
-        title: "Keynote Address",
-        text: "The day opened with a keynote on ambition and reinvention in the age of AI.",
-        icon: "mic",
-        image: "assets/img/gallery/keynote-podium.jpg"
-      },
-      {
-        time: "11:30 AM",
-        title: "Panel Discussions",
-        text: "Women-led and mixed panels across industries on the future of business in India.",
-        icon: "panel",
-        image: "assets/img/gallery/panel-stage.jpg"
-      },
-      {
-        time: "12:45 PM",
-        title: "Minds in Motion",
-        text: "Focus-group huddles where students and speakers dug into niche business problems.",
-        icon: "huddle",
-        image: "assets/img/gallery/huddle-library.jpg"
-      },
-      {
-        time: "02:00 PM",
-        title: "Speaker Unplugged",
-        text: "A student-moderated podcast with stories of building, failing and starting again.",
-        icon: "podcast",
-        image: "assets/img/gallery/fireside-chat.jpg"
-      },
-      {
-        time: "03:30 PM",
-        title: "The Pitch Challenge",
-        text: "A surprise activity to break the ice between students and speakers.",
-        icon: "trophy",
-        image: "assets/img/gallery/hallway-conversations.jpg"
-      },
-      {
-        time: "04:30 PM",
-        title: "High Tea & Networking",
-        text: "Speakers and students kept the conversation going over high tea.",
-        icon: "tea",
-        image: "assets/img/gallery/networking-corridor.jpg"
-      }
-    ],
+    /* Chapter: how the day unfolded. Awaiting the 2026 run of show. */
+    timeline: [],
 
     /*
      * Speakers. `cxo: true` counts toward the C-suite stat.
@@ -218,40 +445,14 @@ window.CONCLAVE_EDITIONS = {
      */
     panels: [],
 
-    /*
-     * Gallery. TODO(confirm): these are PLACEHOLDER photos from the 2025
-     * edition (the stage backdrop reads "Innovation Beyond Boundaries").
-     * Replace them with 2026 photos before going live.
-     * size: "wide" | "tall" | "" (normal)
-     */
-    gallery: [
-      // Order and sizes are chosen so the grid fills evenly at 4 and 2 columns.
-      { src: "assets/img/gallery/panel-stage.jpg",           caption: "Panellists on the main stage",       size: "wide" },
-      { src: "assets/img/gallery/keynote-podium.jpg",        caption: "The keynote",                        size: "tall" },
-      { src: "assets/img/gallery/fireside-chat.jpg",         caption: "A fireside conversation",            size: "" },
-      { src: "assets/img/gallery/huddle-library.jpg",        caption: "Minds in Motion huddles",            size: "" },
-      { src: "assets/img/gallery/networking-corridor.jpg",   caption: "Networking over high tea",           size: "" },
-      { src: "assets/img/gallery/hallway-conversations.jpg", caption: "Conversations between sessions",     size: "tall" },
-      { src: "assets/img/gallery/lamp-lighting.jpg",         caption: "Lamp lighting to open the day",      size: "wide" },
-      { src: "assets/img/gallery/fireside-close.jpg",        caption: "Speaker Unplugged",                  size: "" },
-      { src: "assets/img/gallery/panel-lineup.jpg",          caption: "The panel line-up",                  size: "wide" },
-      { src: "assets/img/gallery/group-portrait.jpg",        caption: "Speakers with the organising team",  size: "wide" }
-    ],
+    /* Gallery. Awaiting 2026 photos. size: "wide" | "tall" | "" (normal) */
+    gallery: [],
 
     /* Speaker reflections. Leave empty to hide the block. */
     testimonials: [],
 
-    /* Chapter: how the day closed */
-    finale: {
-      title: "The day closed. The conversations carry on.",
-      text: "The Conclave closed with high tea and a group photograph on the main stage. Speakers and students left with new contacts, sharper questions and a clearer view of India's AI decade.",
-      image: "assets/img/gallery/closing-group.jpg", // TODO(confirm): 2025 placeholder photo
-      takeaways: [
-        { word: "Ideas",   text: "AI as the engine of India's next decade of growth" },
-        { word: "Insight", text: "How CXOs across six sectors are putting AI to work" },
-        { word: "Impact",  text: "Connections between future managers and today's leaders" }
-      ]
-    },
+    /* Chapter: how the day closed. Awaiting 2026 photos and recap. */
+    finale: null,
 
     next: {
       title: "See you at Conclave 2027",

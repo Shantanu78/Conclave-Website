@@ -81,7 +81,7 @@ button { font: inherit; color: inherit; }
 .duo--blue img { filter: url(#duo-blue); }
 
 /* Full-colour design-language ribbon (on white, per guideline p.42) */
-.ribbon { height: 56px; background: var(--white) var(--pattern) 0 0 / 336px auto repeat-x; }
+.ribbon { height: 72px; padding: 6px 0; background: var(--white) url("../img/brand/ribbon.svg") 0 50% / auto 60px repeat-x; background-origin: content-box; }
 .ribbon + .ribbon { display: none; }
 
 /* ------------------------------------------------------------------ */

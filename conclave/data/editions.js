@@ -339,20 +339,24 @@ window.CONCLAVE_EDITIONS = {
       { value: 350, suffix: "+",     label: "Attendees" } // TODO(confirm): deck figure was "350+ expected"
     ],
 
-    /* Chapter: how the day unfolded. Highlights from the 14 March 2026 schedule. */
+    /* Chapter: how the day unfolded. Speaker sessions from the 14 March 2026 run of show. */
     timeline: [
-      { time: "10:00 AM", title: "Opening & Keynote", icon: "mic", image: "assets/img/gallery/2026/keynote.jpg",
-        text: "The day opened with the lamp-lighting ceremony and a keynote on how generative AI is becoming accessible at every level." },
-      { time: "10:45 AM", title: "Fireside Chats", icon: "podcast", image: "assets/img/gallery/2026/fireside-sanchayan-paul.jpg",
-        text: "One-on-one conversations with Sanchayan Paul of Network18 and Rakesh Tiwary of Raymond." },
-      { time: "11:30 AM", title: "Panel Discussions", icon: "panel", image: "assets/img/gallery/2026/panel-2.jpg",
-        text: "Two panels, including “India's AI Economy: Who Will Build It, Fund It, and Scale It?”" },
-      { time: "12:30 PM", title: "Focus Group Discussions", icon: "huddle", image: "assets/img/gallery/2026/focus-group-vidhyasagar-tyagi.jpg",
-        text: "Small groups in the library, where students sat down with speakers around one table." },
+      { time: "10:15 AM", title: "Keynote Session", icon: "mic", image: "assets/img/gallery/2026/keynote.jpg",
+        text: "After the opening address and lamp lighting, Sanchit Suneja of Motilal Oswal delivered the keynote on how generative AI is becoming accessible at every level." },
+      { time: "10:45 AM", title: "Fireside Chat 01", icon: "podcast", image: "assets/img/gallery/2026/fireside-rakesh-tiwary.jpg",
+        text: "Rakesh Tiwary, Group CFO of Raymond, in conversation." },
+      { time: "11:30 AM", title: "Panel Discussion 01", icon: "panel",
+        text: "Shirshendu Bhattacharya (Dr. Reddy's), Sashidhar Velaga (Nykaa Fashion) and Vivek Wadhwa (Marico) on stage together." },
+      { time: "12:30 PM", title: "Focus Group Discussions", icon: "huddle", image: "assets/img/gallery/2026/focus-group-library.jpg",
+        text: "Students sat down with speakers, including Dhanushkodi Sivanandhan and Sanchit Suneja, in small groups in the library." },
       { time: "1:15 PM", title: "Guest Speaker", icon: "trophy", image: "assets/img/gallery/2026/guest-dhanushkodi-sivanandhan.jpg",
-        text: "A special session with Dhanushkodi Sivanandhan, former Police Commissioner of Mumbai." },
-      { time: "5:30 PM", title: "Student Excellence Showcase", icon: "tea", image: "assets/img/gallery/2026/showcase-speaker.jpg",
-        text: "Students presented their case-competition wins to speakers over snacks at COE Plaza." }
+        text: "Dhanushkodi Sivanandhan, former Police Commissioner of Mumbai, took the stage as the day's guest speaker." },
+      { time: "3:00 PM", title: "Panel Discussion 02", icon: "panel", image: "assets/img/gallery/2026/panel-2.jpg",
+        text: "Sambasivan G, Vidhyasagar Tyagi, Neetu Ailsinghani and Dr. Monica Sood Bhatia on India's AI economy: who will build it, fund it and scale it." },
+      { time: "3:45 PM", title: "Fireside Chat 02", icon: "podcast", image: "assets/img/gallery/2026/fireside-sanchayan-paul.jpg",
+        text: "Sanchayan Paul, CHRO of Network18, closed the speaker sessions in conversation." },
+      { time: "4:15 PM", title: "Performances, Closure & Networking", icon: "tea", image: "assets/img/gallery/2026/showcase-atrium.jpg",
+        text: "Club performances and the event closure, followed by snacks and networking at COE Plaza." }
     ],
 
     /*
@@ -457,7 +461,9 @@ window.CONCLAVE_EDITIONS = {
      *   speakers: ["Vivek Wadhwa", "Sashidhar Velaga"] }
      */
     panels: [
-      { title: "India's AI Economy: Who Will Build It, Fund It, and Scale It?",
+      { title: "Panel Discussion 01",
+        speakers: ["Shirshendu Bhattacharya", "Sashidhar Velaga", "Vivek Wadhwa"] },
+      { title: "Panel Discussion 02: India's AI Economy: Who Will Build It, Fund It, and Scale It?",
         speakers: ["Sambasivan G", "Vidhyasagar Tyagi", "Neetu Ailsinghani", "Dr. Monica Sood Bhatia"] }
     ],
 

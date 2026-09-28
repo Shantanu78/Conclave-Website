@@ -74,7 +74,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Raghavendra Purwar",
         role: "Associate Director – Manufacturing",
         org: "PepsiCo", logo: "assets/img/orgs/2025/raghavendra-purwar.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/raghavendra-purwar.jpg",
         bio: ""
       },
@@ -82,7 +82,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Anoop Tiwari",
         role: "Lead – Regulatory Affairs & Compliance",
         org: "Mondelēz International", logo: "assets/img/orgs/2025/anoop-tiwari.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/anoop-tiwari.jpg",
         bio: ""
       },
@@ -90,7 +90,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Payal Agrawaal",
         role: "Managing Director, India & South Asia",
         org: "Abbott", logo: "assets/img/orgs/2025/payal-agrawaal.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "Healthcare & Pharma", cxo: false,
         photo: "assets/img/speakers/2025/payal-agrawaal.jpg",
         bio: ""
       },
@@ -98,7 +98,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Amol Peshattiwar",
         role: "Associate VP – Quality & Regulatory Compliance",
         org: "Hershey's", logo: "assets/img/orgs/2025/amol-peshattiwar.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/amol-peshattiwar.jpg",
         bio: ""
       },
@@ -106,7 +106,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Sunil Nat",
         role: "Head – Digital Strategy & Ecommerce",
         org: "Galderma", logo: "assets/img/orgs/2025/sunil-nat.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "Healthcare & Pharma", cxo: false,
         photo: "assets/img/speakers/2025/sunil-nat.jpg",
         bio: ""
       },
@@ -114,7 +114,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Mohit Mahajan",
         role: "Associate VP",
         org: "Wendy's", logo: "assets/img/orgs/2025/mohit-mahajan.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/mohit-mahajan.jpg",
         bio: ""
       },
@@ -122,7 +122,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Anubhav Agarwal",
         role: "Director – Ecommerce",
         org: "Kimberly-Clark", logo: "assets/img/orgs/2025/anubhav-agarwal.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/anubhav-agarwal.jpg",
         bio: ""
       },
@@ -130,7 +130,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Jitendra Chauhan",
         role: "National Head – Rural Business",
         org: "Crompton Greaves", logo: "assets/img/orgs/2025/jitendra-chauhan.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "Consumer Durables & Electronics", cxo: false,
         photo: "assets/img/speakers/2025/jitendra-chauhan.jpg",
         bio: ""
       },
@@ -138,7 +138,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Midhula Devabhaktuni",
         role: "Co-founder & CMO",
         org: "Mivi", logo: "assets/img/orgs/2025/midhula-devabhaktuni.png",
-        sector: "FMCG & Luxury", cxo: true,
+        sector: "Consumer Durables & Electronics", cxo: true,
         photo: "assets/img/speakers/2025/midhula-devabhaktuni.jpg",
         bio: ""
       },
@@ -146,7 +146,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Nishant Agarwal",
         role: "Senior AD",
         org: "Kellanova", logo: "assets/img/orgs/2025/nishant-agarwal.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/nishant-agarwal.jpg",
         bio: ""
       },
@@ -154,7 +154,7 @@ window.CONCLAVE_EDITIONS = {
         name: "VN Narayanan",
         role: "Founder",
         org: "strategii@work", logo: "assets/img/orgs/2025/vn-narayanan.png",
-        sector: "FMCG & Luxury", cxo: false,
+        sector: "Consulting", cxo: false,
         photo: "assets/img/speakers/2025/vn-narayanan.jpg",
         bio: ""
       },
@@ -162,7 +162,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Raghuraman R.",
         role: "Vice President",
         org: "Mercedes-Benz", logo: "assets/img/orgs/2025/raghuraman-r.png",
-        sector: "Product & IT", cxo: false,
+        sector: "Automotive", cxo: false,
         photo: "assets/img/speakers/2025/raghuraman-r.jpg",
         bio: ""
       },
@@ -170,7 +170,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Ravindra Soni",
         role: "Associate VP",
         org: "Hershey's", logo: "assets/img/orgs/2025/ravindra-soni.png",
-        sector: "Product & IT", cxo: false,
+        sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/ravindra-soni.jpg",
         bio: ""
       },
@@ -178,7 +178,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Anand Shrivatsava",
         role: "Director – Product",
         org: "Talkdesk", logo: "assets/img/orgs/2025/anand-shrivatsava.png",
-        sector: "Product & IT", cxo: false,
+        sector: "Technology & SaaS", cxo: false,
         photo: "assets/img/speakers/2025/anand-shrivatsava.jpg",
         bio: ""
       },
@@ -186,7 +186,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Ranjan Mishra",
         role: "Chief Human Resources Officer",
         org: "Diebold Nixdorf", logo: "assets/img/orgs/2025/ranjan-mishra.png",
-        sector: "Product & IT", cxo: true,
+        sector: "Technology & SaaS", cxo: true,
         photo: "assets/img/speakers/2025/ranjan-mishra.jpg",
         bio: ""
       },
@@ -194,7 +194,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Abhishek Shukla",
         role: "Group Product Manager",
         org: "Adobe", logo: "assets/img/orgs/2025/abhishek-shukla.png",
-        sector: "Product & IT", cxo: false,
+        sector: "Technology & SaaS", cxo: false,
         photo: "assets/img/speakers/2025/abhishek-shukla.jpg",
         bio: ""
       },
@@ -202,7 +202,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Naveen Chhabra",
         role: "Chief Revenue Officer",
         org: "Sify", logo: "assets/img/orgs/2025/naveen-chhabra.png",
-        sector: "Product & IT", cxo: true,
+        sector: "Technology & SaaS", cxo: true,
         photo: "assets/img/speakers/2025/naveen-chhabra.jpg",
         bio: ""
       },
@@ -210,7 +210,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Sunil Patil",
         role: "Director – Head of PMO",
         org: "Mastercard", logo: "assets/img/orgs/2025/sunil-patil.png",
-        sector: "Product & IT", cxo: false,
+        sector: "Financial Services", cxo: false,
         photo: "assets/img/speakers/2025/sunil-patil.jpg",
         bio: ""
       },
@@ -218,7 +218,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Govind Maheshwari",
         role: "Director – Entertainment Business",
         org: "JioStar", logo: "assets/img/orgs/2025/govind-maheshwari.png",
-        sector: "Product & IT", cxo: false,
+        sector: "Media & Entertainment", cxo: false,
         photo: "assets/img/speakers/2025/govind-maheshwari.jpg",
         bio: ""
       },
@@ -226,7 +226,7 @@ window.CONCLAVE_EDITIONS = {
         name: "Ramya Venkatesh",
         role: "Director – Product",
         org: "Brightly", logo: "assets/img/orgs/2025/ramya-venkatesh.png",
-        sector: "Product & IT", cxo: false,
+        sector: "Technology & SaaS", cxo: false,
         photo: "assets/img/speakers/2025/ramya-venkatesh.jpg",
         bio: ""
       }

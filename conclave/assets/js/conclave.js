@@ -176,6 +176,8 @@
     if (!has(sp)) return "";
     var n = chapter("voices", "The Voices");
     var sectors = unique(sp.map(function (s) { return s.sector; }));
+    var size = function (x) { return sp.filter(function (s) { return s.sector === x; }).length; };
+    sectors.sort(function (a, b) { return size(b) - size(a); }); // biggest groups first (stable for ties)
     var logos = sp.filter(function (s) { return s.logo; });
     return '' +
       '<section class="chapter chapter--voices tone" id="voices">' +

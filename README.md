@@ -38,7 +38,6 @@ Each edition reads top to bottom as a story:
 | 03 The Day | Timeline of the day, keynote to high tea |
 | 04 In Frame | Photo gallery with lightbox |
 | Reflections | Speaker quotes (hidden until filled in) |
-| Partners | Sponsor logo wall (hidden until filled in) |
 | 05 The Finale | How the day closed: Ideas, Insight, Impact |
 | Next edition | Call to action for the next Conclave |
 

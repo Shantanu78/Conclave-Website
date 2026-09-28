@@ -49,8 +49,7 @@ window.CONCLAVE_EDITIONS = {
     stats: [
       { value: "auto:speakers",      label: "Industry speakers" },
       { value: "auto:organisations", label: "Organisations" },
-      { value: "auto:sectors",       label: "Sectors represented" },
-      { value: "auto:sponsors",      label: "Sponsors & partners" }
+      { value: "auto:sectors",       label: "Sectors represented" }
     ],
 
     /* Two-day structure from the 2025 event overview. No session times. */
@@ -256,29 +255,6 @@ window.CONCLAVE_EDITIONS = {
         quote: "Excellent topic and a wonderfully organised event. Enjoyed the immersive interactions and the college campus vibes. Thanks folks" },
       { name: "Ramya Venkatesh", role: "Director – Product, Brightly", photo: "assets/img/speakers/2025/ramya-venkatesh.jpg",
         quote: "Grateful for the invitation to speak on my fav topic AI. Thank you for the warm welcome! The campus energy is truly contagious." }
-    ],
-
-    sponsors: [
-      { name: "Business Standard", logo: "assets/img/sponsors/2025/business-standard.jpg" },
-      { name: "Solastaa Salon", logo: "assets/img/sponsors/2025/solastaa-salon.jpg" },
-      { name: "Arayie – The Earth Store", logo: "assets/img/sponsors/2025/arayie.jpg" },
-      { name: "Fortis", logo: "assets/img/sponsors/2025/fortis.jpg" },
-      { name: "EaseMyTrip", logo: "assets/img/sponsors/2025/easemytrip.jpg" },
-      { name: "Taju's Sweet Flavours", logo: "assets/img/sponsors/2025/tajus-sweet-flavours.jpg" },
-      { name: "White Kiwi", logo: "assets/img/sponsors/2025/white-kiwi.jpg" },
-      { name: "Awear Beauty", logo: "assets/img/sponsors/2025/awear-beauty.jpg" },
-      { name: "Oaks and Olives Cafe", logo: "assets/img/sponsors/2025/oaks-and-olives.jpg" },
-      { name: "Edutech", logo: "assets/img/sponsors/2025/edutech.jpg" },
-      { name: "Domino's", logo: "assets/img/sponsors/2025/dominos.jpg" },
-      { name: "SBI", logo: "assets/img/sponsors/2025/sbi.jpg" },
-      { name: "Mad Over Donuts", logo: "assets/img/sponsors/2025/mod-donuts.jpg" },
-      { name: "Good Flippin' Burgers", logo: "assets/img/sponsors/2025/good-flippin-burgers.jpg" },
-      { name: "3 Sisters", logo: "assets/img/sponsors/2025/3-sisters.jpg" },
-      { name: "True Elements", logo: "assets/img/sponsors/2025/true-elements.jpg" },
-      { name: "Palvit Photobooth", logo: "assets/img/sponsors/2025/palvit-photobooth.jpg" },
-      { name: "EBSCO", logo: "assets/img/sponsors/2025/ebsco.jpg" },
-      { name: "Teatopia", logo: "assets/img/sponsors/2025/teatopia.jpg" },
-      { name: "LK", logo: "assets/img/sponsors/2025/lk.jpg" }
     ],
 
     finale: {

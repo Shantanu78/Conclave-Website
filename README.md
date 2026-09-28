@@ -36,7 +36,6 @@ Each edition reads top to bottom as a story:
 | 01 The Idea | Why the Conclave exists and the 2026 theme |
 | 02 The Voices | Speaker cards with a sector filter and a profile pop-up, and an organisation logo strip |
 | 03 The Day | Timeline of the day, keynote to high tea |
-| The Panels | Who sat on which panel (hidden until filled in) |
 | 04 In Frame | Photo gallery with lightbox |
 | Reflections | Speaker quotes (hidden until filled in) |
 | Partners | Sponsor logo wall (hidden until filled in) |

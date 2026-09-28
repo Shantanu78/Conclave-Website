@@ -456,12 +456,7 @@ window.CONCLAVE_EDITIONS = {
      * { title: "AI in Consumer Business", moderator: "Student name",
      *   speakers: ["Vivek Wadhwa", "Sashidhar Velaga"] }
      */
-    panels: [
-      { title: "Panel Discussion 01",
-        speakers: ["Shirshendu Bhattacharya", "Sashidhar Velaga", "Vivek Wadhwa"] },
-      { title: "Panel Discussion 02: India's AI Economy: Who Will Build It, Fund It, and Scale It?",
-        speakers: ["Sambasivan G", "Vidhyasagar Tyagi", "Neetu Ailsinghani", "Dr. Monica Sood Bhatia"] }
-    ],
+    panels: [],
 
     /* Gallery. size: "wide" | "tall" | "" (normal); ordered so the grid fills evenly */
     gallery: [

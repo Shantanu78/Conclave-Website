@@ -159,7 +159,7 @@ window.CONCLAVE_EDITIONS = {
         org: "", logo: "",
         sector: "Public Service", cxo: false,
         photo: "assets/img/speakers/dhanushkodi-sivanandhan.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/d-sivanandhan-2aa4a42bb/"
       },
       {
         name: "Sanchayan Paul",
@@ -167,7 +167,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Network18", logo: "assets/img/orgs/network18.png",
         sector: "Media & Entertainment", cxo: true,
         photo: "assets/img/speakers/sanchayan-paul.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/sanchayanpaul/"
       },
       {
         name: "Rakesh Tiwary",
@@ -175,7 +175,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Raymond", logo: "assets/img/orgs/raymond.png",
         sector: "Retail & Lifestyle", cxo: true,
         photo: "assets/img/speakers/rakesh-tiwary.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/rakessh-tiwary-60b004154/"
       },
       {
         name: "Dr. Monica Sood Bhatia",
@@ -183,7 +183,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Exicon", logo: "assets/img/orgs/exicon.png",
         sector: "Healthcare & Pharma", cxo: true,
         photo: "assets/img/speakers/monica-sood-bhatia.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/drmonicasoodbhatia/"
       },
       {
         name: "Neetu Ailsinghani",
@@ -199,7 +199,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Nykaa Fashion", logo: "assets/img/orgs/nykaa-fashion.png",
         sector: "Retail & Lifestyle", cxo: false,
         photo: "assets/img/speakers/sashidhar-velaga.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/sashidhar-velaga-a0027264/"
       },
       {
         name: "Sambasivan G",
@@ -223,7 +223,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Reliance Retail", logo: "assets/img/orgs/reliance-retail.png",
         sector: "Retail & Lifestyle", cxo: false,
         photo: "assets/img/speakers/vidyasagar-tyagi.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/vidhyasagar-tyagi-85654a1a/"
       },
       {
         name: "Vivek Wadhwa",
@@ -231,7 +231,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Marico", logo: "assets/img/orgs/marico.png",
         sector: "FMCG", cxo: false,
         photo: "assets/img/speakers/vivek-wadhwa.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/vivekwadhwa09/"
       }
     ],
 
@@ -286,7 +286,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Mondelēz International", logo: "assets/img/orgs/2025/anoop-tiwari.png",
         sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/anoop-tiwari.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/anoop-tiwari-88b5142a/"
       },
       {
         name: "Payal Agrawaal",
@@ -294,7 +294,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Abbott", logo: "assets/img/orgs/2025/payal-agrawaal.png",
         sector: "Healthcare & Pharma", cxo: false,
         photo: "assets/img/speakers/2025/payal-agrawaal.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/payal-agrawaal-b392187/"
       },
       {
         name: "Amol Peshattiwar",
@@ -310,7 +310,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Galderma", logo: "assets/img/orgs/2025/sunil-nat.png",
         sector: "Healthcare & Pharma", cxo: false,
         photo: "assets/img/speakers/2025/sunil-nat.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/sunilnat/"
       },
       {
         name: "Mohit Mahajan",
@@ -318,7 +318,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Wendy's", logo: "assets/img/orgs/2025/mohit-mahajan.png",
         sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/mohit-mahajan.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/mohitmahajaniift/"
       },
       {
         name: "Anubhav Agarwal",
@@ -326,7 +326,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Kimberly-Clark", logo: "assets/img/orgs/2025/anubhav-agarwal.png",
         sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/anubhav-agarwal.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/anubhav1606/"
       },
       {
         name: "Jitendra Chauhan",
@@ -342,7 +342,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Mivi", logo: "assets/img/orgs/2025/midhula-devabhaktuni.png",
         sector: "Consumer Durables & Electronics", cxo: true,
         photo: "assets/img/speakers/2025/midhula-devabhaktuni.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/midhula-devabhaktuni-79b86b22/"
       },
       {
         name: "Nishant Agarwal",
@@ -350,7 +350,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Kellanova", logo: "assets/img/orgs/2025/nishant-agarwal.png",
         sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/nishant-agarwal.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/nishant-agarwal-69b2a41a/"
       },
       {
         name: "VN Narayanan",
@@ -358,7 +358,7 @@ window.CONCLAVE_EDITIONS = {
         org: "strategii@work", logo: "assets/img/orgs/2025/vn-narayanan.png",
         sector: "Consulting", cxo: false,
         photo: "assets/img/speakers/2025/vn-narayanan.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/vn-narayanan/"
       },
       {
         name: "Raghuraman R.",
@@ -382,7 +382,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Talkdesk", logo: "assets/img/orgs/2025/anand-shrivatsava.png",
         sector: "Technology & SaaS", cxo: false,
         photo: "assets/img/speakers/2025/anand-shrivatsava.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/anandshrivastava/"
       },
       {
         name: "Ranjan Mishra",
@@ -390,7 +390,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Diebold Nixdorf", logo: "assets/img/orgs/2025/ranjan-mishra.png",
         sector: "Technology & SaaS", cxo: true,
         photo: "assets/img/speakers/2025/ranjan-mishra.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/mrranjanmishra/"
       },
       {
         name: "Abhishek Shukla",
@@ -422,7 +422,7 @@ window.CONCLAVE_EDITIONS = {
         org: "JioStar", logo: "assets/img/orgs/2025/govind-maheshwari.png",
         sector: "Media & Entertainment", cxo: false,
         photo: "assets/img/speakers/2025/govind-maheshwari.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/govindmaheshwari/"
       },
       {
         name: "Ramya Venkatesh",

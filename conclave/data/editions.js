@@ -13,6 +13,9 @@
  *
  * Speakers
  *   linkedin: full profile URL. Leave "" to show a greyed-out icon.
+ *   featured: true to show the speaker under "Past Speakers" on the main
+ *             page (eight work best: two rows of four). Everyone appears on
+ *             Past Editions.
  *   photo:    square portrait, at least 600 x 600 px, natural colour.
  *
  * Copy follows the BITSoM tone of voice: British English, active voice,
@@ -33,10 +36,16 @@ window.CONCLAVE_EDITIONS = {
     dateISO: "2027-01-30",
     venue: "BITS School of Management, Mumbai",
 
-    // text: optional one-line description shown on the theme card
+    /* text: one line on the theme card. angles: the tiles beside it (without
+       them, the previous themes are listed there instead). */
     theme: {
       title: "Business Unscripted: Hype, Hope and Hard Truths",
-      text: ""
+      text: "At Conclave 2027, leaders set the script aside to talk candidly about what is really moving Indian business, and what it takes to lead through it.",
+      angles: [
+        { title: "Hype",        text: "Telling the trends that will reshape business from the noise around them" },
+        { title: "Hope",        text: "Where leaders see real opportunity: the bets, markets and talent worth backing" },
+        { title: "Hard Truths", text: "Lessons learnt the hard way, shared openly with the managers who come next" }
+      ]
     },
 
     /* Hero: company logos shown as a constellation (names must match a
@@ -49,18 +58,16 @@ window.CONCLAVE_EDITIONS = {
     stats: [
       { value: "auto:speakers",      label: "Industry leaders" },
       { value: "auto:organisations", label: "Organisations" },
-      { value: "auto:editions",      label: "Editions" },
       { value: 350, suffix: "+",     label: "Future managers" } // TODO(confirm) cohort size from the decks
     ],
 
     about: {
       quote: "Not just an event. A legacy you build.",
-      lead: "The BITSoM Business Conclave is where ideas meet action. It is our flagship stage, bringing industry trailblazers, thought leaders and innovators to campus.",
-      body: "Each edition takes on one defining question for Indian business. CXOs, founders and policymakers answer it in keynotes, fireside chats and panels, then sit down with 350+ future managers in small groups.",
+      lead: "The BITSoM Business Conclave is our flagship industry forum. Each year, CXOs, founders and policymakers come to campus to take on one defining question for Indian business.",
       pillars: [
         { icon: "vision",   title: "Vision",   text: "A forum on the ideas shaping India's next decade of business" },
-        { icon: "purpose",  title: "Purpose",  text: "A platform where leaders and young talent redefine industries" },
-        { icon: "audience", title: "Audience", text: "CXOs, founders, faculty and 350+ future managers" },
+        { icon: "purpose",  title: "Purpose",  text: "Real conversations between industry leaders and young talent" },
+        { icon: "audience", title: "Audience", text: "CXOs, founders, faculty and BITSoM's future managers" },
         { icon: "impact",   title: "Impact",   text: "Partnerships between academia and industry that last beyond the day" }
       ]
     },
@@ -119,7 +126,7 @@ window.CONCLAVE_EDITIONS = {
       partners: {
         title: "Partner with Conclave 2027",
         points: [
-          "Put your brand in front of 350+ future managers and the leaders on stage",
+          "Put your brand in front of the leaders on stage and the managers of tomorrow",
           "Visibility across campus branding, LED screens, social media and the after-movie",
           "Stalls for product demonstrations and live projects with BITSoM students",
           "Align your brand with BITS Pilani and the conversations shaping Indian business"
@@ -151,7 +158,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Motilal Oswal", logo: "assets/img/orgs/motilal-oswal.png",
         sector: "Financial Services", cxo: true,
         photo: "assets/img/speakers/sanchit-suneja.jpg",
-        linkedin: ""
+        linkedin: "",
+        featured: true
       },
       {
         name: "Dhanushkodi Sivanandhan",
@@ -159,7 +167,8 @@ window.CONCLAVE_EDITIONS = {
         org: "", logo: "",
         sector: "Public Service", cxo: false,
         photo: "assets/img/speakers/dhanushkodi-sivanandhan.jpg",
-        linkedin: "https://www.linkedin.com/in/d-sivanandhan-2aa4a42bb/"
+        linkedin: "https://www.linkedin.com/in/d-sivanandhan-2aa4a42bb/",
+        featured: true
       },
       {
         name: "Sanchayan Paul",
@@ -167,7 +176,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Network18", logo: "assets/img/orgs/network18.png",
         sector: "Media & Entertainment", cxo: true,
         photo: "assets/img/speakers/sanchayan-paul.jpg",
-        linkedin: "https://www.linkedin.com/in/sanchayanpaul/"
+        linkedin: "https://www.linkedin.com/in/sanchayanpaul/",
+        featured: true
       },
       {
         name: "Rakesh Tiwary",
@@ -175,7 +185,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Raymond", logo: "assets/img/orgs/raymond.png",
         sector: "Retail & Lifestyle", cxo: true,
         photo: "assets/img/speakers/rakesh-tiwary.jpg",
-        linkedin: "https://www.linkedin.com/in/rakessh-tiwary-60b004154/"
+        linkedin: "https://www.linkedin.com/in/rakessh-tiwary-60b004154/",
+        featured: true
       },
       {
         name: "Dr. Monica Sood Bhatia",
@@ -183,7 +194,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Exicon", logo: "assets/img/orgs/exicon.png",
         sector: "Healthcare & Pharma", cxo: true,
         photo: "assets/img/speakers/monica-sood-bhatia.jpg",
-        linkedin: "https://www.linkedin.com/in/drmonicasoodbhatia/"
+        linkedin: "https://www.linkedin.com/in/drmonicasoodbhatia/",
+        featured: true
       },
       {
         name: "Neetu Ailsinghani",
@@ -237,7 +249,7 @@ window.CONCLAVE_EDITIONS = {
 
     /* size: "wide" | "tall" | "" (normal) | "full" (whole row, used for the team photo) */
     gallery: [
-      { src: "assets/img/gallery/2026/panel-2.jpg"                      , caption: "Panel 2: India's AI economy", size: "wide" },
+      { src: "assets/img/gallery/2026/panel-2.jpg"                      , caption: "The panel on India's AI economy", size: "wide" },
       { src: "assets/img/gallery/2026/keynote.jpg"                      , caption: "The keynote", size: "tall" },
       { src: "assets/img/gallery/2026/fireside-rakesh-tiwary.jpg"       , caption: "Fireside chat with Rakesh Tiwary", size: "" },
       { src: "assets/img/gallery/2026/fireside-sanchayan-paul.jpg"      , caption: "Fireside chat with Sanchayan Paul", size: "" },
@@ -268,7 +280,7 @@ window.CONCLAVE_EDITIONS = {
     theme: {
       kicker: "Theme 2025",
       title: "Innovation Beyond Boundaries",
-      text: "Harnessing creativity and collaboration to drive business growth, redefine industry standards and shape the future of commerce and technology, across FMCG and FMCD, and SaaS, IT and BFSI."
+      text: "How can creativity and collaboration drive growth, redefine industry standards and shape the future of commerce and technology? Leaders from FMCG and FMCD, SaaS, IT and BFSI shared their answers."
     },
 
     speakers: [
@@ -342,7 +354,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Mivi", logo: "assets/img/orgs/2025/midhula-devabhaktuni.png",
         sector: "Consumer Durables & Electronics", cxo: true,
         photo: "assets/img/speakers/2025/midhula-devabhaktuni.jpg",
-        linkedin: "https://www.linkedin.com/in/midhula-devabhaktuni-79b86b22/"
+        linkedin: "https://www.linkedin.com/in/midhula-devabhaktuni-79b86b22/",
+        featured: true
       },
       {
         name: "Nishant Agarwal",
@@ -366,7 +379,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Mercedes-Benz", logo: "assets/img/orgs/2025/raghuraman-r.png",
         sector: "Automotive", cxo: false,
         photo: "assets/img/speakers/2025/raghuraman-r.jpg",
-        linkedin: ""
+        linkedin: "",
+        featured: true
       },
       {
         name: "Ravindra Soni",
@@ -422,7 +436,8 @@ window.CONCLAVE_EDITIONS = {
         org: "JioStar", logo: "assets/img/orgs/2025/govind-maheshwari.png",
         sector: "Media & Entertainment", cxo: false,
         photo: "assets/img/speakers/2025/govind-maheshwari.jpg",
-        linkedin: "https://www.linkedin.com/in/govindmaheshwari/"
+        linkedin: "https://www.linkedin.com/in/govindmaheshwari/",
+        featured: true
       },
       {
         name: "Ramya Venkatesh",

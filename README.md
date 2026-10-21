@@ -8,7 +8,7 @@ Preview: https://bitsom-conclave.vercel.app
 
 | View | URL | Purpose |
 | --- | --- | --- |
-| Conclave 2027 (main page) | `index.html` | Attract speakers and partners: hero with past speakers' company logos, about, theme, a typical day, past speakers, organisations, reflections, how to get involved |
+| Conclave 2027 (main page) | `index.html` | Attract speakers and partners: hero with past speakers' company logos, about, theme, past speakers, a typical day, reflections, how to get involved |
 | Past Editions | `index.html?edition=past` | 2026 above 2025, each with its theme, speakers and pictures |
 | One past edition | `index.html?edition=2026` | Past Editions, scrolled to that year |
 
@@ -62,7 +62,7 @@ It is a static page: no build step, no framework, no server code.
 | Item | Where it goes | Notes |
 | --- | --- | --- |
 | 2027 theme line | `"2027"` → `theme.text` | Optional one-line description for the theme card. |
-| Speak / partner links | `"2027"` → `involve.*.cta.href` | e.g. a `mailto:` or form link; the buttons appear once set. |
+| **Speak / partner links (needed before launch)** | `"2027"` → `involve.*.cta.href` | e.g. a `mailto:` or form link. Until set, the Speak and Partner cards have no button, so an interested speaker has no next step. |
 | LinkedIn profiles | `linkedin` on each speaker | 18 of 31 are filled in from public profiles. Still empty (greyed-out icon): Sanchit Suneja, Neetu Ailsinghani, Sambasivan G, Shirshendu Bhattacharya, Raghavendra Purwar, Amol Peshattiwar, Jitendra Chauhan, Raghuraman R., Ravindra Soni, Abhishek Shukla, Naveen Chhabra, Sunil Patil, Ramya Venkatesh. Paste the full profile URL to switch the icon on. |
 | Original speaker photos | `assets/img/speakers/*.jpg` (2026, 11 files) and `assets/img/speakers/2025/*.jpg` (20 files) | The current files are 640 × 640, enhanced with Real-ESRGAN from small sources: 2026 colour portraits are cropped from the event photos (stage-screen headshots and stage shots); Shirshendu Bhattacharya, Sashidhar Velaga and Vivek Wadhwa are still the black-and-white playbill photos; 2025 come from the decks. Originals are better still: replace each file **with the same name**, square, at least 600 × 600 px, natural colour, face in the upper half. No code change needed. |
 | Overview video | `"2027"` → `media.overview.youtube` | Paste the YouTube URL. |
@@ -85,10 +85,9 @@ page is replaced by the 2027 line-up in rows of three.
 | --- | --- |
 | Hero | Conclave logo, 2027, theme, date, venue, Speak / Partner buttons, key numbers, and a constellation of past speakers' company logos |
 | About | What the Conclave is |
-| Theme | The 2027 theme, with links to previous themes |
+| Theme | The 2027 theme card and its three angles: Hype, Hope, Hard Truths (`theme.angles`; without them, links to previous themes) |
+| Past Speakers | Eight featured past speakers (`featured: true` on the speaker), a link to all of them on Past Editions, and a logo wall of every organisation from 2025 and 2026. Becomes the 2027 line-up at six confirmed |
 | A Conclave Day | The typical day flow, without times, with photos |
-| Past Speakers | All past speakers, filterable by edition (becomes the 2027 line-up at six confirmed) |
-| On the Conclave Stage | Logo wall of every organisation from 2025 and 2026 |
 | Watch & Listen | Overview film, podcasts, LinkedIn post (when supplied) |
 | In Their Words | Speaker reflections from LinkedIn |
 | Be Part of 2027 | What speakers and partners get |
@@ -130,7 +129,7 @@ Following the BITSoM Brand Guidelines and the brand team's review:
 On desktop (1440 px) and mobile (390 px), for both views: no script errors,
 no broken images, no horizontal scrolling, no tinted images, and no
 Brandon/Jost text outside capitals. Exercised in a headless browser: the
-edition filter, LinkedIn links (new tab) and greyed-out icons, the switch to
+featured speakers, LinkedIn links (new tab) and greyed-out icons, the switch to
 the 2027 line-up at six speakers, the photo viewer per edition (including
 arrow keys), jumping to an edition from `?edition=2025`, and click-to-play
 video.

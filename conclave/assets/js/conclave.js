@@ -120,9 +120,9 @@
 
   /* ---------- shared pieces ---------- */
 
-  var chapters = []; // {id, label} for the sticky menu
-  function chapter(id, label) {
-    chapters.push({ id: id, label: label });
+  var chapters = []; // {id, label, nav} for the sticky menu
+  function chapter(id, label, nav) {
+    chapters.push({ id: id, label: label, nav: nav });
     return pad(chapters.length);
   }
 
@@ -145,7 +145,7 @@
 
   function speakerCard(s, i, opts) {
     opts = opts || {};
-    return '<li class="speaker reveal"' + (opts.group ? ' data-group="' + esc(s.year) + '"' : "") + ' style="--d:' + (i % 4) * 60 + 'ms">' +
+    return '<li class="speaker reveal" style="--d:' + (i % 4) * 60 + 'ms">' +
       '<div class="speaker__card">' +
         '<span class="speaker__photo"><img src="' + esc(s.photo) + '" alt="" loading="lazy"></span>' +
         (opts.tag && s.year ? '<span class="speaker__tag">' + esc(s.year) + "</span>" : "") +
@@ -178,7 +178,7 @@
     return '<nav class="subnav" aria-label="Page sections">' +
       '<div class="wrap subnav__inner">' +
         '<a class="subnav__title" href="#top">' + (isPast ? "Past <b>Editions</b>" : "Business Conclave <b>" + esc(current) + "</b>") + "</a>" +
-        (chapters.length ? '<div class="subnav__links">' + chapters.map(function (c) {
+        (chapters.length ? '<div class="subnav__links">' + chapters.filter(function (c) { return c.nav !== false; }).map(function (c) {
           return '<a href="#' + c.id + '" data-spy="' + c.id + '">' + esc(c.label) + "</a>";
         }).join("") + "</div>" : "") +
         editionSwitcher() +
@@ -257,7 +257,7 @@
             }).join("") + "</dl>" : "") +
           "</div>" +
           '<div class="hero__side">' + constellation() +
-            '<p class="hero__side-cap">Leaders from ' + organisations().length + " organisations have taken the Conclave stage</p>" +
+            '<p class="hero__side-cap">Where our past speakers come from</p>' +
           "</div>" +
         "</div>" +
       "</section>";
@@ -289,7 +289,7 @@
     var t = cur.theme || {};
     var n = chapter("theme", "Theme");
     return '' +
-      '<section class="chapter chapter--soft" id="theme">' +
+      '<section class="chapter" id="theme">' +
         '<div class="wrap">' +
           sectionHead(n, "The Theme", "One question for the year") +
           '<div class="themes">' +
@@ -299,7 +299,10 @@
               (t.text ? '<p class="theme-card__text">' + brand(t.text) + "</p>"
                 : t.title ? "" : '<p class="theme-card__text">The ' + esc(current) + " theme will be announced here. Here is where the conversation has been so far.</p>") +
             "</div>" +
-            '<div class="themes__past reveal">' +
+            '<div class="themes__side reveal">' +
+              (has(t.angles) ? t.angles.map(function (a) {
+                return '<div class="angle"><span class="angle__title">' + esc(a.title) + '</span><span class="angle__text">' + brand(a.text) + "</span></div>";
+              }).join("") :
               '<p class="themes__label">Previous themes</p>' +
               pastYears.map(function (y) {
                 var pt = editions[y].theme || {};
@@ -308,7 +311,7 @@
                   '<span class="past-theme__body">' + (pt.kicker && !/^theme/i.test(pt.kicker) ? '<span class="past-theme__kicker">' + esc(pt.kicker) + "</span>" : "") +
                     '<span class="past-theme__title">' + brand(pt.title || "") + "</span></span>" +
                   icon("arrow") + "</a>";
-              }).join("") +
+              }).join("")) +
             "</div>" +
           "</div>" +
         "</div>" +
@@ -332,47 +335,30 @@
       "</section>";
   }
 
+  /* The 2027 line-up once six are confirmed; until then, the featured past
+     speakers (all of them if none is marked). Either way the chapter closes
+     with every organisation that has been on stage. */
   function homeSpeakers() {
     var confirmed = cur.speakers || [];
-    if (confirmed.length >= 6) {
-      var n1 = chapter("speakers", "Speakers");
-      return '' +
-        '<section class="chapter chapter--soft" id="speakers">' +
-          '<div class="wrap">' +
-            sectionHead(n1, "The Speakers", "Conclave " + current + " line-up", true) +
-            '<ul class="speakers speakers--three">' + confirmed.map(function (s, i) { return speakerCard(s, i); }).join("") + "</ul>" +
-          "</div>" +
-        "</section>";
-    }
+    var lineUp = confirmed.length >= 6;
     var sp = pastSpeakers();
-    if (!sp.length) return "";
-    var n = chapter("speakers", "Past Speakers");
-    return '' +
-      '<section class="chapter chapter--soft" id="speakers">' +
-        '<div class="wrap">' +
-          sectionHead(n, "Past Speakers", sp.length + " leaders who have taken the Conclave stage", true) +
-          '<div class="filters" role="group" aria-label="Filter speakers by edition">' +
-            '<button type="button" class="filter is-active" data-filter="*" aria-pressed="true">All <span>' + sp.length + "</span></button>" +
-            pastYears.map(function (y) {
-              return '<button type="button" class="filter" data-filter="' + esc(y) + '" aria-pressed="false">' + esc(y) + " <span>" + editions[y].speakers.length + "</span></button>";
-            }).join("") +
-          "</div>" +
-          '<ul class="speakers speakers--compact">' + sp.map(function (s, i) { return speakerCard(s, i, { group: true, tag: true }); }).join("") + "</ul>" +
-        "</div>" +
-      "</section>";
-  }
-
-  function homeOrganisations() {
+    if (!lineUp && !sp.length) return "";
+    var featured = sp.filter(function (s) { return s.featured; });
+    var shown = lineUp ? confirmed : featured.length ? featured : sp;
     var orgs = organisations();
-    if (!orgs.length) return "";
-    var n = chapter("organisations", "Organisations");
+    var n = chapter("speakers", lineUp ? "Speakers" : "Past Speakers");
     return '' +
-      '<section class="chapter" id="organisations">' +
+      '<section class="chapter" id="speakers">' +
         '<div class="wrap">' +
-          sectionHead(n, "On the Conclave Stage", orgs.length + " organisations across " + pastYears.length + " editions", true) +
-          '<ul class="logo-wall">' + orgs.map(function (o, i) {
-            return '<li class="logo-wall__item reveal" style="--d:' + (i % 6) * 40 + 'ms"><img src="' + esc(o.logo) + '" alt="' + esc(o.org) + '" loading="lazy"></li>';
-          }).join("") + "</ul>" +
+          (lineUp ? sectionHead(n, "The Speakers", "Conclave " + current + " line-up", true)
+                  : sectionHead(n, "Past Speakers", "Leaders who have taken the Conclave stage", true)) +
+          '<ul class="speakers' + (lineUp ? " speakers--three" : "") + '">' +
+            shown.map(function (s, i) { return speakerCard(s, i, { tag: !lineUp }); }).join("") + "</ul>" +
+          (sp.length > shown.length || lineUp ? '<p class="speakers__more reveal"><a class="btn btn--blue" href="?edition=past">Meet all ' + sp.length + " past speakers" + icon("arrow") + "</a></p>" : "") +
+          (orgs.length ? '<p class="speakers__label reveal">On the Conclave stage so far</p>' +
+            '<ul class="logo-wall">' + orgs.map(function (o, i) {
+              return '<li class="logo-wall__item reveal" style="--d:' + (i % 6) * 40 + 'ms"><img src="' + esc(o.logo) + '" alt="' + esc(o.org) + '" loading="lazy"></li>';
+            }).join("") + "</ul>" : "") +
         "</div>" +
       "</section>";
   }
@@ -393,7 +379,7 @@
         (v.title ? '<p class="video__title">' + brand(v.title) + "</p>" : "");
     }
     return '' +
-      '<section class="chapter chapter--soft" id="watch">' +
+      '<section class="chapter" id="watch">' +
         '<div class="wrap">' +
           sectionHead(n, "Watch & Listen", "The Conclave beyond the stage", true) +
           '<div class="media">' +
@@ -440,7 +426,7 @@
       "</article>";
     }
     return '' +
-      '<section class="chapter chapter--soft" id="involve">' +
+      '<section class="chapter" id="involve">' +
         '<div class="wrap">' +
           sectionHead(n, "Be Part of " + current, "Take the stage, or stand behind it", true) +
           '<div class="involve">' +
@@ -453,11 +439,11 @@
 
   function homePast() {
     if (!pastYears.length) return "";
-    var n = chapter("past", "Past Editions");
+    var n = chapter("past", "Past Editions", false); // the switcher already links there
     return '' +
       '<section class="chapter" id="past">' +
         '<div class="wrap">' +
-          sectionHead(n, "Past Editions", "Where the story so far was written", true) +
+          sectionHead(n, "Past Editions", "Revisit the themes, speakers and pictures", true) +
           '<div class="past-cards">' + pastYears.map(function (y) {
             var e = editions[y], t = e.theme || {};
             var full = (e.gallery || []).filter(function (g) { return g.size === "full"; })[0] || (e.gallery || [])[0];
@@ -482,7 +468,7 @@
     return '' +
       '<section class="hero hero--past" id="top">' +
         '<div class="wrap">' +
-          '<p class="hero__presents">BITSoM Business Conclave</p>' +
+          '<p class="hero__presents">' + brand("BITSoM Business Conclave") + "</p>" +
           '<h1 class="hero__heading">Past Editions</h1>' +
           '<p class="hero__message">The themes, the speakers and the pictures from every Conclave so far.</p>' +
           '<div class="hero__jumps">' + pastYears.map(function (y) {
@@ -492,11 +478,11 @@
       "</section>";
   }
 
-  function pastEdition(y, idx) {
+  function pastEdition(y) {
     var e = editions[y], t = e.theme || {};
     chapters.push({ id: "e" + y, label: "Conclave " + y });
     return '' +
-      '<section class="chapter edition' + (idx % 2 ? " chapter--soft" : "") + '" id="e' + esc(y) + '">' +
+      '<section class="chapter edition" id="e' + esc(y) + '">' +
         '<div class="wrap">' +
           '<header class="edition__head reveal">' +
             '<div class="edition__when"><span class="edition__year">' + esc(y) + "</span>" +
@@ -515,11 +501,12 @@
   }
 
   function pastNext() {
+    var t = (cur.theme || {}).title;
     return '' +
       '<section class="next">' +
         '<div class="wrap next__inner">' +
-          "<div><h2>Conclave " + esc(current) + " is coming</h2><p>Speak, partner or simply be in the room for the next edition.</p></div>" +
-          '<a class="btn btn--orange" href="?">See Conclave ' + esc(current) + icon("arrow") + "</a>" +
+          "<div><h2>See you at Conclave " + esc(current) + "</h2><p>" + esc(cur.date || "Date to be announced") + (t ? " · " + brand(t) : "") + "</p></div>" +
+          '<a class="btn btn--orange" href="?">Explore Conclave ' + esc(current) + icon("arrow") + "</a>" +
         "</div>" +
       "</section>";
   }
@@ -533,7 +520,7 @@
       body = pastHero() + pastYears.map(pastEdition).join("") + pastNext();
     } else {
       document.title = "BITSoM Business Conclave " + current + " | Events | BITS School of Management";
-      body = homeHero() + homeAbout() + homeTheme() + homeDay() + homeSpeakers() + homeOrganisations() +
+      body = homeHero() + homeAbout() + homeTheme() + homeSpeakers() + homeDay() +
         homeMedia() + homeReflections() + homeInvolve() + homePast();
     }
     root.innerHTML = subnav() + breadcrumb() + body + ribbon();
@@ -576,22 +563,6 @@
       });
     }, { threshold: 0.5 });
     nums.forEach(function (n) { io.observe(n); });
-  }
-
-  function setupFilters() {
-    var btns = root.querySelectorAll(".filter");
-    var cards = root.querySelectorAll(".speaker[data-group]");
-    btns.forEach(function (b) {
-      b.addEventListener("click", function () {
-        var f = b.dataset.filter;
-        btns.forEach(function (x) {
-          var on = x === b;
-          x.classList.toggle("is-active", on);
-          x.setAttribute("aria-pressed", on ? "true" : "false");
-        });
-        cards.forEach(function (c) { c.hidden = !(f === "*" || c.dataset.group === f); });
-      });
-    });
   }
 
   function setupLightbox() {
@@ -661,7 +632,6 @@
   render();
   setupReveal();
   setupCounters();
-  setupFilters();
   setupLightbox();
   setupVideos();
   setupScrollSpy();

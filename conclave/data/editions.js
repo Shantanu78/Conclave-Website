@@ -29,8 +29,8 @@ window.CONCLAVE_EDITIONS = {
   "2027": {
     year: "2027",
     status: "upcoming",
-    date: "",    // TODO e.g. "13 February 2027"; empty shows "Date to be announced"
-    dateISO: "",
+    date: "30 January 2027",
+    dateISO: "2027-01-30",
     venue: "BITS School of Management, Mumbai",
 
     // text: optional one-line description shown on the theme card

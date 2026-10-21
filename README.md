@@ -61,7 +61,7 @@ It is a static page: no build step, no framework, no server code.
 
 | Item | Where it goes | Notes |
 | --- | --- | --- |
-| 2027 date | `"2027"` → `date` | Until filled in, the page says "Date to be announced". A one-line `theme.text` can also be added for the theme card. |
+| 2027 theme line | `"2027"` → `theme.text` | Optional one-line description for the theme card. |
 | Speak / partner links | `"2027"` → `involve.*.cta.href` | e.g. a `mailto:` or form link; the buttons appear once set. |
 | LinkedIn profiles | `linkedin` on each speaker | 18 of 31 are filled in from public profiles. Still empty (greyed-out icon): Sanchit Suneja, Neetu Ailsinghani, Sambasivan G, Shirshendu Bhattacharya, Raghavendra Purwar, Amol Peshattiwar, Jitendra Chauhan, Raghuraman R., Ravindra Soni, Abhishek Shukla, Naveen Chhabra, Sunil Patil, Ramya Venkatesh. Paste the full profile URL to switch the icon on. |
 | Original speaker photos | `assets/img/speakers/*.jpg` (2026, 11 files) and `assets/img/speakers/2025/*.jpg` (20 files) | The current files are 640 × 640, enhanced with Real-ESRGAN from small sources: 2026 colour portraits are cropped from the event photos (stage-screen headshots and stage shots); Shirshendu Bhattacharya, Sashidhar Velaga and Vivek Wadhwa are still the black-and-white playbill photos; 2025 come from the decks. Originals are better still: replace each file **with the same name**, square, at least 600 × 600 px, natural colour, face in the upper half. No code change needed. |

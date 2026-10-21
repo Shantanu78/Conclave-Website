@@ -94,8 +94,7 @@
 }
 
 /* Vertex: after vertex.bitsom.edu.in. Glows rising from the bottom of a
-   section (periwinkle, peach), warm off-white bands, and hairlines framing
-   the content column. */
+   section (periwinkle, peach) and warm off-white bands. */
 [data-look="vertex"] {
   --page: #FFFFFF;
   --band: radial-gradient(106% 100% at 50% 100%, rgba(179, 188, 246, 0.6) 20%, rgba(179, 188, 246, 0) 85%), #FFFFFF;
@@ -105,8 +104,6 @@
   --line: rgba(24, 25, 45, 0.10);
   --next: radial-gradient(106% 120% at 50% 100%, #F9DFCD 10%, rgba(249, 223, 205, 0) 70%), #F7F5F2;
 }
-[data-look="vertex"] .chapter { border-top: 1px solid var(--line); }
-[data-look="vertex"] .chapter::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: min(100%, var(--wrap)); margin: 0 auto; border-left: 1px solid var(--line); border-right: 1px solid var(--line); pointer-events: none; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }

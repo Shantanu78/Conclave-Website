@@ -231,8 +231,6 @@ window.CONCLAVE_EDITIONS = {
       }
     ],
 
-    panels: [],
-
     gallery: [
       // Order and sizes are chosen so the grid fills evenly at 4 and 2 columns.
       { src: "assets/img/gallery/2025/panel-stage.jpg",           caption: "Panellists on the main stage",       size: "wide" },
@@ -426,14 +424,6 @@ window.CONCLAVE_EDITIONS = {
       }
     ],
 
-    /*
-     * Panels: which speakers sat on which panel. Leave empty to hide the block.
-     * Example:
-     * { title: "AI in Consumer Business", moderator: "Student name",
-     *   speakers: ["Vivek Wadhwa", "Sashidhar Velaga"] }
-     */
-    panels: [],
-
     /* Gallery. size: "wide" | "tall" | "" (normal); ordered so the grid fills evenly */
     gallery: [
       { src: "assets/img/gallery/2026/panel-2.jpg",                       caption: "Panel 2: India's AI economy",           size: "wide" },
@@ -451,6 +441,25 @@ window.CONCLAVE_EDITIONS = {
       { src: "assets/img/gallery/2026/library-group-large.jpg",           caption: "A focus group after the session",       size: "wide" }
     ],
 
+    /*
+     * Watch & Listen. Paste links as they are; the section appears once any
+     * one of them is filled in.
+     *   youtube: a YouTube URL (watch, youtu.be, shorts) or the 11-character id
+     *   linkedin url: the post URL, or the code from the post's "Embed this post"
+     */
+    media: {
+      overview: { youtube: "", title: "Conclave 2026: the overview film" },
+      podcasts: {
+        title: "Candid Conversations",
+        items: [
+          // { youtube: "https://www.youtube.com/watch?v=XXXXXXXXXXX", title: "Episode title" }
+        ]
+      },
+      linkedin: [
+        // { url: "https://www.linkedin.com/posts/...-activity-1234567890123456789-xxxx", title: "Conclave 2026 on LinkedIn" }
+      ]
+    },
+
     /* Speaker reflections. Leave empty to hide the block. */
     testimonials: [],
 
@@ -459,6 +468,7 @@ window.CONCLAVE_EDITIONS = {
       title: "The day closed. The conversations carry on.",
       text: "Club performances and the event closure brought the Assembly Hall together one last time, and the Conclave team gathered on stage. The evening carried on with the Student Excellence Showcase and games.",
       image: "assets/img/gallery/2026/conclave-team.jpg",
+      imageAlt: "The Conclave 2026 organising team on the main stage",
       takeaways: [
         { word: "Ideas",   text: "AI as the engine of India's next decade of growth" },
         { word: "Insight", text: "How CXOs across six sectors are putting AI to work" },

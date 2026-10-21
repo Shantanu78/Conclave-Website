@@ -26,8 +26,6 @@
   function brand(s) {
     return esc(s).replace(/BITSoM/g, 'BITS<span class="lc">o</span>M');
   }
-  /* Rotate portraits through the three primary colours */
-  function duo(i) { return "duo--" + ["orange", "red", "blue"][i % 3]; }
   function has(a) { return Array.isArray(a) && a.length > 0; }
   function unique(a) { return a.filter(function (v, i) { return v && a.indexOf(v) === i; }); }
   function pad(n) { return n < 10 ? "0" + n : String(n); }
@@ -48,6 +46,24 @@
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
     down: '<path d="M12 5v14M6 13l6 6 6-6"/>'
   };
+
+  /* YouTube: accept a full URL (watch, youtu.be, shorts, embed) or a bare id */
+  function youtubeId(v) {
+    if (!v) return "";
+    var m = String(v).match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/);
+    if (m) return m[1];
+    return /^[\w-]{11}$/.test(v) ? v : "";
+  }
+  /* LinkedIn: accept the post URL, the embed URL or the pasted <iframe> code */
+  function linkedinEmbed(v) {
+    if (!v) return "";
+    v = String(v);
+    var src = v.match(/src="([^"]+)"/);
+    if (src) v = src[1];
+    if (/linkedin\.com\/embed\//.test(v)) return v;
+    var m = v.match(/urn:li:(share|activity|ugcPost):(\d{10,25})/) || v.match(/(activity|share|ugcPost)-(\d{10,25})/);
+    return m ? "https://www.linkedin.com/embed/feed/update/urn:li:" + m[1] + ":" + m[2] : "";
+  }
   function icon(name, cls) {
     return '<svg class="' + (cls || "icon") + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || "") + "</svg>";
   }
@@ -61,7 +77,6 @@
       case "cxos": return sp.filter(function (s) { return s.cxo; }).length;
       case "organisations": return unique(sp.map(function (s) { return s.org; })).length;
       case "sectors": return unique(sp.map(function (s) { return s.sector; })).length;
-      case "sponsors": return (ed.sponsors || []).length;
     }
     return 0;
   }
@@ -103,13 +118,12 @@
       for (var c = 0; c < size; c++, n++) {
         var s = people[n];
         var style = "--i:" + n + (c === 0 && size < 4 ? ";grid-column-start:" + (5 - size) : "");
-        faces += '<figure class="mosaic__tile duo ' + duo(n) + '" style="' + style + '"><img src="' + esc(s.photo) + '" alt="" loading="eager"></figure>';
+        faces += '<figure class="mosaic__tile" style="' + style + '"><img src="' + esc(s.photo) + '" alt="" loading="eager"></figure>';
       }
     });
     var tag = has(ed.tagline) ? '<p class="hero__tagline">' + ed.tagline.map(esc).join("<i>|</i>") + "</p>" : "";
     return '' +
       '<section class="hero" id="top">' +
-        '<span class="hero__crop" aria-hidden="true"></span>' +
         '<div class="wrap hero__grid">' +
           '<div class="hero__copy">' +
             '<p class="hero__presents">BITS School of Management presents</p>' +
@@ -123,14 +137,13 @@
           "</div>" +
           (faces ? '<div class="hero__mosaic mosaic" aria-hidden="true">' + faces + "</div>" : "") +
         "</div>" +
-        '<a class="hero__cue" href="#numbers">Start the story ' + icon("down") + "</a>" +
-      "</section>" + ribbon();
+      "</section>";
   }
 
   function numbers() {
     if (!has(ed.stats)) return "";
     return '' +
-      '<section class="numbers tone" id="numbers" aria-label="' + esc(ed.year) + ' in numbers">' +
+      '<section class="numbers" id="numbers" aria-label="' + esc(ed.year) + ' in numbers">' +
         '<div class="wrap numbers__grid">' +
           ed.stats.map(function (st) {
             var v = statValue(st);
@@ -157,8 +170,8 @@
               (a.lead ? '<p class="idea__lead">' + brand(a.lead) + "</p>" : "") +
               (a.body ? '<p class="idea__body">' + brand(a.body) + "</p>" : "") +
             "</div>" +
-            (ed.theme ? '<div class="idea__theme tone reveal">' +
-              '<span class="chip chip--red">Theme ' + esc(ed.year) + "</span>" +
+            (ed.theme ? '<div class="idea__theme reveal">' +
+              '<span class="chip chip--light">Theme ' + esc(ed.year) + "</span>" +
               '<p class="idea__theme-kicker">' + esc(ed.theme.kicker) + "</p>" +
               '<p class="idea__theme-title">' + esc(ed.theme.title) + "</p>" +
             "</div>" : "") +
@@ -180,7 +193,7 @@
     sectors.sort(function (a, b) { return size(b) - size(a); }); // biggest groups first (stable for ties)
     var logos = sp.filter(function (s) { return s.logo; });
     return '' +
-      '<section class="chapter chapter--voices tone" id="voices">' +
+      '<section class="chapter chapter--voices chapter--soft" id="voices">' +
         '<div class="wrap">' +
           sectionHead(n, "The Voices", sp.length + " leaders. " + sectors.length + " sectors. One stage.", true) +
           '<div class="filters" role="group" aria-label="Filter speakers by sector">' +
@@ -192,17 +205,16 @@
           "</div>" +
           '<ul class="speakers">' +
             sp.map(function (s, i) {
+              // Cards open a profile only when there is a bio to show.
+              var tag = s.bio ? 'button type="button" class="speaker__card" data-speaker="' + i + '" aria-haspopup="dialog"' : 'div class="speaker__card"';
               return '<li class="speaker reveal" data-sector="' + esc(s.sector) + '" style="--d:' + (i % 4) * 70 + 'ms">' +
-                '<button type="button" class="speaker__btn" data-speaker="' + i + '" aria-haspopup="dialog">' +
-                  '<span class="speaker__photo duo ' + duo(i) + '"><img src="' + esc(s.photo) + '" alt="" loading="lazy">' +
-                    "</span>" +
-                  '<span class="speaker__info">' +
-                    '<span class="speaker__name">' + esc(s.name) + "</span>" +
-                    '<span class="speaker__role">' + esc(s.role) + "</span>" +
-                    '<span class="speaker__org">' + (s.logo ? '<img src="' + esc(s.logo) + '" alt="' + esc(s.org) + '" loading="lazy">' : '<em>' + esc(s.org || s.sector) + "</em>") + "</span>" +
-                  "</span>" +
-                  '<span class="speaker__more">Read profile ' + icon("arrow") + "</span>" +
-                "</button></li>";
+                "<" + tag + ">" +
+                  '<span class="speaker__photo"><img src="' + esc(s.photo) + '" alt="" loading="lazy" width="132" height="132"></span>' +
+                  '<span class="speaker__name">' + esc(s.name) + "</span>" +
+                  '<span class="speaker__role">' + esc(s.role) + "</span>" +
+                  '<span class="speaker__org">' + (s.logo ? '<img src="' + esc(s.logo) + '" alt="' + esc(s.org) + '" loading="lazy">' : "<em>" + esc(s.org || s.sector) + "</em>") + "</span>" +
+                  (s.bio ? '<span class="speaker__more">View profile ' + icon("arrow") + "</span>" : "") +
+                "</" + (s.bio ? "button" : "div") + "></li>";
             }).join("") +
           "</ul>" +
         "</div>" +
@@ -241,35 +253,11 @@
       "</section>";
   }
 
-  function panels() {
-    if (!has(ed.panels)) return "";
-    var n = chapter("panels", "The Panels");
-    var byName = {};
-    (ed.speakers || []).forEach(function (s) { byName[s.name] = s; });
-    return '' +
-      '<section class="chapter chapter--panels" id="panels">' +
-        '<div class="wrap">' +
-          sectionHead(n, "The Panels", "Who sat on which stage") +
-          '<div class="panels">' +
-            ed.panels.map(function (p) {
-              return '<article class="panel reveal"><h3>' + esc(p.title) + "</h3>" +
-                (p.moderator ? '<p class="panel__mod">Moderated by ' + esc(p.moderator) + "</p>" : "") +
-                '<ul class="panel__people">' + (p.speakers || []).map(function (nm) {
-                  var s = byName[nm] || { name: nm };
-                  return "<li>" + (s.photo ? '<img src="' + esc(s.photo) + '" alt="" loading="lazy">' : "") +
-                    "<span><strong>" + esc(s.name) + "</strong>" + esc(s.org || "") + "</span></li>";
-                }).join("") + "</ul></article>";
-            }).join("") +
-          "</div>" +
-        "</div>" +
-      "</section>";
-  }
-
   function gallery() {
     if (!has(ed.gallery)) return "";
     var n = chapter("frames", "In Frame");
     return '' +
-      '<section class="chapter chapter--frames tone" id="frames">' +
+      '<section class="chapter chapter--frames chapter--soft" id="frames">' +
         '<div class="wrap">' +
           sectionHead(n, "In Frame", "The Conclave, as it happened", true) +
           '<ul class="gallery">' +
@@ -285,11 +273,43 @@
       "</section>";
   }
 
+  function media() {
+    var m = ed.media || {};
+    var feature = m.overview && youtubeId(m.overview.youtube) ? m.overview : null;
+    var pods = ((m.podcasts && m.podcasts.items) || []).filter(function (p) { return youtubeId(p.youtube); });
+    var posts = (m.linkedin || []).filter(function (p) { return linkedinEmbed(p.url); });
+    if (!feature && !pods.length && !posts.length) return "";
+    var n = chapter("watch", "Watch & Listen");
+    function video(v) {
+      var id = youtubeId(v.youtube);
+      return '<div class="video">' +
+        '<button type="button" class="video__play" data-youtube="' + esc(id) + '" data-title="' + esc(v.title || "") + '" ' +
+          'style="background-image:url(https://i.ytimg.com/vi/' + esc(id) + '/hqdefault.jpg)" aria-label="Play video: ' + esc(v.title || "") + '">' +
+          '<span class="video__btn" aria-hidden="true"></span></button></div>' +
+        (v.title ? '<p class="video__title">' + brand(v.title) + "</p>" : "");
+    }
+    return '' +
+      '<section class="chapter chapter--watch" id="watch">' +
+        '<div class="wrap">' +
+          sectionHead(n, "Watch & Listen", "The Conclave beyond the stage", true) +
+          '<div class="media">' +
+            (feature ? '<div class="media__feature reveal">' + video(feature) + "</div>" : "") +
+            (pods.length ? '<div class="reveal"><p class="media__label">' + esc((m.podcasts && m.podcasts.title) || "Podcasts") + "</p>" +
+              '<div class="media__grid">' + pods.map(function (p) { return "<div>" + video(p) + "</div>"; }).join("") + "</div></div>" : "") +
+            (posts.length ? '<div class="reveal media__center"><p class="media__label">On LinkedIn</p><div class="media__social">' +
+              posts.map(function (p) {
+                return '<iframe class="linkedin" src="' + esc(linkedinEmbed(p.url)) + '" title="' + esc(p.title || "LinkedIn post") + '" loading="lazy" allowfullscreen></iframe>';
+              }).join("") + "</div></div>" : "") +
+          "</div>" +
+        "</div>" +
+      "</section>";
+  }
+
   function testimonials() {
     if (!has(ed.testimonials)) return "";
     var n = chapter("reflections", "Reflections");
     return '' +
-      '<section class="chapter chapter--quotes" id="reflections">' +
+      '<section class="chapter chapter--quotes chapter--soft" id="reflections">' +
         '<div class="wrap">' +
           sectionHead(n, "Reflections", "In the speakers' words", true) +
           '<div class="quotes">' +
@@ -303,29 +323,13 @@
       "</section>";
   }
 
-  function partners() {
-    if (!has(ed.sponsors)) return "";
-    var n = chapter("partners", "Partners");
-    return '' +
-      '<section class="chapter chapter--partners" id="partners">' +
-        '<div class="wrap">' +
-          sectionHead(n, "Partners", "The brands that backed Conclave " + ed.year, true) +
-          '<ul class="sponsors">' +
-            ed.sponsors.map(function (sp, i) {
-              return '<li class="sponsor reveal" style="--d:' + (i % 5) * 60 + 'ms"><img src="' + esc(sp.logo) + '" alt="' + esc(sp.name) + '" loading="lazy"></li>';
-            }).join("") +
-          "</ul>" +
-        "</div>" +
-      "</section>";
-  }
-
   function finale() {
     var f = ed.finale;
     if (!f) return "";
     var n = chapter("finale", "The Finale");
     return '' +
       '<section class="chapter chapter--finale" id="finale">' +
-        (f.image ? '<img class="finale__bg" src="' + esc(f.image) + '" alt="" loading="lazy">' : "") +
+        (f.image ? '<div class="finale__photo"><img src="' + esc(f.image) + '" alt="' + esc(f.imageAlt || "") + '" loading="lazy"></div>' : "") +
         '<div class="wrap finale">' +
           sectionHead(n, "The Finale", "", true) +
           '<h2 class="finale__title reveal">' + brand(f.title) + "</h2>" +
@@ -341,12 +345,12 @@
     var x = ed.next;
     if (!x) return "";
     return '' +
-      '<section class="next tone">' +
+      '<section class="next">' +
         '<div class="wrap next__inner">' +
           '<div><h2>' + brand(x.title) + "</h2><p>" + brand(x.text) + "</p></div>" +
-          (x.cta ? '<a class="btn btn--light" href="' + esc(x.cta.href) + '">' + esc(x.cta.label) + icon("arrow") + "</a>" : "") +
+          (x.cta ? '<a class="btn btn--orange" href="' + esc(x.cta.href) + '">' + esc(x.cta.label) + icon("arrow") + "</a>" : "") +
         "</div>" +
-      "</section>" + ribbon();
+      "</section>";
   }
 
   function sectionHead(num, title, sub, light) {
@@ -372,19 +376,19 @@
     var latest = years.filter(function (y) { return editions[y].status === "published"; }).pop();
     return '' +
       '<section class="hero hero--soon" id="top">' +
-        '<span class="hero__crop" aria-hidden="true"></span>' +
         '<div class="wrap hero__grid">' +
           '<div class="hero__copy">' +
             '<p class="hero__presents">BITS School of Management presents</p>' +
             '<h1 class="hero__title"><img class="hero__logo" src="assets/img/brand/conclave-logo-light.png" alt="BITSoM Conclave" width="560" height="173">' +
               '<span class="hero__year">' + esc(year) + "</span></h1>" +
-            '<p class="hero__theme">' + brand(ed.message || "Coming soon.") + "</p>" +
+            '<p class="hero__message">' + brand(ed.message || "Coming soon.") + "</p>" +
             (latest && latest !== year ? '<a class="btn btn--orange" href="?edition=' + esc(latest) + '">Relive Conclave ' + esc(latest) + icon("arrow") + "</a>" : "") +
           "</div>" +
         "</div>" +
-      "</section>" + ribbon();
+      "</section>";
   }
 
+  /* The single design-language strip, just above the footer */
   function ribbon() {
     return '<div class="ribbon" aria-hidden="true"></div>';
   }
@@ -394,11 +398,11 @@
   function render() {
     document.title = "BITSoM Business Conclave " + year + " | Events | BITS School of Management";
     if (!ed || ed.status !== "published") {
-      root.innerHTML = subnav() + breadcrumb() + comingSoon();
+      root.innerHTML = subnav() + breadcrumb() + comingSoon() + ribbon();
       return;
     }
-    var body = hero() + numbers() + about() + voices() + day() + panels() + gallery() + testimonials() + partners() + finale() + next();
-    root.innerHTML = subnav() + breadcrumb() + body;
+    var body = hero() + numbers() + about() + voices() + day() + gallery() + media() + testimonials() + finale() + next();
+    root.innerHTML = subnav() + breadcrumb() + body + ribbon();
   }
 
   /* ---------- behaviour ---------- */
@@ -467,9 +471,9 @@
       if (!btn) return;
       var s = ed.speakers[+btn.dataset.speaker];
       bodyEl.innerHTML =
-        '<div class="speaker-modal__photo duo ' + duo(+btn.dataset.speaker) + '"><img src="' + esc(s.photo) + '" alt="' + esc(s.name) + '"></div>' +
+        '<div class="speaker-modal__photo"><img src="' + esc(s.photo) + '" alt="' + esc(s.name) + '"></div>' +
         '<div class="speaker-modal__text">' +
-          '<span class="chip chip--orange">' + esc(s.sector) + "</span>" +
+          '<span class="chip chip--soft">' + esc(s.sector) + "</span>" +
           "<h3>" + esc(s.name) + "</h3>" +
           '<p class="speaker-modal__role">' + esc(s.role) + (s.org ? ", " + esc(s.org) : "") + "</p>" +
           (s.logo ? '<img class="speaker-modal__logo" src="' + esc(s.logo) + '" alt="' + esc(s.org) + '">' : "") +
@@ -506,6 +510,20 @@
     });
   }
 
+  /* Click-to-play: load the YouTube player only when someone asks for it */
+  function setupVideos() {
+    root.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-youtube]");
+      if (!b) return;
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(b.dataset.youtube) + "?autoplay=1&rel=0&modestbranding=1";
+      f.title = b.dataset.title || "YouTube video";
+      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      f.allowFullscreen = true;
+      b.replaceWith(f);
+    });
+  }
+
   function setupScrollSpy() {
     var links = root.querySelectorAll("[data-spy]");
     if (!links.length || !("IntersectionObserver" in window)) return;
@@ -535,6 +553,7 @@
   setupFilters();
   setupSpeakerModal();
   setupLightbox();
+  setupVideos();
   setupScrollSpy();
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();

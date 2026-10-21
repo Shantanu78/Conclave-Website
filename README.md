@@ -61,7 +61,7 @@ It is a static page: no build step, no framework, no server code.
 
 | Item | Where it goes | Notes |
 | --- | --- | --- |
-| 2027 theme, date | `"2027"` → `theme`, `date` | Until filled in, the page says "To be announced". |
+| 2027 date | `"2027"` → `date` | Until filled in, the page says "Date to be announced". A one-line `theme.text` can also be added for the theme card. |
 | Speak / partner links | `"2027"` → `involve.*.cta.href` | e.g. a `mailto:` or form link; the buttons appear once set. |
 | LinkedIn profiles | `linkedin` on each speaker | Full profile URL. Empty shows a greyed-out icon. |
 | HD speaker portraits | `assets/img/speakers/*.jpg` (2026, 11 files) and `assets/img/speakers/2025/*.jpg` (20 files) | The current files come from the decks at 117–265 px and are soft. Replace each file **with the same name**: square, at least 600 × 600 px, natural colour, face in the upper half. No code change needed. |

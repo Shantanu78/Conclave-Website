@@ -38,6 +38,13 @@
     return esc(s).replace(/BITSoM/g, 'BITS<span class="lc">o</span>M');
   }
   function has(a) { return Array.isArray(a) && a.length > 0; }
+  /* "Title: Subtitle" themes show the subtitle on its own line; the words are unchanged */
+  function themeHtml(title, cls) {
+    if (!title) return "To be announced";
+    var i = title.indexOf(": ");
+    if (i < 0) return brand(title);
+    return brand(title.slice(0, i)) + '<span class="' + cls + '"><span class="sr-colon">: </span>' + brand(title.slice(i + 2)) + "</span>";
+  }
   function unique(a) { return a.filter(function (v, i) { return v && a.indexOf(v) === i; }); }
   function pad(n) { return n < 10 ? "0" + n : String(n); }
 
@@ -233,7 +240,7 @@
             '<h1 class="hero__title"><img class="hero__logo" src="assets/img/brand/conclave-logo-light.png" alt="BITSoM Conclave" width="560" height="173">' +
               '<span class="hero__year">' + esc(current) + "</span></h1>" +
             '<p class="hero__kicker">Theme ' + esc(current) + "</p>" +
-            '<p class="hero__theme">' + (t.title ? brand(t.title) : "To be announced") + "</p>" +
+            '<p class="hero__theme">' + themeHtml(t.title, "hero__theme-sub") + "</p>" +
             '<ul class="hero__meta">' +
               "<li>" + icon("calendar") + (cur.date ? '<time datetime="' + esc(cur.dateISO || "") + '">' + esc(cur.date) + "</time>" : "Date to be announced") + "</li>" +
               (cur.venue ? "<li>" + icon("pin") + esc(cur.venue) + "</li>" : "") +
@@ -288,8 +295,9 @@
           '<div class="themes">' +
             '<div class="theme-card reveal">' +
               '<span class="chip chip--light">Theme ' + esc(current) + "</span>" +
-              '<p class="theme-card__title">' + (t.title ? brand(t.title) : "To be announced") + "</p>" +
-              '<p class="theme-card__text">' + (t.text ? brand(t.text) : "The " + esc(current) + " theme will be announced here. Here is where the conversation has been so far.") + "</p>" +
+              '<p class="theme-card__title">' + themeHtml(t.title, "theme-card__sub") + "</p>" +
+              (t.text ? '<p class="theme-card__text">' + brand(t.text) + "</p>"
+                : t.title ? "" : '<p class="theme-card__text">The ' + esc(current) + " theme will be announced here. Here is where the conversation has been so far.</p>") +
             "</div>" +
             '<div class="themes__past reveal">' +
               '<p class="themes__label">Previous themes</p>' +

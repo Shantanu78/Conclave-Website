@@ -33,9 +33,9 @@ window.CONCLAVE_EDITIONS = {
     dateISO: "",
     venue: "BITS School of Management, Mumbai",
 
-    // TODO: empty title shows "Theme to be announced"
+    // text: optional one-line description shown on the theme card
     theme: {
-      title: "",
+      title: "Business Unscripted: Hype, Hope and Hard Truths",
       text: ""
     },
 

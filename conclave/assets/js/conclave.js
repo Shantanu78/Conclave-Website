@@ -191,9 +191,6 @@
               : '<span aria-current="page">Business Conclave ' + esc(current) + "</span>") + "</nav>";
   }
 
-  /* The one design-language strip, just above the footer */
-  function ribbon() { return '<div class="ribbon" aria-hidden="true"></div>'; }
-
   /* ================================================================== */
   /* Upcoming edition (home)                                             */
   /* ================================================================== */
@@ -526,7 +523,7 @@
       body = homeHero() + homeAbout() + homeTheme() + homeSpeakers() + homeDay() +
         homeMedia() + homeReflections() + homeInvolve() + homePast();
     }
-    root.innerHTML = subnav() + breadcrumb() + body + ribbon();
+    root.innerHTML = subnav() + breadcrumb() + body;
   }
 
   /* ---------- behaviour ---------- */

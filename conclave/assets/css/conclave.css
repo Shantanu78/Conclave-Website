@@ -7,8 +7,8 @@
  *   Body copy        Manrope (as on BITSoM Vertex)
  *   Logo             the registered (®) BITSoM logo, unmodified; no logo or
  *                    logo-derived design element is used as a background
- *   Look             minimal and clean: white space, soft light gradients;
- *                    the design-language strip appears once, above the footer
+ *   Look             minimal and clean, after BITSoM Vertex: white and warm
+ *                    off-white sections, soft periwinkle and peach glows
  *   Photos           natural colour, never tinted
  *
  * Brandon Grotesque is licensed. bitsom.edu.in can load it as usual; the
@@ -26,26 +26,25 @@
   --blue-deep: #1C2052;
   --ink: #1D1F3F;
   --muted: #5B5F7E;
-  --line: rgba(37, 42, 96, 0.10);
+  --line: rgba(24, 25, 45, 0.10);
   --white: #FFFFFF;
-  --soft: #F6F7FB;
+  --soft: #FFFFFF;
   --linkedin: #0A66C2;
 
   --grad-hero: radial-gradient(90% 80% at 100% 0%, rgba(246, 135, 34, 0.14) 0%, rgba(246, 135, 34, 0) 60%),
                linear-gradient(160deg, #1C2052 0%, #252A60 55%, #2F3679 100%);
-  --grad-soft: linear-gradient(180deg, #F6F7FB 0%, #FFFFFF 100%);
-  --grad-warm: linear-gradient(120deg, #FFF4EA 0%, #FFFFFF 55%, #F4F5FB 100%);
   --grad-accent: linear-gradient(135deg, #F68722 0%, #B72F26 100%);
 
-  /* Surfaces: page, chapter bands (odd/even), cards, the sticky bar, the
-     closing strip. The looks below override only these. */
+  /* Surfaces, after vertex.bitsom.edu.in: white chapters with a glow rising
+     from the bottom (periwinkle, every other one peach), warm off-white
+     chapters in between, white cards. */
   --page: #FFFFFF;
-  --band: var(--grad-soft);
-  --band-alt: transparent;
-  --band-2: var(--band); /* every fourth chapter, for looks that rotate two bands */
+  --band: radial-gradient(106% 100% at 50% 100%, rgba(179, 188, 246, 0.6) 20%, rgba(179, 188, 246, 0) 85%), #FFFFFF;
+  --band-2: radial-gradient(106% 100% at 50% 100%, #F9DFCD 16%, rgba(249, 223, 205, 0) 71%), #FFFFFF;
+  --band-alt: #F7F5F2;
   --card: #FFFFFF;
   --bar: rgba(255, 255, 255, 0.94);
-  --next: var(--grad-warm);
+  --next: radial-gradient(106% 120% at 50% 100%, #F9DFCD 10%, rgba(249, 223, 205, 0) 70%), #F7F5F2;
 
   --f-head: "Brandon Grotesque", "brandon-grotesque", "Jost", "Futura", "Helvetica Neue", Arial, sans-serif;
   --f-body: "Manrope", "Helvetica Neue", Arial, sans-serif;
@@ -57,52 +56,6 @@
   --shadow: 0 1px 2px rgba(29, 31, 63, 0.06), 0 10px 28px -14px rgba(29, 31, 63, 0.22);
   --shadow-hover: 0 2px 4px rgba(29, 31, 63, 0.06), 0 18px 40px -16px rgba(29, 31, 63, 0.30);
   --ease: cubic-bezier(.2, .7, .2, 1);
-}
-
-/* Background looks, set with data-look on <html>. "Classic" is :root. */
-[data-look="ivory"] {
-  --page: #FCFAF5;
-  --band: linear-gradient(180deg, #F6EEE1 0%, #FCFAF5 100%);
-  --soft: #F4EDE1;
-  --line: rgba(92, 68, 38, 0.12);
-  --bar: rgba(252, 250, 245, 0.94);
-  --next: linear-gradient(120deg, #FBE9D6 0%, #FCFAF5 60%);
-}
-[data-look="mist"] {
-  --page: #F5F7FB;
-  --band: linear-gradient(180deg, #E9EDF7 0%, #F5F7FB 100%);
-  --soft: #EBEFF7;
-  --bar: rgba(245, 247, 251, 0.94);
-  --next: linear-gradient(120deg, #FFEFE2 0%, #F5F7FB 60%);
-}
-[data-look="duo"] {
-  --page: #FFFDF9;
-  --band: #FBF4EA;
-  --band-alt: #F3F3FA;
-  --soft: #FFFFFF;
-  --line: rgba(70, 60, 90, 0.11);
-  --bar: rgba(255, 253, 249, 0.94);
-  --next: linear-gradient(120deg, #FBEBDB 0%, #F3F3FA 100%);
-}
-[data-look="aura"] {
-  --page: #FFFFFF;
-  --band: radial-gradient(55% 70% at 0% 0%, rgba(246, 135, 34, 0.10) 0%, rgba(246, 135, 34, 0) 70%),
-          radial-gradient(50% 70% at 100% 100%, rgba(37, 42, 96, 0.08) 0%, rgba(37, 42, 96, 0) 70%),
-          #FFFCF8;
-  --band-alt: radial-gradient(45% 60% at 100% 0%, rgba(183, 47, 38, 0.05) 0%, rgba(183, 47, 38, 0) 70%), #FFFFFF;
-  --soft: #F7F4F0;
-}
-
-/* Vertex: after vertex.bitsom.edu.in. Glows rising from the bottom of a
-   section (periwinkle, peach) and warm off-white bands. */
-[data-look="vertex"] {
-  --page: #FFFFFF;
-  --band: radial-gradient(106% 100% at 50% 100%, rgba(179, 188, 246, 0.6) 20%, rgba(179, 188, 246, 0) 85%), #FFFFFF;
-  --band-2: radial-gradient(106% 100% at 50% 100%, #F9DFCD 16%, rgba(249, 223, 205, 0) 71%), #FFFFFF;
-  --band-alt: #F7F5F2;
-  --soft: #FFFFFF;
-  --line: rgba(24, 25, 45, 0.10);
-  --next: radial-gradient(106% 120% at 50% 100%, #F9DFCD 10%, rgba(249, 223, 205, 0) 70%), #F7F5F2;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -129,9 +82,6 @@ button { font: inherit; color: inherit; }
 
 /* Brandon Grotesque is used only in capitals */
 h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
-
-/* The one design-language strip on the page (above the footer) */
-.ribbon { height: 40px; background: var(--page) url("../img/brand/ribbon.png") 0 0 / auto 100% repeat-x; }
 
 /* ------------------------------------------------------------------ */
 /* Site header / footer stand-ins (replace with the bitsom.edu.in chrome) */
@@ -262,7 +212,7 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 /* Chapters                                                             */
 /* ------------------------------------------------------------------ */
 .chapter { padding: clamp(48px, 5vw, 64px) 0; position: relative; }
-/* Every other chapter gets the soft gradient, whichever chapters are present */
+/* Chapters alternate glow and off-white, whichever chapters are present */
 .chapter:nth-of-type(odd) { background: var(--band); }
 .chapter:nth-of-type(even) { background: var(--band-alt); }
 .chapter:nth-of-type(4n+1) { background: var(--band-2); }

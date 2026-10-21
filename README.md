@@ -20,7 +20,7 @@ conclave/
     ├── css/conclave.css  styles (scoped to Conclave classes)
     ├── js/conclave.js    renderer, plain JavaScript, no dependencies
     └── img/
-        ├── brand/        ® logo, Conclave logo, footer strip
+        ├── brand/        ® logo, Conclave logo
         ├── speakers/     2026 portraits (2025 in speakers/2025/)
         ├── orgs/         company logos (2025 in orgs/2025/)
         └── gallery/      event photos, one folder per year
@@ -53,12 +53,7 @@ It is a static page: no build step, no framework, no server code.
 5. **Content Security Policy.** If the site sends a CSP, allow:
    `frame-src https://www.youtube-nocookie.com https://www.linkedin.com`
    and `img-src https://i.ytimg.com` (video thumbnails).
-6. **Background preview.** The pill at the bottom of the page switches
-   between six background looks (Classic, Ivory, Mist, Duo, Aura, Vertex; also
-   `?look=ivory` in the URL). Once one is chosen, copy its values from the
-   `[data-look]` block in `conclave.css` into `:root`, then delete
-   `assets/js/look-preview.js` and its `<script>` tag in `index.html`.
-7. **CSS isolation.** Page styles use Conclave-specific class names and a few
+6. **CSS isolation.** Page styles use Conclave-specific class names and a few
    base rules (`body`, `img`, `.wrap`). Check those against the main
    stylesheet when you drop the page in.
 
@@ -118,9 +113,10 @@ Following the BITSoM Brand Guidelines and the brand team's review:
 - **Logo:** the registered (®) BITSoM logo, used unmodified (trimmed and
   resized only), on BITSoM blue in the header and footer. It is never used as
   a background, texture or crop.
-- **Look:** minimal and clean. White space and soft light gradients; no logo
-  or logo-derived element sits behind content. The design-language pattern
-  appears once, as a slim strip above the footer (`ribbon.png`).
+- **Look:** minimal and clean, after BITSoM Vertex: white chapters with a
+  soft periwinkle or peach glow, warm off-white (`#F7F5F2`) chapters in
+  between, white cards. No logo, pattern or logo-derived element sits behind
+  content.
 - **Colours:** red `#B72F26`, blue `#252A60`, orange `#F68722`.
 - **Type:** Brandon Grotesque only in capitals, for headings and labels;
   Manrope for body copy, as on BITSoM Vertex.

@@ -14,7 +14,8 @@
  * Speakers
  *   linkedin: full profile URL. Leave "" to show a greyed-out icon.
  *   featured: true to show the speaker under "Past Speakers" on the main
- *             page (eight work best: two rows of four). Everyone appears on
+ *             page. Twelve are marked, one from each of the best-known
+ *             organisations (three rows of four). Everyone appears on
  *             Past Editions.
  *   photo:    square portrait, at least 600 x 600 px, natural colour.
  *
@@ -158,8 +159,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Motilal Oswal", logo: "assets/img/orgs/motilal-oswal.png",
         sector: "Financial Services", cxo: true,
         photo: "assets/img/speakers/sanchit-suneja.jpg",
-        linkedin: "https://www.linkedin.com/in/sanchitsuneja/",
-        featured: true
+        linkedin: "https://www.linkedin.com/in/sanchitsuneja/"
       },
       {
         name: "Dhanushkodi Sivanandhan",
@@ -167,8 +167,7 @@ window.CONCLAVE_EDITIONS = {
         org: "", logo: "",
         sector: "Public Service", cxo: false,
         photo: "assets/img/speakers/dhanushkodi-sivanandhan.jpg",
-        linkedin: "https://www.linkedin.com/in/d-sivanandhan-2aa4a42bb/",
-        featured: true
+        linkedin: "https://www.linkedin.com/in/d-sivanandhan-2aa4a42bb/"
       },
       {
         name: "Sanchayan Paul",
@@ -194,8 +193,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Exicon", logo: "assets/img/orgs/exicon.png",
         sector: "Healthcare & Pharma", cxo: true,
         photo: "assets/img/speakers/monica-sood-bhatia.jpg",
-        linkedin: "https://www.linkedin.com/in/drmonicasoodbhatia/",
-        featured: true
+        linkedin: "https://www.linkedin.com/in/drmonicasoodbhatia/"
       },
       {
         name: "Neetu Ailsinghani",
@@ -203,7 +201,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Bloomberg", logo: "assets/img/orgs/bloomberg.png",
         sector: "Financial Services", cxo: false,
         photo: "assets/img/speakers/neetu-ailsinghani.jpg",
-        linkedin: "https://www.linkedin.com/in/neetu-ailsinghani-4117b3b/"
+        linkedin: "https://www.linkedin.com/in/neetu-ailsinghani-4117b3b/",
+        featured: true
       },
       {
         name: "Sashidhar Velaga",
@@ -219,7 +218,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Tata Play", logo: "assets/img/orgs/tata-play.png",
         sector: "Media & Entertainment", cxo: true,
         photo: "assets/img/speakers/sambasivan-g.jpg",
-        linkedin: "https://www.linkedin.com/in/sambasivan-g-1950a712/"
+        linkedin: "https://www.linkedin.com/in/sambasivan-g-1950a712/",
+        featured: true
       },
       {
         name: "Shirshendu Bhattacharya",
@@ -227,7 +227,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Dr. Reddy's", logo: "assets/img/orgs/dr-reddys.png",
         sector: "Healthcare & Pharma", cxo: false,
         photo: "assets/img/speakers/shirshendu-bhattacharya.jpg",
-        linkedin: "https://www.linkedin.com/in/bhattacharyashirshendu/"
+        linkedin: "https://www.linkedin.com/in/bhattacharyashirshendu/",
+        featured: true
       },
       {
         name: "Vidhyasagar Tyagi",
@@ -235,7 +236,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Reliance Retail", logo: "assets/img/orgs/reliance-retail.png",
         sector: "Retail & Lifestyle", cxo: false,
         photo: "assets/img/speakers/vidyasagar-tyagi.jpg",
-        linkedin: "https://www.linkedin.com/in/vidhyasagar-tyagi-85654a1a/"
+        linkedin: "https://www.linkedin.com/in/vidhyasagar-tyagi-85654a1a/",
+        featured: true
       },
       {
         name: "Vivek Wadhwa",
@@ -290,7 +292,8 @@ window.CONCLAVE_EDITIONS = {
         org: "PepsiCo", logo: "assets/img/orgs/2025/raghavendra-purwar.png",
         sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/raghavendra-purwar.jpg",
-        linkedin: ""
+        linkedin: "",
+        featured: true
       },
       {
         name: "Anoop Tiwari",
@@ -298,7 +301,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Mondelēz International", logo: "assets/img/orgs/2025/anoop-tiwari.png",
         sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/anoop-tiwari.jpg",
-        linkedin: "https://www.linkedin.com/in/anoop-tiwari-88b5142a/"
+        linkedin: "https://www.linkedin.com/in/anoop-tiwari-88b5142a/",
+        featured: true
       },
       {
         name: "Payal Agrawaal",
@@ -354,8 +358,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Mivi", logo: "assets/img/orgs/2025/midhula-devabhaktuni.png",
         sector: "Consumer Durables & Electronics", cxo: true,
         photo: "assets/img/speakers/2025/midhula-devabhaktuni.jpg",
-        linkedin: "https://www.linkedin.com/in/midhula-devabhaktuni-79b86b22/",
-        featured: true
+        linkedin: "https://www.linkedin.com/in/midhula-devabhaktuni-79b86b22/"
       },
       {
         name: "Nishant Agarwal",
@@ -412,7 +415,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Adobe", logo: "assets/img/orgs/2025/abhishek-shukla.png",
         sector: "Technology & SaaS", cxo: false,
         photo: "assets/img/speakers/2025/abhishek-shukla.jpg",
-        linkedin: ""
+        linkedin: "",
+        featured: true
       },
       {
         name: "Naveen Chhabra",
@@ -428,7 +432,8 @@ window.CONCLAVE_EDITIONS = {
         org: "Mastercard", logo: "assets/img/orgs/2025/sunil-patil.png",
         sector: "Financial Services", cxo: false,
         photo: "assets/img/speakers/2025/sunil-patil.jpg",
-        linkedin: ""
+        linkedin: "",
+        featured: true
       },
       {
         name: "Govind Maheshwari",

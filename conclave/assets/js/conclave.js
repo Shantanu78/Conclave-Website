@@ -143,21 +143,16 @@
     return '<span class="li li--off" title="LinkedIn profile not listed" aria-hidden="true">' + LINKEDIN_GLYPH + "</span>";
   }
 
-  /* Portrait on top, then name and role; the organisation and LinkedIn share the last row */
   function speakerCard(s, i, opts) {
     opts = opts || {};
     return '<li class="speaker reveal" style="--d:' + (i % 4) * 60 + 'ms">' +
       '<div class="speaker__card">' +
         '<span class="speaker__photo"><img src="' + esc(s.photo) + '" alt="" loading="lazy"></span>' +
         (opts.tag && s.year ? '<span class="speaker__tag">' + esc(s.year) + "</span>" : "") +
-        '<span class="speaker__body">' +
-          '<span class="speaker__name">' + esc(s.name) + "</span>" +
-          '<span class="speaker__role">' + esc(s.role) + "</span>" +
-          '<span class="speaker__foot">' +
-            '<span class="speaker__org">' + (s.logo ? '<img src="' + esc(s.logo) + '" alt="' + esc(s.org) + '" loading="lazy">' : "<em>" + esc(s.org || s.sector) + "</em>") + "</span>" +
-            linkedinButton(s) +
-          "</span>" +
-        "</span>" +
+        '<span class="speaker__name">' + esc(s.name) + "</span>" +
+        '<span class="speaker__role">' + esc(s.role) + "</span>" +
+        '<span class="speaker__org">' + (s.logo ? '<img src="' + esc(s.logo) + '" alt="' + esc(s.org) + '" loading="lazy">' : "<em>" + esc(s.org || s.sector) + "</em>") + "</span>" +
+        '<span class="speaker__links">' + linkedinButton(s) + "</span>" +
       "</div></li>";
   }
 

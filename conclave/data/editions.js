@@ -17,8 +17,7 @@
  *             page. Twelve are marked, one from each of the best-known
  *             organisations (three rows of four). Everyone appears on
  *             Past Editions.
- *   photo:    square or 4:5 portrait, at least 800 px wide, natural colour;
- *             cards show it at 4:5, so keep the face in the upper third.
+ *   photo:    square portrait, at least 600 x 600 px, natural colour.
  *
  * Copy follows the BITSoM tone of voice: British English, active voice,
  * positive phrasing, and "BITSoM" always with a lowercase "o" (the page keeps

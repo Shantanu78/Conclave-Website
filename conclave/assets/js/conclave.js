@@ -1,19 +1,30 @@
 /*
  * BITSoM Business Conclave page renderer.
- * Reads window.CONCLAVE_EDITIONS (data/editions.js) and builds the page for
- * the edition in ?edition=YYYY. No dependencies.
+ *
+ * Reads window.CONCLAVE_EDITIONS and window.CONCLAVE_CURRENT (data/editions.js)
+ * and renders one of two views into <main id="conclave">:
+ *
+ *   (no query)            the upcoming edition, built to attract speakers
+ *                         and partners
+ *   ?edition=past         Past Editions, newest first: theme, speakers, pictures
+ *   ?edition=2026         Past Editions, scrolled to that edition
+ *
+ * Plain JavaScript, no dependencies.
  */
 (function () {
   "use strict";
 
   var editions = window.CONCLAVE_EDITIONS || {};
   var years = Object.keys(editions).sort();
-  var params = new URLSearchParams(window.location.search);
-  var year = params.get("edition");
-  if (!editions[year]) year = window.CONCLAVE_DEFAULT_EDITION || years[years.length - 1];
-  var ed = editions[year];
+  var current = window.CONCLAVE_CURRENT || years[years.length - 1];
+  var cur = editions[current] || {};
+  var pastYears = years.filter(function (y) { return editions[y].status === "past"; }).reverse();
+  var query = new URLSearchParams(window.location.search).get("edition");
+  var isPast = query === "past" || !!(query && editions[query] && editions[query].status === "past");
+  var focusYear = isPast && query !== "past" ? query : null;
   var root = document.getElementById("conclave");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var galleries = {}; // year -> photos, for the lightbox
 
   /* ---------- helpers ---------- */
 
@@ -44,8 +55,12 @@
     calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
     pin: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
-    down: '<path d="M12 5v14M6 13l6 6 6-6"/>'
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>'
   };
+  function icon(name, cls) {
+    return '<svg class="' + (cls || "icon") + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || "") + "</svg>";
+  }
+  var LINKEDIN_GLYPH = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>';
 
   /* YouTube: accept a full URL (watch, youtu.be, shorts, embed) or a bare id */
   function youtubeId(v) {
@@ -64,19 +79,30 @@
     var m = v.match(/urn:li:(share|activity|ugcPost):(\d{10,25})/) || v.match(/(activity|share|ugcPost)-(\d{10,25})/);
     return m ? "https://www.linkedin.com/embed/feed/update/urn:li:" + m[1] + ":" + m[2] : "";
   }
-  function icon(name, cls) {
-    return '<svg class="' + (cls || "icon") + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || "") + "</svg>";
+
+  /* ---------- data views ---------- */
+
+  function pastSpeakers() {
+    var out = [];
+    pastYears.forEach(function (y) {
+      (editions[y].speakers || []).forEach(function (s) { out.push(Object.assign({ year: y }, s)); });
+    });
+    return out;
   }
-
-  /* ---------- derived numbers ---------- */
-
+  /* One logo per organisation, newest edition first */
+  function organisations() {
+    var seen = {}, out = [];
+    (cur.speakers || []).concat(pastSpeakers()).forEach(function (s) {
+      if (s.org && s.logo && !seen[s.org]) { seen[s.org] = 1; out.push({ org: s.org, logo: s.logo }); }
+    });
+    return out;
+  }
   function autoStat(key) {
-    var sp = ed.speakers || [];
+    var sp = pastSpeakers();
     switch (key) {
       case "speakers": return sp.length;
-      case "cxos": return sp.filter(function (s) { return s.cxo; }).length;
       case "organisations": return unique(sp.map(function (s) { return s.org; })).length;
-      case "sectors": return unique(sp.map(function (s) { return s.sector; })).length;
+      case "editions": return pastYears.length;
     }
     return 0;
   }
@@ -85,196 +111,266 @@
     return Number(st.value) || 0;
   }
 
-  /* ---------- sections ---------- */
+  /* ---------- shared pieces ---------- */
 
-  var chapters = []; // {id, label}
+  var chapters = []; // {id, label} for the sticky menu
   function chapter(id, label) {
     chapters.push({ id: id, label: label });
     return pad(chapters.length);
   }
 
+  function sectionHead(num, title, sub, center) {
+    return '<header class="sec-head' + (center ? " sec-head--center" : "") + ' reveal">' +
+      (num ? '<p class="sec-head__num">Chapter ' + num + "</p>" : "") +
+      '<h2 class="sec-head__title">' + brand(title) + "</h2>" +
+      (sub ? '<p class="sec-head__sub">' + brand(sub) + "</p>" : "") +
+      "</header>";
+  }
+
+  /* LinkedIn profile in a new tab; a greyed-out icon keeps cards uniform when none is listed */
+  function linkedinButton(s) {
+    if (s.linkedin) {
+      return '<a class="li li--on" href="' + esc(s.linkedin) + '" target="_blank" rel="noopener noreferrer" ' +
+        'aria-label="' + esc(s.name) + ' on LinkedIn (opens in a new tab)">' + LINKEDIN_GLYPH + "</a>";
+    }
+    return '<span class="li li--off" title="LinkedIn profile not listed" aria-hidden="true">' + LINKEDIN_GLYPH + "</span>";
+  }
+
+  function speakerCard(s, i, opts) {
+    opts = opts || {};
+    return '<li class="speaker reveal"' + (opts.group ? ' data-group="' + esc(s.year) + '"' : "") + ' style="--d:' + (i % 4) * 60 + 'ms">' +
+      '<div class="speaker__card">' +
+        '<span class="speaker__photo"><img src="' + esc(s.photo) + '" alt="" loading="lazy"></span>' +
+        (opts.tag && s.year ? '<span class="speaker__tag">' + esc(s.year) + "</span>" : "") +
+        '<span class="speaker__name">' + esc(s.name) + "</span>" +
+        '<span class="speaker__role">' + esc(s.role) + "</span>" +
+        '<span class="speaker__org">' + (s.logo ? '<img src="' + esc(s.logo) + '" alt="' + esc(s.org) + '" loading="lazy">' : "<em>" + esc(s.org || s.sector) + "</em>") + "</span>" +
+        '<span class="speaker__links">' + linkedinButton(s) + "</span>" +
+      "</div></li>";
+  }
+
+  function galleryGrid(year, photos) {
+    galleries[year] = photos;
+    return '<ul class="gallery">' + photos.map(function (g, i) {
+      return '<li class="gallery__item ' + (g.size ? "gallery__item--" + esc(g.size) : "") + ' reveal">' +
+        '<button type="button" data-gallery="' + esc(year) + '" data-photo="' + i + '" aria-label="Open photo: ' + esc(g.caption) + '">' +
+          '<img src="' + esc(g.src) + '" alt="' + esc(g.caption) + '" loading="lazy">' +
+          '<span class="gallery__cap">' + esc(g.caption) + "</span>" +
+        "</button></li>";
+    }).join("") + "</ul>";
+  }
+
   function editionSwitcher() {
-    return '<div class="editions" role="navigation" aria-label="Conclave editions">' +
-      years.map(function (y) {
-        var cur = y === year;
-        return '<a class="editions__item' + (cur ? " is-active" : "") + '" href="?edition=' + esc(y) + '"' +
-          (cur ? ' aria-current="page"' : "") + ">" + esc(y) + "</a>";
-      }).join("") + "</div>";
+    var items = [{ href: "?", label: current, on: !isPast }, { href: "?edition=past", label: "Past editions", on: isPast }];
+    return '<div class="editions" role="navigation" aria-label="Conclave editions">' + items.map(function (it) {
+      return '<a class="editions__item' + (it.on ? " is-active" : "") + '" href="' + it.href + '"' + (it.on ? ' aria-current="page"' : "") + ">" + esc(it.label) + "</a>";
+    }).join("") + "</div>";
+  }
+
+  function subnav() {
+    return '<nav class="subnav" aria-label="Page sections">' +
+      '<div class="wrap subnav__inner">' +
+        '<a class="subnav__title" href="#top">' + (isPast ? "Past <b>Editions</b>" : "Business Conclave <b>" + esc(current) + "</b>") + "</a>" +
+        (chapters.length ? '<div class="subnav__links">' + chapters.map(function (c) {
+          return '<a href="#' + c.id + '" data-spy="' + c.id + '">' + esc(c.label) + "</a>";
+        }).join("") + "</div>" : "") +
+        editionSwitcher() +
+      "</div></nav>";
   }
 
   function breadcrumb() {
-    return '<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/">Events</a><span>/</span><span aria-current="page">Business Conclave ' + esc(year) + "</span></nav>";
+    return '<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/">Events</a><span>/</span>' +
+      (isPast ? '<a href="?">Business Conclave</a><span>/</span><span aria-current="page">Past editions</span>'
+              : '<span aria-current="page">Business Conclave ' + esc(current) + "</span>") + "</nav>";
   }
 
-  function hero() {
-    // Mosaic rows of up to 4. Short rows go in the middle and are centred
-    // (e.g. 11 speakers -> 4 / 3 / 4), so the block never has an empty slot.
-    var people = (ed.speakers || []).slice(0, 12);
-    var rows = Math.ceil(people.length / 4), sizes = [];
-    for (var r = 0; r < rows; r++) sizes.push(4);
-    for (var d = rows * 4 - people.length, m = 0; d > 0; d--, m++) sizes[(Math.floor(rows / 2) + m) % rows]--;
-    var faces = "", n = 0;
-    sizes.forEach(function (size) {
-      for (var c = 0; c < size; c++, n++) {
-        var s = people[n];
-        var style = "--i:" + n + (c === 0 && size < 4 ? ";grid-column-start:" + (5 - size) : "");
-        faces += '<figure class="mosaic__tile" style="' + style + '"><img src="' + esc(s.photo) + '" alt="" loading="eager"></figure>';
-      }
+  /* The one design-language strip, just above the footer */
+  function ribbon() { return '<div class="ribbon" aria-hidden="true"></div>'; }
+
+  /* ================================================================== */
+  /* Upcoming edition (home)                                             */
+  /* ================================================================== */
+
+  /* Constellation points (x%, y%): a loose lattice, each joined to its neighbours */
+  var STARS = [[16, 9], [50, 5], [84, 10], [33, 27], [67, 25], [14, 46], [50, 45], [86, 47], [31, 66], [69, 64], [16, 85], [50, 87], [84, 84]];
+
+  function constellation() {
+    var all = organisations(), byOrg = {};
+    all.forEach(function (o) { byOrg[o.org] = o; });
+    var picks = (cur.constellation || []).map(function (n) { return byOrg[n]; }).filter(Boolean);
+    all.forEach(function (o) { if (picks.length < STARS.length && picks.indexOf(o) < 0) picks.push(o); });
+    picks = picks.slice(0, STARS.length);
+    if (!picks.length) return "";
+    var pts = STARS.slice(0, picks.length), lines = [], seen = {};
+    pts.forEach(function (p, i) {
+      pts.map(function (q, j) { return { j: j, d: Math.hypot(p[0] - q[0], p[1] - q[1]) }; })
+        .filter(function (o) { return o.j !== i; })
+        .sort(function (a, b) { return a.d - b.d; }).slice(0, 3)
+        .forEach(function (o) {
+          var k = Math.min(i, o.j) + "-" + Math.max(i, o.j);
+          if (!seen[k] && o.d < 32) {
+            seen[k] = 1;
+            lines.push('<line x1="' + p[0] + '" y1="' + p[1] + '" x2="' + pts[o.j][0] + '" y2="' + pts[o.j][1] + '"/>');
+          }
+        });
     });
-    var tag = has(ed.tagline) ? '<p class="hero__tagline">' + ed.tagline.map(esc).join("<i>|</i>") + "</p>" : "";
+    return '<div class="constellation" role="list" aria-label="Organisations whose leaders have spoken at the Conclave">' +
+      '<svg class="constellation__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' + lines.join("") + "</svg>" +
+      picks.map(function (o, i) {
+        return '<span class="star" role="listitem" style="left:' + pts[i][0] + "%;top:" + pts[i][1] + "%;--i:" + i + '"><img src="' + esc(o.logo) + '" alt="' + esc(o.org) + '"></span>';
+      }).join("") +
+    "</div>";
+  }
+
+  function homeHero() {
+    var t = cur.theme || {};
+    var involve = cur.involve || {};
     return '' +
-      '<section class="hero" id="top">' +
+      '<section class="hero hero--home" id="top">' +
         '<div class="wrap hero__grid">' +
           '<div class="hero__copy">' +
             '<p class="hero__presents">BITS School of Management presents</p>' +
             '<h1 class="hero__title"><img class="hero__logo" src="assets/img/brand/conclave-logo-light.png" alt="BITSoM Conclave" width="560" height="173">' +
-              '<span class="hero__year">' + esc(ed.year) + "</span></h1>" +
-            (ed.theme ? '<p class="hero__kicker">' + esc(ed.theme.kicker) + '</p><p class="hero__theme">' + esc(ed.theme.title) + "</p>" : "") +
+              '<span class="hero__year">' + esc(current) + "</span></h1>" +
+            '<p class="hero__kicker">Theme ' + esc(current) + "</p>" +
+            '<p class="hero__theme">' + (t.title ? brand(t.title) : "To be announced") + "</p>" +
             '<ul class="hero__meta">' +
-              (ed.date ? "<li>" + icon("calendar") + '<time datetime="' + esc(ed.dateISO || "") + '">' + esc(ed.date) + "</time></li>" : "") +
-              (ed.venue ? "<li>" + icon("pin") + esc(ed.venue) + "</li>" : "") +
-            "</ul>" + tag +
-          "</div>" +
-          (faces ? '<div class="hero__mosaic mosaic" aria-hidden="true">' + faces + "</div>" : "") +
-        "</div>" +
-      "</section>";
-  }
-
-  function numbers() {
-    if (!has(ed.stats)) return "";
-    return '' +
-      '<section class="numbers" id="numbers" aria-label="' + esc(ed.year) + ' in numbers">' +
-        '<div class="wrap numbers__grid">' +
-          ed.stats.map(function (st) {
-            var v = statValue(st);
-            return '<div class="stat reveal">' +
-              '<span class="stat__num" data-count="' + v + '">' + (reduceMotion ? v : 0) + "</span>" +
-              '<span class="stat__suffix">' + esc(st.suffix || "") + "</span>" +
-              '<span class="stat__label">' + esc(st.label) + "</span></div>";
-          }).join("") +
-        "</div>" +
-      "</section>";
-  }
-
-  function about() {
-    var a = ed.about;
-    if (!a) return "";
-    var n = chapter("idea", "The Idea");
-    return '' +
-      '<section class="chapter chapter--idea" id="idea">' +
-        '<div class="wrap">' +
-          sectionHead(n, "The Idea", "Why we gathered") +
-          '<div class="idea">' +
-            '<div class="idea__copy reveal">' +
-              (a.quote ? '<blockquote class="idea__quote">“' + esc(a.quote) + "”</blockquote>" : "") +
-              (a.lead ? '<p class="idea__lead">' + brand(a.lead) + "</p>" : "") +
-              (a.body ? '<p class="idea__body">' + brand(a.body) + "</p>" : "") +
+              "<li>" + icon("calendar") + (cur.date ? '<time datetime="' + esc(cur.dateISO || "") + '">' + esc(cur.date) + "</time>" : "Date to be announced") + "</li>" +
+              (cur.venue ? "<li>" + icon("pin") + esc(cur.venue) + "</li>" : "") +
+            "</ul>" +
+            '<div class="hero__actions">' +
+              (involve.speakers ? '<a class="btn btn--orange" href="#involve">Speak at the Conclave' + icon("arrow") + "</a>" : "") +
+              (involve.partners ? '<a class="btn btn--ghost" href="#involve-partners">Partner with us</a>' : "") +
             "</div>" +
-            (ed.theme ? '<div class="idea__theme reveal">' +
-              '<span class="chip chip--light">Theme ' + esc(ed.year) + "</span>" +
-              '<p class="idea__theme-kicker">' + esc(ed.theme.kicker) + "</p>" +
-              '<p class="idea__theme-title">' + esc(ed.theme.title) + "</p>" +
-            "</div>" : "") +
+            (has(cur.stats) ? '<dl class="hero__stats">' + cur.stats.map(function (st) {
+              var v = statValue(st);
+              return '<div class="hstat"><dt>' + esc(st.label) + "</dt>" +
+                '<dd><span class="stat__num" data-count="' + v + '">' + (reduceMotion ? v : 0) + "</span>" +
+                (st.suffix ? '<span class="hstat__suffix">' + esc(st.suffix) + "</span>" : "") + "</dd></div>";
+            }).join("") + "</dl>" : "") +
           "</div>" +
-          (has(a.pillars) ? '<div class="pillars">' + a.pillars.map(function (p, i) {
-            return '<article class="pillar reveal" style="--d:' + i * 80 + 'ms">' + icon(p.icon, "pillar__icon") +
-              "<h3>" + esc(p.title) + "</h3><p>" + brand(p.text) + "</p></article>";
-          }).join("") + "</div>" : "") +
+          '<div class="hero__side">' + constellation() +
+            '<p class="hero__side-cap">Leaders from ' + organisations().length + " organisations have taken the Conclave stage</p>" +
+          "</div>" +
         "</div>" +
       "</section>";
   }
 
-  function voices() {
-    var sp = ed.speakers;
-    if (!has(sp)) return "";
-    var n = chapter("voices", "The Voices");
-    var sectors = unique(sp.map(function (s) { return s.sector; }));
-    var size = function (x) { return sp.filter(function (s) { return s.sector === x; }).length; };
-    sectors.sort(function (a, b) { return size(b) - size(a); }); // biggest groups first (stable for ties)
-    var logos = sp.filter(function (s) { return s.logo; });
+  function homeAbout() {
+    var a = cur.about;
+    if (!a) return "";
+    var n = chapter("about", "About");
     return '' +
-      '<section class="chapter chapter--voices chapter--soft" id="voices">' +
+      '<section class="chapter" id="about">' +
         '<div class="wrap">' +
-          sectionHead(n, "The Voices", sp.length + " leaders. " + sectors.length + " sectors. One stage.", true) +
-          '<div class="filters" role="group" aria-label="Filter speakers by sector">' +
-            '<button type="button" class="filter is-active" data-filter="*" aria-pressed="true">All <span>' + sp.length + "</span></button>" +
-            sectors.map(function (s) {
-              var c = sp.filter(function (x) { return x.sector === s; }).length;
-              return '<button type="button" class="filter" data-filter="' + esc(s) + '" aria-pressed="false">' + esc(s) + " <span>" + c + "</span></button>";
-            }).join("") +
+          sectionHead(n, "About the Conclave", "Where ideas meet action") +
+          '<div class="about">' +
+            '<div class="about__copy reveal">' +
+              (a.quote ? '<blockquote class="about__quote">“' + esc(a.quote) + "”</blockquote>" : "") +
+              (a.lead ? '<p class="about__lead">' + brand(a.lead) + "</p>" : "") +
+              (a.body ? '<p class="about__body">' + brand(a.body) + "</p>" : "") +
+            "</div>" +
+            (has(a.pillars) ? '<div class="pillars reveal">' + a.pillars.map(function (p) {
+              return '<article class="pillar">' + icon(p.icon, "pillar__icon") + "<h3>" + esc(p.title) + "</h3><p>" + brand(p.text) + "</p></article>";
+            }).join("") + "</div>" : "") +
           "</div>" +
-          '<ul class="speakers">' +
-            sp.map(function (s, i) {
-              // Cards open a profile only when there is a bio to show.
-              var tag = s.bio ? 'button type="button" class="speaker__card" data-speaker="' + i + '" aria-haspopup="dialog"' : 'div class="speaker__card"';
-              return '<li class="speaker reveal" data-sector="' + esc(s.sector) + '" style="--d:' + (i % 4) * 70 + 'ms">' +
-                "<" + tag + ">" +
-                  '<span class="speaker__photo"><img src="' + esc(s.photo) + '" alt="" loading="lazy" width="132" height="132"></span>' +
-                  '<span class="speaker__name">' + esc(s.name) + "</span>" +
-                  '<span class="speaker__role">' + esc(s.role) + "</span>" +
-                  '<span class="speaker__org">' + (s.logo ? '<img src="' + esc(s.logo) + '" alt="' + esc(s.org) + '" loading="lazy">' : "<em>" + esc(s.org || s.sector) + "</em>") + "</span>" +
-                  (s.bio ? '<span class="speaker__more">View profile ' + icon("arrow") + "</span>" : "") +
-                "</" + (s.bio ? "button" : "div") + "></li>";
-            }).join("") +
-          "</ul>" +
         "</div>" +
-        (logos.length ? '<div class="logos" aria-label="Organisations on stage">' +
-          '<p class="logos__label">Organisations on stage</p>' +
-          '<div class="logos__track">' + [0, 1].map(function (k) {
-            return '<div class="logos__row"' + (k ? ' aria-hidden="true"' : "") + ">" + logos.map(function (s) {
-              return '<span class="logos__item"><img src="' + esc(s.logo) + '" alt="' + (k ? "" : esc(s.org)) + '" loading="lazy"></span>';
-            }).join("") + "</div>";
-          }).join("") + "</div></div>" : "") +
       "</section>";
   }
 
-  function day() {
-    var t = ed.timeline;
-    if (!has(t)) return "";
+  function homeTheme() {
+    var t = cur.theme || {};
+    var n = chapter("theme", "Theme");
+    return '' +
+      '<section class="chapter chapter--soft" id="theme">' +
+        '<div class="wrap">' +
+          sectionHead(n, "The Theme", "One question for the year") +
+          '<div class="themes">' +
+            '<div class="theme-card reveal">' +
+              '<span class="chip chip--light">Theme ' + esc(current) + "</span>" +
+              '<p class="theme-card__title">' + (t.title ? brand(t.title) : "To be announced") + "</p>" +
+              '<p class="theme-card__text">' + (t.text ? brand(t.text) : "The " + esc(current) + " theme will be announced here. Here is where the conversation has been so far.") + "</p>" +
+            "</div>" +
+            '<div class="themes__past reveal">' +
+              '<p class="themes__label">Previous themes</p>' +
+              pastYears.map(function (y) {
+                var pt = editions[y].theme || {};
+                return '<a class="past-theme" href="?edition=' + esc(y) + '">' +
+                  '<span class="past-theme__year">' + esc(y) + "</span>" +
+                  '<span class="past-theme__body">' + (pt.kicker && !/^theme/i.test(pt.kicker) ? '<span class="past-theme__kicker">' + esc(pt.kicker) + "</span>" : "") +
+                    '<span class="past-theme__title">' + brand(pt.title || "") + "</span></span>" +
+                  icon("arrow") + "</a>";
+              }).join("") +
+            "</div>" +
+          "</div>" +
+        "</div>" +
+      "</section>";
+  }
+
+  function homeDay() {
+    if (!has(cur.dayFlow)) return "";
     var n = chapter("day", "The Day");
     return '' +
-      '<section class="chapter chapter--day" id="day">' +
+      '<section class="chapter" id="day">' +
         '<div class="wrap">' +
-          sectionHead(n, "The Day", "From first word to last handshake", true) +
-          '<ol class="timeline">' +
-            t.map(function (s, i) {
-              return '<li class="moment reveal">' +
-                '<div class="moment__node">' + icon(s.icon || "mic") + "</div>" +
-                '<div class="moment__card' + (s.image ? "" : " moment__card--text") + '">' +
-                  (s.image ? '<div class="moment__img"><img src="' + esc(s.image) + '" alt="" loading="lazy"></div>' : "") +
-                  '<div class="moment__text">' +
-                    '<p class="moment__time"><span>' + pad(i + 1) + "</span>" + esc(s.time || "") + "</p>" +
-                    "<h3>" + esc(s.title) + "</h3><p>" + brand(s.text) + "</p>" +
-                  "</div>" +
-                "</div></li>";
-            }).join("") +
-          "</ol>" +
+          sectionHead(n, "A Conclave Day", "From the first word to the last handshake", true) +
+          '<ol class="flow">' + cur.dayFlow.map(function (s, i) {
+            return '<li class="flow__step reveal" style="--d:' + (i % 3) * 80 + 'ms">' +
+              (s.image ? '<div class="flow__img"><img src="' + esc(s.image) + '" alt="" loading="lazy"></div>' : "") +
+              '<div class="flow__text"><p class="flow__num">' + icon(s.icon || "mic") + "<span>" + pad(i + 1) + "</span></p>" +
+                "<h3>" + esc(s.title) + "</h3><p>" + brand(s.text) + "</p></div></li>";
+          }).join("") + "</ol>" +
         "</div>" +
       "</section>";
   }
 
-  function gallery() {
-    if (!has(ed.gallery)) return "";
-    var n = chapter("frames", "In Frame");
+  function homeSpeakers() {
+    var confirmed = cur.speakers || [];
+    if (confirmed.length >= 6) {
+      var n1 = chapter("speakers", "Speakers");
+      return '' +
+        '<section class="chapter chapter--soft" id="speakers">' +
+          '<div class="wrap">' +
+            sectionHead(n1, "The Speakers", "Conclave " + current + " line-up", true) +
+            '<ul class="speakers speakers--three">' + confirmed.map(function (s, i) { return speakerCard(s, i); }).join("") + "</ul>" +
+          "</div>" +
+        "</section>";
+    }
+    var sp = pastSpeakers();
+    if (!sp.length) return "";
+    var n = chapter("speakers", "Past Speakers");
     return '' +
-      '<section class="chapter chapter--frames chapter--soft" id="frames">' +
+      '<section class="chapter chapter--soft" id="speakers">' +
         '<div class="wrap">' +
-          sectionHead(n, "In Frame", "The Conclave, as it happened", true) +
-          '<ul class="gallery">' +
-            ed.gallery.map(function (g, i) {
-              return '<li class="gallery__item ' + (g.size ? "gallery__item--" + esc(g.size) : "") + ' reveal">' +
-                '<button type="button" data-photo="' + i + '" aria-label="Open photo: ' + esc(g.caption) + '">' +
-                  '<img src="' + esc(g.src) + '" alt="' + esc(g.caption) + '" loading="lazy">' +
-                  '<span class="gallery__cap">' + esc(g.caption) + "</span>" +
-                "</button></li>";
+          sectionHead(n, "Past Speakers", sp.length + " leaders who have taken the Conclave stage", true) +
+          '<div class="filters" role="group" aria-label="Filter speakers by edition">' +
+            '<button type="button" class="filter is-active" data-filter="*" aria-pressed="true">All <span>' + sp.length + "</span></button>" +
+            pastYears.map(function (y) {
+              return '<button type="button" class="filter" data-filter="' + esc(y) + '" aria-pressed="false">' + esc(y) + " <span>" + editions[y].speakers.length + "</span></button>";
             }).join("") +
-          "</ul>" +
+          "</div>" +
+          '<ul class="speakers speakers--compact">' + sp.map(function (s, i) { return speakerCard(s, i, { group: true, tag: true }); }).join("") + "</ul>" +
         "</div>" +
       "</section>";
   }
 
-  function media() {
-    var m = ed.media || {};
+  function homeOrganisations() {
+    var orgs = organisations();
+    if (!orgs.length) return "";
+    var n = chapter("organisations", "Organisations");
+    return '' +
+      '<section class="chapter" id="organisations">' +
+        '<div class="wrap">' +
+          sectionHead(n, "On the Conclave Stage", orgs.length + " organisations across " + pastYears.length + " editions", true) +
+          '<ul class="logo-wall">' + orgs.map(function (o, i) {
+            return '<li class="logo-wall__item reveal" style="--d:' + (i % 6) * 40 + 'ms"><img src="' + esc(o.logo) + '" alt="' + esc(o.org) + '" loading="lazy"></li>';
+          }).join("") + "</ul>" +
+        "</div>" +
+      "</section>";
+  }
+
+  function homeMedia() {
+    var m = cur.media || {};
     var feature = m.overview && youtubeId(m.overview.youtube) ? m.overview : null;
     var pods = ((m.podcasts && m.podcasts.items) || []).filter(function (p) { return youtubeId(p.youtube); });
     var posts = (m.linkedin || []).filter(function (p) { return linkedinEmbed(p.url); });
@@ -289,7 +385,7 @@
         (v.title ? '<p class="video__title">' + brand(v.title) + "</p>" : "");
     }
     return '' +
-      '<section class="chapter chapter--watch" id="watch">' +
+      '<section class="chapter chapter--soft" id="watch">' +
         '<div class="wrap">' +
           sectionHead(n, "Watch & Listen", "The Conclave beyond the stage", true) +
           '<div class="media">' +
@@ -305,103 +401,133 @@
       "</section>";
   }
 
-  function testimonials() {
-    if (!has(ed.testimonials)) return "";
+  function homeReflections() {
+    var quotes = [];
+    pastYears.forEach(function (y) { (editions[y].testimonials || []).forEach(function (q) { quotes.push(Object.assign({ year: y }, q)); }); });
+    if (!quotes.length) return "";
     var n = chapter("reflections", "Reflections");
     return '' +
-      '<section class="chapter chapter--quotes chapter--soft" id="reflections">' +
+      '<section class="chapter" id="reflections">' +
         '<div class="wrap">' +
-          sectionHead(n, "Reflections", "In the speakers' words", true) +
-          '<div class="quotes">' +
-            ed.testimonials.map(function (q) {
-              return '<figure class="quote reveal"><blockquote>' + brand(q.quote) + "</blockquote>" +
-                "<figcaption>" + (q.photo ? '<img src="' + esc(q.photo) + '" alt="" loading="lazy">' : "") +
-                "<span><strong>" + esc(q.name) + "</strong>" + esc(q.role || "") + "</span></figcaption></figure>";
-            }).join("") +
+          sectionHead(n, "In Their Words", "What past speakers said", true) +
+          '<div class="quotes">' + quotes.map(function (q) {
+            return '<figure class="quote reveal"><blockquote>' + brand(q.quote) + "</blockquote>" +
+              "<figcaption>" + (q.photo ? '<img src="' + esc(q.photo) + '" alt="" loading="lazy">' : "") +
+              "<span><strong>" + esc(q.name) + "</strong>" + esc(q.role || "") + " · Conclave " + esc(q.year) + "</span></figcaption></figure>";
+          }).join("") + "</div>" +
+        "</div>" +
+      "</section>";
+  }
+
+  function homeInvolve() {
+    var inv = cur.involve;
+    if (!inv || (!inv.speakers && !inv.partners)) return "";
+    var n = chapter("involve", "Get Involved");
+    function card(c, id, cls, btn) {
+      if (!c) return "";
+      return '<article class="involve__card ' + cls + ' reveal" id="' + id + '">' +
+        "<h3>" + brand(c.title) + "</h3>" +
+        '<ul class="involve__points">' + (c.points || []).map(function (p) { return "<li>" + icon("check") + "<span>" + brand(p) + "</span></li>"; }).join("") + "</ul>" +
+        (c.cta && c.cta.href ? '<a class="btn ' + btn + '" href="' + esc(c.cta.href) + '">' + esc(c.cta.label) + icon("arrow") + "</a>" : "") +
+      "</article>";
+    }
+    return '' +
+      '<section class="chapter chapter--soft" id="involve">' +
+        '<div class="wrap">' +
+          sectionHead(n, "Be Part of " + current, "Take the stage, or stand behind it", true) +
+          '<div class="involve">' +
+            card(inv.speakers, "involve-speakers", "involve__card--speak", "btn--orange") +
+            card(inv.partners, "involve-partners", "involve__card--partner", "btn--blue") +
           "</div>" +
         "</div>" +
       "</section>";
   }
 
-  function finale() {
-    var f = ed.finale;
-    if (!f) return "";
-    var n = chapter("finale", "The Finale");
+  function homePast() {
+    if (!pastYears.length) return "";
+    var n = chapter("past", "Past Editions");
     return '' +
-      '<section class="chapter chapter--finale" id="finale">' +
-        (f.image ? '<div class="finale__photo"><img src="' + esc(f.image) + '" alt="' + esc(f.imageAlt || "") + '" loading="lazy"></div>' : "") +
-        '<div class="wrap finale">' +
-          sectionHead(n, "The Finale", "", true) +
-          '<h2 class="finale__title reveal">' + brand(f.title) + "</h2>" +
-          '<p class="finale__text reveal">' + brand(f.text) + "</p>" +
-          (has(f.takeaways) ? '<div class="takeaways">' + f.takeaways.map(function (t, i) {
-            return '<div class="takeaway reveal" style="--d:' + i * 100 + 'ms"><span class="takeaway__word">' + esc(t.word) + "</span><p>" + brand(t.text) + "</p></div>";
-          }).join("") + "</div>" : "") +
+      '<section class="chapter" id="past">' +
+        '<div class="wrap">' +
+          sectionHead(n, "Past Editions", "Where the story so far was written", true) +
+          '<div class="past-cards">' + pastYears.map(function (y) {
+            var e = editions[y], t = e.theme || {};
+            var full = (e.gallery || []).filter(function (g) { return g.size === "full"; })[0] || (e.gallery || [])[0];
+            return '<a class="past-card reveal" href="?edition=' + esc(y) + '">' +
+              (full ? '<span class="past-card__img"><img src="' + esc(full.src) + '" alt="" loading="lazy"></span>' : "") +
+              '<span class="past-card__body">' +
+                '<span class="past-card__year">' + esc(y) + "</span>" +
+                '<span class="past-card__theme">' + brand(t.title || "") + "</span>" +
+                '<span class="past-card__meta">' + esc(e.date || "") + " · " + (e.speakers || []).length + " speakers</span>" +
+                '<span class="past-card__more">Explore ' + esc(y) + icon("arrow") + "</span>" +
+              "</span></a>";
+          }).join("") + "</div>" +
         "</div>" +
       "</section>";
   }
 
-  function next() {
-    var x = ed.next;
-    if (!x) return "";
+  /* ================================================================== */
+  /* Past Editions                                                        */
+  /* ================================================================== */
+
+  function pastHero() {
+    return '' +
+      '<section class="hero hero--past" id="top">' +
+        '<div class="wrap">' +
+          '<p class="hero__presents">BITSoM Business Conclave</p>' +
+          '<h1 class="hero__heading">Past Editions</h1>' +
+          '<p class="hero__message">The themes, the speakers and the pictures from every Conclave so far.</p>' +
+          '<div class="hero__jumps">' + pastYears.map(function (y) {
+            return '<a class="jump" href="#e' + esc(y) + '"><b>' + esc(y) + "</b><span>" + brand((editions[y].theme || {}).title || "") + "</span></a>";
+          }).join("") + "</div>" +
+        "</div>" +
+      "</section>";
+  }
+
+  function pastEdition(y, idx) {
+    var e = editions[y], t = e.theme || {};
+    chapters.push({ id: "e" + y, label: "Conclave " + y });
+    return '' +
+      '<section class="chapter edition' + (idx % 2 ? " chapter--soft" : "") + '" id="e' + esc(y) + '">' +
+        '<div class="wrap">' +
+          '<header class="edition__head reveal">' +
+            '<div class="edition__when"><span class="edition__year">' + esc(y) + "</span>" +
+              '<span class="edition__meta">' + esc(e.date || "") + (e.venue ? "<br>" + esc(e.venue) : "") + "</span></div>" +
+            '<div class="edition__theme">' +
+              '<p class="edition__kicker">' + esc(t.kicker && !/^theme/i.test(t.kicker) ? t.kicker : "Theme " + y) + "</p>" +
+              "<h2>" + brand(t.title || "") + "</h2>" +
+              (t.text ? "<p>" + brand(t.text) + "</p>" : "") +
+            "</div>" +
+          "</header>" +
+          (has(e.speakers) ? '<h3 class="edition__label reveal">Speakers <span>' + e.speakers.length + "</span></h3>" +
+            '<ul class="speakers">' + e.speakers.map(function (s, i) { return speakerCard(s, i); }).join("") + "</ul>" : "") +
+          (has(e.gallery) ? '<h3 class="edition__label reveal">Pictures</h3>' + galleryGrid(y, e.gallery) : "") +
+        "</div>" +
+      "</section>";
+  }
+
+  function pastNext() {
     return '' +
       '<section class="next">' +
         '<div class="wrap next__inner">' +
-          '<div><h2>' + brand(x.title) + "</h2><p>" + brand(x.text) + "</p></div>" +
-          (x.cta ? '<a class="btn btn--orange" href="' + esc(x.cta.href) + '">' + esc(x.cta.label) + icon("arrow") + "</a>" : "") +
+          "<div><h2>Conclave " + esc(current) + " is coming</h2><p>Speak, partner or simply be in the room for the next edition.</p></div>" +
+          '<a class="btn btn--orange" href="?">See Conclave ' + esc(current) + icon("arrow") + "</a>" +
         "</div>" +
       "</section>";
-  }
-
-  function sectionHead(num, title, sub, light) {
-    return '<header class="sec-head' + (light ? " sec-head--center" : "") + ' reveal">' +
-      '<p class="sec-head__num">Chapter ' + num + "</p>" +
-      '<h2 class="sec-head__title">' + esc(title) + "</h2>" +
-      (sub ? '<p class="sec-head__sub">' + brand(sub) + "</p>" : "") +
-      "</header>";
-  }
-
-  function subnav() {
-    return '<nav class="subnav" aria-label="Conclave ' + esc(year) + ' chapters">' +
-      '<div class="wrap subnav__inner">' +
-        '<a class="subnav__title" href="#top">Business Conclave <b>' + esc(year) + "</b></a>" +
-        (chapters.length ? '<div class="subnav__links">' + chapters.map(function (c) {
-          return '<a href="#' + c.id + '" data-spy="' + c.id + '">' + esc(c.label) + "</a>";
-        }).join("") + "</div>" : "") +
-        editionSwitcher() +
-      "</div></nav>";
-  }
-
-  function comingSoon() {
-    var latest = years.filter(function (y) { return editions[y].status === "published"; }).pop();
-    return '' +
-      '<section class="hero hero--soon" id="top">' +
-        '<div class="wrap hero__grid">' +
-          '<div class="hero__copy">' +
-            '<p class="hero__presents">BITS School of Management presents</p>' +
-            '<h1 class="hero__title"><img class="hero__logo" src="assets/img/brand/conclave-logo-light.png" alt="BITSoM Conclave" width="560" height="173">' +
-              '<span class="hero__year">' + esc(year) + "</span></h1>" +
-            '<p class="hero__message">' + brand(ed.message || "Coming soon.") + "</p>" +
-            (latest && latest !== year ? '<a class="btn btn--orange" href="?edition=' + esc(latest) + '">Relive Conclave ' + esc(latest) + icon("arrow") + "</a>" : "") +
-          "</div>" +
-        "</div>" +
-      "</section>";
-  }
-
-  /* The single design-language strip, just above the footer */
-  function ribbon() {
-    return '<div class="ribbon" aria-hidden="true"></div>';
   }
 
   /* ---------- render ---------- */
 
   function render() {
-    document.title = "BITSoM Business Conclave " + year + " | Events | BITS School of Management";
-    if (!ed || ed.status !== "published") {
-      root.innerHTML = subnav() + breadcrumb() + comingSoon() + ribbon();
-      return;
+    var body;
+    if (isPast) {
+      document.title = "Past Editions | BITSoM Business Conclave | BITS School of Management";
+      body = pastHero() + pastYears.map(pastEdition).join("") + pastNext();
+    } else {
+      document.title = "BITSoM Business Conclave " + current + " | Events | BITS School of Management";
+      body = homeHero() + homeAbout() + homeTheme() + homeDay() + homeSpeakers() + homeOrganisations() +
+        homeMedia() + homeReflections() + homeInvolve() + homePast();
     }
-    var body = hero() + numbers() + about() + voices() + day() + gallery() + media() + testimonials() + finale() + next();
     root.innerHTML = subnav() + breadcrumb() + body + ribbon();
   }
 
@@ -446,7 +572,7 @@
 
   function setupFilters() {
     var btns = root.querySelectorAll(".filter");
-    var cards = root.querySelectorAll(".speaker");
+    var cards = root.querySelectorAll(".speaker[data-group]");
     btns.forEach(function (b) {
       b.addEventListener("click", function () {
         var f = b.dataset.filter;
@@ -455,48 +581,25 @@
           x.classList.toggle("is-active", on);
           x.setAttribute("aria-pressed", on ? "true" : "false");
         });
-        cards.forEach(function (c) {
-          c.hidden = !(f === "*" || c.dataset.sector === f);
-        });
+        cards.forEach(function (c) { c.hidden = !(f === "*" || c.dataset.group === f); });
       });
     });
   }
 
-  function setupSpeakerModal() {
-    var dlg = document.getElementById("speaker-modal");
-    if (!dlg || !dlg.showModal) return;
-    var bodyEl = dlg.querySelector(".speaker-modal__body");
-    root.addEventListener("click", function (e) {
-      var btn = e.target.closest("[data-speaker]");
-      if (!btn) return;
-      var s = ed.speakers[+btn.dataset.speaker];
-      bodyEl.innerHTML =
-        '<div class="speaker-modal__photo"><img src="' + esc(s.photo) + '" alt="' + esc(s.name) + '"></div>' +
-        '<div class="speaker-modal__text">' +
-          '<span class="chip chip--soft">' + esc(s.sector) + "</span>" +
-          "<h3>" + esc(s.name) + "</h3>" +
-          '<p class="speaker-modal__role">' + esc(s.role) + (s.org ? ", " + esc(s.org) : "") + "</p>" +
-          (s.logo ? '<img class="speaker-modal__logo" src="' + esc(s.logo) + '" alt="' + esc(s.org) + '">' : "") +
-          (s.bio ? "<p>" + brand(s.bio) + "</p>" : "") +
-        "</div>";
-      dlg.showModal();
-    });
-    dlg.querySelector(".speaker-modal__close").addEventListener("click", function () { dlg.close(); });
-    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
-  }
-
   function setupLightbox() {
     var dlg = document.getElementById("lightbox");
-    if (!dlg || !dlg.showModal || !has(ed.gallery)) return;
-    var img = dlg.querySelector("img"), cap = dlg.querySelector("figcaption"), idx = 0;
+    if (!dlg || !dlg.showModal) return;
+    var img = dlg.querySelector("img"), cap = dlg.querySelector("figcaption"), list = [], idx = 0;
     function show(i) {
-      idx = (i + ed.gallery.length) % ed.gallery.length;
-      var g = ed.gallery[idx];
-      img.src = g.src; img.alt = g.caption; cap.textContent = g.caption + "  ·  " + (idx + 1) + " / " + ed.gallery.length;
+      idx = (i + list.length) % list.length;
+      var g = list[idx];
+      img.src = g.src; img.alt = g.caption; cap.textContent = g.caption + "  ·  " + (idx + 1) + " / " + list.length;
     }
     root.addEventListener("click", function (e) {
       var b = e.target.closest("[data-photo]");
       if (!b) return;
+      list = galleries[b.dataset.gallery] || [];
+      if (!list.length) return;
       show(+b.dataset.photo);
       dlg.showModal();
     });
@@ -551,9 +654,15 @@
   setupReveal();
   setupCounters();
   setupFilters();
-  setupSpeakerModal();
   setupLightbox();
   setupVideos();
   setupScrollSpy();
+  if (focusYear) {
+    // Jump to the requested edition, and again once images have settled the layout.
+    var target = document.getElementById("e" + focusYear);
+    var jump = function () { if (target) target.scrollIntoView({ block: "start" }); };
+    requestAnimationFrame(jump);
+    window.addEventListener("load", jump, { once: true });
+  }
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();

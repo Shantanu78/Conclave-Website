@@ -1,15 +1,21 @@
 # BITSoM Business Conclave: event page
 
-**Handoff for the bitsom.edu.in web team.** A storytelling page for the
-BITSoM Business Conclave, to sit under **Events**. One template serves every
-edition; all content lives in one data file, so new editions need no code.
+**Handoff for the bitsom.edu.in web team.** The BITSoM Business Conclave
+page, to sit under **Events**. All content lives in one data file, so new
+editions and new speakers need no code.
 
-Preview: https://bitsom-conclave.vercel.app (`?edition=2025`, `2026`, `2027`)
+Preview: https://bitsom-conclave.vercel.app
+
+| View | URL | Purpose |
+| --- | --- | --- |
+| Conclave 2027 (main page) | `index.html` | Attract speakers and partners: hero with past speakers' company logos, about, theme, a typical day, past speakers, organisations, reflections, how to get involved |
+| Past Editions | `index.html?edition=past` | 2026 above 2025, each with its theme, speakers and pictures |
+| One past edition | `index.html?edition=2026` | Past Editions, scrolled to that year |
 
 ```
 conclave/
 ├── index.html            page shell; header and footer are stand-ins
-├── data/editions.js      all content, one object per edition
+├── data/editions.js      all content: 2027 (upcoming), 2026, 2025
 └── assets/
     ├── css/conclave.css  styles (scoped to Conclave classes)
     ├── js/conclave.js    renderer, plain JavaScript, no dependencies
@@ -40,9 +46,10 @@ It is a static page: no build step, no framework, no server code.
    can be reduced to `Noto Sans JP`. Jost is only a stand-in for previews.
 3. **Paths.** Every asset path is relative to `index.html`. Copy the
    `conclave/` folder as is, e.g. to `/events/business-conclave/`.
-4. **Editions.** The edition comes from `?edition=YYYY` and defaults to
-   `CONCLAVE_DEFAULT_EDITION` in `data/editions.js`. If you prefer clean URLs
-   (`/events/business-conclave/2025/`), rewrite them to the query string.
+4. **Views.** With no query string the page shows the upcoming edition
+   (`CONCLAVE_CURRENT` in `data/editions.js`). `?edition=past` shows Past
+   Editions. For clean URLs (`/events/business-conclave/past-editions/`),
+   rewrite them to the query string.
 5. **Content Security Policy.** If the site sends a CSP, allow:
    `frame-src https://www.youtube-nocookie.com https://www.linkedin.com`
    and `img-src https://i.ytimg.com` (video thumbnails).
@@ -54,40 +61,51 @@ It is a static page: no build step, no framework, no server code.
 
 | Item | Where it goes | Notes |
 | --- | --- | --- |
+| 2027 theme, date | `"2027"` → `theme`, `date` | Until filled in, the page says "To be announced". |
+| Speak / partner links | `"2027"` → `involve.*.cta.href` | e.g. a `mailto:` or form link; the buttons appear once set. |
+| LinkedIn profiles | `linkedin` on each speaker | Full profile URL. Empty shows a greyed-out icon. |
 | HD speaker portraits | `assets/img/speakers/*.jpg` (2026, 11 files) and `assets/img/speakers/2025/*.jpg` (20 files) | The current files come from the decks at 117–265 px and are soft. Replace each file **with the same name**: square, at least 600 × 600 px, natural colour, face in the upper half. No code change needed. |
-| Overview video | `media.overview.youtube` in the 2026 block | Paste the YouTube URL. |
+| Overview video | `"2027"` → `media.overview.youtube` | Paste the YouTube URL. |
 | Candid Conversations episodes | `media.podcasts.items` | One `{ youtube, title }` per episode. |
 | 2026 LinkedIn post | `media.linkedin` | Paste the post URL or the code from "Embed this post". |
 | Attendance figure | 2026 `stats` | "350+" came from the pre-event deck (`TODO(confirm)`). |
 
 The **Watch & Listen** chapter stays hidden until at least one media link is
-filled in, then appears between In Frame and the Finale. Videos load only
-when clicked (privacy-enhanced YouTube).
+filled in. Videos load only when clicked (privacy-enhanced YouTube).
+
+**Announcing 2027 speakers:** add them to `"2027"` → `speakers` (same fields
+as past speakers). Once there are six or more, "Past Speakers" on the main
+page is replaced by the 2027 line-up in rows of three.
 
 ## The story
 
+**Conclave 2027 (main page)**
+
 | Section | What it shows |
 | --- | --- |
-| Hero | Conclave logo, edition, theme, date, venue, speaker portraits |
-| Numbers | Speakers, C-suite leaders, organisations, sectors (counted from the speaker list), attendees |
-| The Idea | Why the Conclave exists, and the edition's theme |
-| The Voices | Speaker cards with a sector filter; cards with a bio open a profile |
-| The Day | Timeline of the day's sessions, each with a photo |
-| In Frame | Photo gallery with a full-screen viewer |
-| Watch & Listen | Overview film, podcast episodes, LinkedIn post (when supplied) |
-| Reflections | Speaker quotes (2025) |
-| The Finale | Team photo and how the day closed |
-| Next edition | Call to action for the next Conclave |
+| Hero | Conclave logo, 2027, theme, date, venue, Speak / Partner buttons, key numbers, and a constellation of past speakers' company logos |
+| About | What the Conclave is |
+| Theme | The 2027 theme, with links to previous themes |
+| A Conclave Day | The typical day flow, without times, with photos |
+| Past Speakers | All past speakers, filterable by edition (becomes the 2027 line-up at six confirmed) |
+| On the Conclave Stage | Logo wall of every organisation from 2025 and 2026 |
+| Watch & Listen | Overview film, podcasts, LinkedIn post (when supplied) |
+| In Their Words | Speaker reflections from LinkedIn |
+| Be Part of 2027 | What speakers and partners get |
+| Past Editions | Cards linking to each past edition |
 
-Any section whose data is empty is skipped, and chapter numbers and the
-sticky chapter menu adjust automatically.
+**Past Editions:** for each year, newest first: theme, speakers, pictures.
 
-## Adding an edition
+Any section whose data is empty is skipped; chapter numbers and the sticky
+menu adjust automatically.
 
-1. In `data/editions.js`, copy the `"2026"` object and change the year.
-2. Set `status: "published"` (until then the page shows a "coming soon"
-   screen with the `message` text).
-3. Add photos under `assets/img/` and point to them from the data.
+## Rolling over to the next edition
+
+After Conclave 2027:
+1. Set the 2027 block's `status` to `"past"` and give it a `gallery` and a
+   `theme.kicker` if wanted; it then appears on Past Editions above 2026.
+2. Add a `"2028"` block (copy the 2027 one) with `status: "upcoming"`.
+3. Set `CONCLAVE_CURRENT = "2028"`.
 
 ## Brand compliance
 
@@ -96,13 +114,12 @@ Following the BITSoM Brand Guidelines and the brand team's review:
 - **Logo:** the registered (®) BITSoM logo, used unmodified (trimmed and
   resized only), on BITSoM blue in the header and footer. It is never used as
   a background, texture or crop.
-- **Look:** minimal and clean. White space and soft light gradients; the
-  design-language pattern appears once, as a slim strip above the footer
-  (`ribbon.png`, taken from the guideline pattern).
+- **Look:** minimal and clean. White space and soft light gradients; no logo
+  or logo-derived element sits behind content. The design-language pattern
+  appears once, as a slim strip above the footer (`ribbon.png`).
 - **Colours:** red `#B72F26`, blue `#252A60`, orange `#F68722`.
 - **Type:** Brandon Grotesque only in capitals, for headings and labels;
-  Noto Sans JP for body copy (Manrope is the approved alternative and is
-  already in the font stack).
+  Manrope for body copy, as on BITSoM Vertex.
 - **Photos:** natural colour everywhere; nothing is tinted or filtered.
 - **Tone of voice:** British English, active voice, positive phrasing;
   "BITSoM" keeps its lowercase "o" even inside capitals (`brand()` in
@@ -110,8 +127,10 @@ Following the BITSoM Brand Guidelines and the brand team's review:
 
 ## Checks run before handoff
 
-On desktop (1440 px) and mobile (390 px), for every edition: no script
-errors, no broken images, no horizontal scrolling, no tinted images, and no
-Brandon/Jost text outside capitals. The sector filter, speaker profile,
-photo viewer (including arrow keys) and click-to-play video were exercised in
-a headless browser.
+On desktop (1440 px) and mobile (390 px), for both views: no script errors,
+no broken images, no horizontal scrolling, no tinted images, and no
+Brandon/Jost text outside capitals. Exercised in a headless browser: the
+edition filter, LinkedIn links (new tab) and greyed-out icons, the switch to
+the 2027 line-up at six speakers, the photo viewer per edition (including
+arrow keys), jumping to an edition from `?edition=2025`, and click-to-play
+video.

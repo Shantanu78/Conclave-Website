@@ -422,3 +422,71 @@ dialog::backdrop { background: rgba(20, 22, 60, .78); backdrop-filter: blur(3px)
 @media (max-width: 560px) { .lightbox__nav { top: auto; bottom: 20px; translate: none; } }
 
 .noscript { padding: 60px var(--gutter); text-align: center; }
+
+/* ------------------------------------------------------------------ */
+/* Motion: calm and quick, opacity and transform only. Everything that */
+/* moves sits inside the no-preference query, so visitors who ask for  */
+/* reduced motion get the same page, still.                            */
+/* ------------------------------------------------------------------ */
+
+/* Reading progress along the bottom of the sticky bar */
+.subnav::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--grad-accent); transform: scaleX(var(--progress, 0)); transform-origin: left; pointer-events: none; }
+
+/* Lazy images fade in once loaded instead of popping in */
+.img-fade { transition: opacity .6s var(--ease); }
+.img-fade.is-loading { opacity: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes drift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-10%, 8%, 0); } }
+
+  /* Hero: its lines arrive one after another */
+  .hero__copy > *, .hero--past .wrap > * { animation: rise .8s var(--ease) both; }
+  .hero__copy > :nth-child(2), .hero--past .wrap > :nth-child(2) { animation-delay: .08s; }
+  .hero__copy > :nth-child(3), .hero--past .wrap > :nth-child(3) { animation-delay: .16s; }
+  .hero__copy > :nth-child(4), .hero--past .wrap > :nth-child(4) { animation-delay: .24s; }
+  .hero__copy > :nth-child(5) { animation-delay: .32s; }
+  .hero__copy > :nth-child(6) { animation-delay: .40s; }
+  .hero__copy > :nth-child(7) { animation-delay: .48s; }
+  .hero__side-cap { animation: rise .8s var(--ease) 1.1s both; }
+
+  /* A faint glow drifting slowly across the hero */
+  .hero::before { content: ""; position: absolute; width: 70%; aspect-ratio: 1; right: -18%; top: -45%; border-radius: 50%; background: radial-gradient(closest-side, rgba(179, 188, 246, .16), rgba(179, 188, 246, 0)); animation: drift 18s ease-in-out infinite alternate; pointer-events: none; }
+  .hero > .wrap { position: relative; }
+
+  /* Constellation lines appear once the logos have landed */
+  .constellation__lines line { animation: fade-in 1s var(--ease) both; animation-delay: calc(.7s + var(--i, 0) * 45ms); }
+
+  /* Chapter heads: the accent rule grows in */
+  .sec-head::after { transform: scaleX(0); transform-origin: left; transition: transform .9s var(--ease) .25s; }
+  .sec-head--center::after { transform-origin: center; }
+  .sec-head.is-in::after { transform: none; }
+
+  /* Groups reveal in sequence */
+  .pillars .pillar, .themes__side > * { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  .pillars.is-in .pillar, .themes__side.is-in > * { opacity: 1; transform: none; }
+  .pillars .pillar:nth-child(2), .themes__side > :nth-child(2) { transition-delay: .1s; }
+  .pillars .pillar:nth-child(3), .themes__side > :nth-child(3) { transition-delay: .2s; }
+  .pillars .pillar:nth-child(4), .themes__side > :nth-child(4) { transition-delay: .3s; }
+  .quotes > :nth-child(2), .involve > :nth-child(2), .past-cards > :nth-child(2) { --d: 120ms; }
+  .quotes > :nth-child(3) { --d: 240ms; }
+  .gallery > :nth-child(4n+2) { --d: 60ms; }
+  .gallery > :nth-child(4n+3) { --d: 120ms; }
+  .gallery > :nth-child(4n+4) { --d: 180ms; }
+
+  /* Hover: small lifts, nudges and zooms */
+  .btn .icon, .past-card__more .icon, .past-theme .icon { transition: transform .25s var(--ease); }
+  .btn:hover .icon, .past-card:hover .past-card__more .icon, .past-theme:hover .icon { transform: translateX(4px); }
+  .jump { transition: background .2s, border-color .2s, transform .25s var(--ease); }
+  .jump:hover { transform: translateY(-2px); }
+  .speaker__photo { transition: box-shadow .3s var(--ease); }
+  .speaker__photo img { transition: transform .6s var(--ease); }
+  .speaker__card:hover .speaker__photo { box-shadow: 0 0 0 4px var(--card), 0 0 0 5px var(--orange); }
+  .speaker__card:hover .speaker__photo img { transform: scale(1.05); }
+  .logo-wall__item img { transition: transform .3s var(--ease); }
+  .logo-wall__item:hover img { transform: scale(1.06); }
+  .flow__img { overflow: hidden; }
+  .flow__img img { transition: transform .8s var(--ease); }
+  .flow__step:hover .flow__img img { transform: scale(1.04); }
+}

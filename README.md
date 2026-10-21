@@ -121,6 +121,11 @@ Following the BITSoM Brand Guidelines and the brand team's review:
 - **Type:** Brandon Grotesque only in capitals, for headings and labels;
   Manrope for body copy, as on BITSoM Vertex.
 - **Photos:** natural colour everywhere; nothing is tinted or filtered.
+- **Motion:** quiet and quick, opacity and movement only: the hero builds in
+  line by line, chapters and cards rise in as they scroll into view, a thin
+  reading-progress line runs under the sticky menu, and hover gives small
+  lifts and zooms. Visitors who turn on "reduce motion" get the same page
+  with no animation.
 - **Tone of voice:** British English, active voice, positive phrasing;
   "BITSoM" keeps its lowercase "o" even inside capitals (`brand()` in
   `conclave.js`).

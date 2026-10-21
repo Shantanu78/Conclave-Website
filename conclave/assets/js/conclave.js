@@ -214,7 +214,7 @@
           var k = Math.min(i, o.j) + "-" + Math.max(i, o.j);
           if (!seen[k] && o.d < 32) {
             seen[k] = 1;
-            lines.push('<line x1="' + p[0] + '" y1="' + p[1] + '" x2="' + pts[o.j][0] + '" y2="' + pts[o.j][1] + '"/>');
+            lines.push('<line x1="' + p[0] + '" y1="' + p[1] + '" x2="' + pts[o.j][0] + '" y2="' + pts[o.j][1] + '" style="--i:' + lines.length + '"/>');
           }
         });
     });
@@ -592,6 +592,34 @@
     });
   }
 
+  /* Lazy images fade in once loaded instead of popping in */
+  function setupImageFade() {
+    root.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
+      if (img.complete) return;
+      img.classList.add("img-fade", "is-loading");
+      var done = function () { img.classList.remove("is-loading"); };
+      img.addEventListener("load", done, { once: true });
+      img.addEventListener("error", done, { once: true });
+    });
+  }
+
+  /* Reading progress along the bottom of the sticky bar */
+  function setupProgress() {
+    var bar = root.querySelector(".subnav");
+    if (!bar) return;
+    var queued = false;
+    function update() {
+      queued = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.setProperty("--progress", max > 0 ? Math.min(1, window.scrollY / max).toFixed(4) : "0");
+    }
+    window.addEventListener("scroll", function () {
+      if (!queued) { queued = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+
   /* Click-to-play: load the YouTube player only when someone asks for it */
   function setupVideos() {
     root.addEventListener("click", function (e) {
@@ -633,6 +661,8 @@
   setupReveal();
   setupCounters();
   setupLightbox();
+  setupImageFade();
+  setupProgress();
   setupVideos();
   setupScrollSpy();
   if (focusYear) {

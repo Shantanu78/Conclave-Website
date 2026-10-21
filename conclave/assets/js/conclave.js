@@ -472,7 +472,10 @@
           '<h1 class="hero__heading">Past Editions</h1>' +
           '<p class="hero__message">The themes, the speakers and the pictures from every Conclave so far.</p>' +
           '<div class="hero__jumps">' + pastYears.map(function (y) {
-            return '<a class="jump" href="#e' + esc(y) + '"><b>' + esc(y) + "</b><span>" + brand((editions[y].theme || {}).title || "") + "</span></a>";
+            // One line each: the theme's short name where it has one (2026: "Reimagining Bharat")
+            var t = editions[y].theme || {};
+            var label = t.kicker && !/^theme/i.test(t.kicker) ? t.kicker : t.title || "";
+            return '<a class="jump" href="#e' + esc(y) + '"><b>' + esc(y) + "</b><span>" + brand(label) + "</span></a>";
           }).join("") + "</div>" +
         "</div>" +
       "</section>";

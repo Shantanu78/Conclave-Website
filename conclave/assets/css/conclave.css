@@ -251,9 +251,10 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 /* Past Editions hero */
 .hero--past { padding: clamp(48px, 6vw, 80px) 0; }
 .hero__heading { margin: 0; font-weight: 800; font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: .02em; }
-.hero__jumps { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.jump { display: flex; flex-direction: column; gap: 2px; min-width: 240px; max-width: 360px; padding: 14px 18px; border-radius: var(--radius); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); text-decoration: none; transition: background .2s, border-color .2s; }
+.hero__jumps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 300px)); gap: 12px; margin-top: 30px; }
+.jump { display: flex; flex-direction: column; gap: 4px; padding: 16px 20px; border-radius: var(--radius); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); text-decoration: none; transition: background .2s, border-color .2s; }
 .jump:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.4); }
+@media (max-width: 560px) { .hero__jumps { grid-template-columns: 1fr; } }
 .jump b { font-family: var(--f-head); font-weight: 800; font-size: 26px; line-height: 1; color: var(--orange); }
 .jump span { font-family: var(--f-head); font-weight: 500; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.85); }
 

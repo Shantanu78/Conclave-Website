@@ -43,7 +43,7 @@ It is a static page: no build step, no framework, no server code.
    header and footer. Keep the footer line "under the aegis of BITS Pilani".
 2. **Fonts.** The CSS asks for `Brandon Grotesque` first. If the main site
    already serves it, nothing else is needed and the Google Fonts `<link>`
-   can be reduced to `Noto Sans JP`. Jost is only a stand-in for previews.
+   can be reduced to `Manrope`. Jost is only a stand-in for previews.
 3. **Paths.** Every asset path is relative to `index.html`. Copy the
    `conclave/` folder as is, e.g. to `/events/business-conclave/`.
 4. **Views.** With no query string the page shows the upcoming edition

@@ -2,7 +2,7 @@
  * Background preview: switch between the page looks in conclave.css
  * ([data-look] on <html>) to compare them on the live page.
  *
- *   ?look=ivory      open with a look (classic, ivory, mist, duo, aura)
+ *   ?look=ivory      open with a look (classic, ivory, mist, duo, aura, vertex)
  *
  * The choice is remembered while browsing between the two views.
  * Temporary: once a look is chosen, make it the default in conclave.css,
@@ -11,7 +11,7 @@
 (function () {
   "use strict";
 
-  var LOOKS = [["classic", "Classic"], ["ivory", "Ivory"], ["mist", "Mist"], ["duo", "Duo"], ["aura", "Aura"]];
+  var LOOKS = [["classic", "Classic"], ["ivory", "Ivory"], ["mist", "Mist"], ["duo", "Duo"], ["aura", "Aura"], ["vertex", "Vertex"]];
   var KEY = "conclave-look";
   var html = document.documentElement;
 

@@ -42,6 +42,7 @@
   --page: #FFFFFF;
   --band: var(--grad-soft);
   --band-alt: transparent;
+  --band-2: var(--band); /* every fourth chapter, for looks that rotate two bands */
   --card: #FFFFFF;
   --bar: rgba(255, 255, 255, 0.94);
   --next: var(--grad-warm);
@@ -91,6 +92,21 @@
   --band-alt: radial-gradient(45% 60% at 100% 0%, rgba(183, 47, 38, 0.05) 0%, rgba(183, 47, 38, 0) 70%), #FFFFFF;
   --soft: #F7F4F0;
 }
+
+/* Vertex: after vertex.bitsom.edu.in. Glows rising from the bottom of a
+   section (periwinkle, peach), warm off-white bands, and hairlines framing
+   the content column. */
+[data-look="vertex"] {
+  --page: #FFFFFF;
+  --band: radial-gradient(106% 100% at 50% 100%, rgba(179, 188, 246, 0.6) 20%, rgba(179, 188, 246, 0) 85%), #FFFFFF;
+  --band-2: radial-gradient(106% 100% at 50% 100%, #F9DFCD 16%, rgba(249, 223, 205, 0) 71%), #FFFFFF;
+  --band-alt: #F7F5F2;
+  --soft: #FFFFFF;
+  --line: rgba(24, 25, 45, 0.10);
+  --next: radial-gradient(106% 120% at 50% 100%, #F9DFCD 10%, rgba(249, 223, 205, 0) 70%), #F7F5F2;
+}
+[data-look="vertex"] .chapter { border-top: 1px solid var(--line); }
+[data-look="vertex"] .chapter::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: min(100%, var(--wrap)); margin: 0 auto; border-left: 1px solid var(--line); border-right: 1px solid var(--line); pointer-events: none; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
@@ -251,6 +267,7 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 /* Every other chapter gets the soft gradient, whichever chapters are present */
 .chapter:nth-of-type(odd) { background: var(--band); }
 .chapter:nth-of-type(even) { background: var(--band-alt); }
+.chapter:nth-of-type(4n+1) { background: var(--band-2); }
 .sec-head { margin-bottom: clamp(32px, 5vw, 52px); }
 .sec-head--center { text-align: center; }
 .sec-head__num { margin: 0 0 10px; font-family: var(--f-head); font-weight: 500; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--orange); }

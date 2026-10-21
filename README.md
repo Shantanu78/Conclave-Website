@@ -54,7 +54,7 @@ It is a static page: no build step, no framework, no server code.
    `frame-src https://www.youtube-nocookie.com https://www.linkedin.com`
    and `img-src https://i.ytimg.com` (video thumbnails).
 6. **Background preview.** The pill at the bottom of the page switches
-   between five background looks (Classic, Ivory, Mist, Duo, Aura; also
+   between six background looks (Classic, Ivory, Mist, Duo, Aura, Vertex; also
    `?look=ivory` in the URL). Once one is chosen, copy its values from the
    `[data-look]` block in `conclave.css` into `:root`, then delete
    `assets/js/look-preview.js` and its `<script>` tag in `index.html`.

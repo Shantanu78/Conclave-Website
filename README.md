@@ -64,7 +64,7 @@ It is a static page: no build step, no framework, no server code.
 | 2027 date | `"2027"` → `date` | Until filled in, the page says "Date to be announced". A one-line `theme.text` can also be added for the theme card. |
 | Speak / partner links | `"2027"` → `involve.*.cta.href` | e.g. a `mailto:` or form link; the buttons appear once set. |
 | LinkedIn profiles | `linkedin` on each speaker | Full profile URL. Empty shows a greyed-out icon. |
-| HD speaker portraits | `assets/img/speakers/*.jpg` (2026, 11 files) and `assets/img/speakers/2025/*.jpg` (20 files) | The current files come from the decks at 117–265 px and are soft. Replace each file **with the same name**: square, at least 600 × 600 px, natural colour, face in the upper half. No code change needed. |
+| Original speaker photos | `assets/img/speakers/*.jpg` (2026, 11 files) and `assets/img/speakers/2025/*.jpg` (20 files) | The current files are 640 × 640, enhanced with Real-ESRGAN from small sources: 2026 colour portraits are cropped from the event photos (stage-screen headshots and stage shots); Shirshendu Bhattacharya, Sashidhar Velaga and Vivek Wadhwa are still the black-and-white playbill photos; 2025 come from the decks. Originals are better still: replace each file **with the same name**, square, at least 600 × 600 px, natural colour, face in the upper half. No code change needed. |
 | Overview video | `"2027"` → `media.overview.youtube` | Paste the YouTube URL. |
 | Candid Conversations episodes | `media.podcasts.items` | One `{ youtube, title }` per episode. |
 | 2026 LinkedIn post | `media.linkedin` | Paste the post URL or the code from "Embed this post". |

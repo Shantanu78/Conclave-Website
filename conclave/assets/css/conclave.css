@@ -201,7 +201,7 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 /* ------------------------------------------------------------------ */
 /* Chapters                                                             */
 /* ------------------------------------------------------------------ */
-.chapter { padding: clamp(64px, 9vw, 104px) 0; position: relative; }
+.chapter { padding: clamp(48px, 5vw, 64px) 0; position: relative; }
 .chapter--soft { background: var(--grad-soft); }
 .sec-head { margin-bottom: clamp(32px, 5vw, 52px); }
 .sec-head--center { text-align: center; }

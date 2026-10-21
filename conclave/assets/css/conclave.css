@@ -89,12 +89,15 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 .site-header__nav a:hover, .site-header__nav a[aria-current] { color: var(--white); border-color: var(--orange); }
 @media (max-width: 900px) { .site-header__nav { display: none; } }
 
-.site-footer { background: var(--blue); color: rgba(255,255,255,.80); padding: 40px 0; font-size: 14px; }
-.site-footer__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
-.site-footer__brand { display: flex; align-items: center; gap: 20px; }
-.site-footer__brand img { height: 88px; width: auto; }
-.site-footer__brand strong { display: block; color: var(--white); font-family: var(--f-head); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.site-footer__meta { margin: 0; }
+.site-footer { background: var(--blue); color: rgba(255,255,255,.70); padding: 36px 0; font-size: 13px; }
+.site-footer__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; }
+.site-footer__brand { display: flex; align-items: center; gap: 24px; }
+.site-footer__brand img { height: 84px; width: auto; }
+.site-footer__event { padding: 10px 0 10px 24px; border-left: 1px solid rgba(255,255,255,.28); color: var(--white); font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .26em; text-transform: uppercase; }
+.site-footer__meta { margin: 0; letter-spacing: .02em; }
+@media (max-width: 560px) {
+  .site-footer__inner { flex-direction: column; text-align: center; }
+}
 
 /* ------------------------------------------------------------------ */
 /* Shared bits                                                         */

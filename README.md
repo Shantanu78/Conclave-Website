@@ -40,7 +40,7 @@ It is a static page: no build step, no framework, no server code.
 
 1. **Header and footer.** Replace `<header class="site-header">` and
    `<footer class="site-footer">` in `index.html` with the site's global
-   header and footer. Keep the footer line "under the aegis of BITS Pilani".
+   header and footer.
 2. **Fonts.** The CSS asks for `Brandon Grotesque` first. If the main site
    already serves it, nothing else is needed and the Google Fonts `<link>`
    can be reduced to `Manrope`. Jost is only a stand-in for previews.

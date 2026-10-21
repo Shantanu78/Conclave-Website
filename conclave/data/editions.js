@@ -158,7 +158,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Motilal Oswal", logo: "assets/img/orgs/motilal-oswal.png",
         sector: "Financial Services", cxo: true,
         photo: "assets/img/speakers/sanchit-suneja.jpg",
-        linkedin: "",
+        linkedin: "https://www.linkedin.com/in/sanchitsuneja/",
         featured: true
       },
       {
@@ -203,7 +203,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Bloomberg", logo: "assets/img/orgs/bloomberg.png",
         sector: "Financial Services", cxo: false,
         photo: "assets/img/speakers/neetu-ailsinghani.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/neetu-ailsinghani-4117b3b/"
       },
       {
         name: "Sashidhar Velaga",
@@ -219,7 +219,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Tata Play", logo: "assets/img/orgs/tata-play.png",
         sector: "Media & Entertainment", cxo: true,
         photo: "assets/img/speakers/sambasivan-g.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/sambasivan-g-1950a712/"
       },
       {
         name: "Shirshendu Bhattacharya",
@@ -227,7 +227,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Dr. Reddy's", logo: "assets/img/orgs/dr-reddys.png",
         sector: "Healthcare & Pharma", cxo: false,
         photo: "assets/img/speakers/shirshendu-bhattacharya.jpg",
-        linkedin: ""
+        linkedin: "https://www.linkedin.com/in/bhattacharyashirshendu/"
       },
       {
         name: "Vidhyasagar Tyagi",

@@ -292,7 +292,7 @@ window.CONCLAVE_EDITIONS = {
         org: "PepsiCo", logo: "assets/img/orgs/2025/raghavendra-purwar.png",
         sector: "FMCG & Food", cxo: false,
         photo: "assets/img/speakers/2025/raghavendra-purwar.jpg",
-        linkedin: "",
+        linkedin: "https://www.linkedin.com/in/raghvendra-purwar-8396aa2b/",
         featured: true
       },
       {
@@ -382,7 +382,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Mercedes-Benz", logo: "assets/img/orgs/2025/raghuraman-r.png",
         sector: "Automotive", cxo: false,
         photo: "assets/img/speakers/2025/raghuraman-r.jpg",
-        linkedin: "",
+        linkedin: "https://www.linkedin.com/in/raghuraman-ramamoorthy/",
         featured: true
       },
       {
@@ -415,7 +415,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Adobe", logo: "assets/img/orgs/2025/abhishek-shukla.png",
         sector: "Technology & SaaS", cxo: false,
         photo: "assets/img/speakers/2025/abhishek-shukla.jpg",
-        linkedin: "",
+        linkedin: "https://www.linkedin.com/in/abhishekshuklain/",
         featured: true
       },
       {
@@ -432,7 +432,7 @@ window.CONCLAVE_EDITIONS = {
         org: "Mastercard", logo: "assets/img/orgs/2025/sunil-patil.png",
         sector: "Financial Services", cxo: false,
         photo: "assets/img/speakers/2025/sunil-patil.jpg",
-        linkedin: "",
+        linkedin: "https://www.linkedin.com/in/sunilpatil05/",
         featured: true
       },
       {

@@ -143,12 +143,10 @@
     return '<span class="li li--off" title="LinkedIn profile not listed" aria-hidden="true">' + LINKEDIN_GLYPH + "</span>";
   }
 
-  function speakerCard(s, i, opts) {
-    opts = opts || {};
+  function speakerCard(s, i) {
     return '<li class="speaker reveal" style="--d:' + (i % 4) * 60 + 'ms">' +
       '<div class="speaker__card">' +
         '<span class="speaker__photo"><img src="' + esc(s.photo) + '" alt="" loading="lazy"></span>' +
-        (opts.tag && s.year ? '<span class="speaker__tag">' + esc(s.year) + "</span>" : "") +
         '<span class="speaker__name">' + esc(s.name) + "</span>" +
         '<span class="speaker__role">' + esc(s.role) + "</span>" +
         '<span class="speaker__org">' + (s.logo ? '<img src="' + esc(s.logo) + '" alt="' + esc(s.org) + '" loading="lazy">' : "<em>" + esc(s.org || s.sector) + "</em>") + "</span>" +
@@ -350,7 +348,7 @@
           (lineUp ? sectionHead(n, "The Speakers", "Conclave " + current + " line-up", true)
                   : sectionHead(n, "Past Speakers", "Leaders who have taken the Conclave stage", true)) +
           '<ul class="speakers' + (lineUp ? " speakers--three" : "") + '">' +
-            shown.map(function (s, i) { return speakerCard(s, i, { tag: !lineUp }); }).join("") + "</ul>" +
+            shown.map(function (s, i) { return speakerCard(s, i); }).join("") + "</ul>" +
           (sp.length > shown.length || lineUp ? '<p class="speakers__more reveal"><a class="btn btn--blue" href="?edition=past">Meet all ' + sp.length + " past speakers" + icon("arrow") + "</a></p>" : "") +
           (orgs.length ? '<p class="speakers__label reveal">On the Conclave stage so far</p>' +
             '<ul class="logo-wall">' + orgs.map(function (o, i) {

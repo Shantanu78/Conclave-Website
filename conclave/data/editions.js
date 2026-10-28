@@ -131,7 +131,7 @@ window.CONCLAVE_EDITIONS = {
           "Go beyond the keynote: fireside chats, focus groups and podcasts",
           "Red-carpet hospitality: campus stay, travel support and a dedicated point of contact"
         ],
-        contact: { name: "", email: "", whatsapp: "" }, // TODO: speaker vertical head
+        contact: { name: "Yash Grover", email: "Yash.Grover2027@bitsom.edu.in", whatsapp: "919109485836" },
         subject: "Speaking at the BITSoM Business Conclave 2027",
         message: "Hello, I would like to express interest in speaking at the BITSoM Business Conclave 2027."
       },
@@ -143,7 +143,7 @@ window.CONCLAVE_EDITIONS = {
           "Stalls for product demonstrations and live projects with BITSoM students",
           "Align your brand with BITS Pilani and the conversations shaping the next decade of business"
         ],
-        contact: { name: "", email: "", whatsapp: "" }, // TODO: partnerships vertical head
+        contact: { name: "Yash Grover", email: "Yash.Grover2027@bitsom.edu.in", whatsapp: "919109485836" },
         subject: "Partnering with the BITSoM Business Conclave 2027",
         message: "Hello, I would like to express interest in partnering with the BITSoM Business Conclave 2027."
       }

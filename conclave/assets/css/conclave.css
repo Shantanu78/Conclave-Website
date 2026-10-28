@@ -370,6 +370,7 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 .involve__cta { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
 .btn--line { color: var(--blue); border-color: rgba(37, 42, 96, .22); background: var(--card); }
 .btn--line:hover { border-color: var(--blue); }
+.btn[aria-disabled="true"] { cursor: default; }
 .btn--line .icon { width: 18px; height: 18px; color: #1DA851; }
 .involve__who { flex-basis: 100%; margin: 4px 0 0; font-size: 13.5px; color: var(--muted); }
 @media (max-width: 860px) { .involve { grid-template-columns: 1fr; } }
@@ -396,7 +397,6 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 .edition__theme h2 { margin: 0; font-weight: 800; font-size: clamp(26px, 3.2vw, 38px); line-height: 1.1; letter-spacing: .02em; color: var(--blue); max-width: 24ch; }
 .edition__theme p { margin: 14px 0 0; font-size: 17px; color: var(--muted); max-width: 62ch; }
 .edition__label { margin: 48px 0 22px; font-weight: 700; font-size: 14px; letter-spacing: .24em; color: var(--blue); }
-.edition__label span { color: var(--orange); margin-left: 6px; }
 @media (max-width: 760px) { .edition__head { grid-template-columns: 1fr; gap: 12px; } }
 
 /* Closing call to action (Past Editions) */

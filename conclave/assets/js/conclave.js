@@ -374,7 +374,7 @@
                   : sectionHead(n, "Past Speakers", "Leaders who have taken the Conclave stage", true)) +
           '<ul class="speakers' + (lineUp ? " speakers--three" : "") + '">' +
             shown.map(function (s, i) { return speakerCard(s, i); }).join("") + "</ul>" +
-          (sp.length > shown.length || lineUp ? '<p class="speakers__more reveal"><a class="btn btn--blue" href="?edition=past">Meet all ' + sp.length + " past speakers" + icon("arrow") + "</a></p>" : "") +
+          (sp.length > shown.length || lineUp ? '<p class="speakers__more reveal"><a class="btn btn--blue" href="?edition=past">Meet all past speakers' + icon("arrow") + "</a></p>" : "") +
           (orgs.length ? '<p class="speakers__label reveal">Also on the Conclave stage</p>' +
             '<ul class="logo-wall">' + orgs.map(function (o, i) {
               return '<li class="logo-wall__item reveal" style="--d:' + (i % 6) * 40 + 'ms"><img src="' + esc(o.logo) + '" alt="' + esc(o.org) + '" loading="lazy"></li>';
@@ -440,14 +440,20 @@
     function card(c, id, cls, btn) {
       if (!c) return "";
       var l = contactLinks(c), who = c.contact && c.contact.name;
+      // Both buttons always show; until a link is set they are placeholders that go nowhere
+      function cta(href, cls, inner, external) {
+        return href
+          ? '<a class="btn ' + cls + '" href="' + esc(href) + '"' + (external ? ' target="_blank" rel="noopener noreferrer"' : "") + ">" + inner + "</a>"
+          : '<a class="btn ' + cls + '" role="link" aria-disabled="true">' + inner + "</a>";
+      }
       return '<article class="involve__card ' + cls + ' reveal" id="' + id + '">' +
         "<h3>" + brand(c.title) + "</h3>" +
         '<ul class="involve__points">' + (c.points || []).map(function (p) { return "<li>" + icon("check") + "<span>" + brand(p) + "</span></li>"; }).join("") + "</ul>" +
-        (l.email || l.whatsapp ? '<div class="involve__cta">' +
-          (l.email ? '<a class="btn ' + btn + '" href="' + esc(l.email) + '">Express interest' + icon("arrow") + "</a>" : "") +
-          (l.whatsapp ? '<a class="btn btn--line" href="' + esc(l.whatsapp) + '" target="_blank" rel="noopener noreferrer">' + icon("chat") + "WhatsApp</a>" : "") +
+        '<div class="involve__cta">' +
+          cta(l.email, btn, "Express interest" + icon("arrow")) +
+          cta(l.whatsapp, "btn--line", icon("chat") + "WhatsApp", true) +
           (who ? '<p class="involve__who">Goes straight to ' + esc(who) + "</p>" : "") +
-        "</div>" : "") +
+        "</div>" +
       "</article>";
     }
     return '' +
@@ -477,7 +483,7 @@
               '<span class="past-card__body">' +
                 '<span class="past-card__year">' + esc(y) + "</span>" +
                 '<span class="past-card__theme">' + brand(t.title || "") + "</span>" +
-                '<span class="past-card__meta">' + esc(e.date || "") + " · " + (e.speakers || []).length + " speakers</span>" +
+                (e.date ? '<span class="past-card__meta">' + esc(e.date) + "</span>" : "") +
                 '<span class="past-card__more">Explore ' + esc(y) + icon("arrow") + "</span>" +
               "</span></a>";
           }).join("") + "</div>" +
@@ -521,7 +527,7 @@
               (t.text ? "<p>" + brand(t.text) + "</p>" : "") +
             "</div>" +
           "</header>" +
-          (has(e.speakers) ? '<h3 class="edition__label reveal">Speakers <span>' + e.speakers.length + "</span></h3>" +
+          (has(e.speakers) ? '<h3 class="edition__label reveal">Speakers</h3>' +
             '<ul class="speakers">' + e.speakers.map(function (s, i) { return speakerCard(s, i); }).join("") + "</ul>" : "") +
           (has(e.gallery) ? '<h3 class="edition__label reveal">Pictures</h3>' + galleryGrid(y, e.gallery) : "") +
         "</div>" +

@@ -240,12 +240,10 @@
       whatsapp: wa ? "https://wa.me/" + wa + (c.message ? "?text=" + encodeURIComponent(c.message) : "") : ""
     };
   }
-  /* Hero buttons reach the contact in one click; until one is set they scroll to the card */
-  function heroAction(c, fallback, cls, label, arrow) {
+  /* Hero buttons scroll to their Speak & Partner card, where the details and contact links are */
+  function heroAction(c, target, cls, label, arrow) {
     if (!c) return "";
-    var l = contactLinks(c), href = l.email || l.whatsapp || fallback;
-    return '<a class="btn ' + cls + '" href="' + esc(href) + '"' + (href === l.whatsapp ? ' target="_blank" rel="noopener noreferrer"' : "") + ">" +
-      esc(label) + (arrow ? icon("arrow") : "") + "</a>";
+    return '<a class="btn ' + cls + '" href="' + target + '">' + esc(label) + (arrow ? icon("arrow") : "") + "</a>";
   }
 
   function homeHero() {

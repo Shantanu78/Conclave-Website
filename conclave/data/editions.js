@@ -118,8 +118,7 @@ window.CONCLAVE_EDITIONS = {
        contact.whatsapp (international format, digits only, e.g. "919876543210");
        name is for reference only. Each card ends with an "Express interest"
        link and the WhatsApp logo, which link up once these are set; the hero's
-       Speak / Partner buttons then open them in one click (until then they
-       scroll to the cards).
+       Speak / Partner buttons scroll to these cards.
        subject and message prefill the email and the WhatsApp chat. */
     involve: {
       speakers: {

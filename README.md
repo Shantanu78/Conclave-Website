@@ -8,7 +8,7 @@ Preview: https://bitsom-conclave.vercel.app
 
 | View | URL | Purpose |
 | --- | --- | --- |
-| Conclave 2027 (main page) | `index.html` | Attract speakers and partners: hero with past speakers' company logos, about, theme, past speakers, a typical day, reflections, how to get involved |
+| Conclave 2027 (main page) | `index.html` | Attract speakers and partners: hero with past speakers' company logos, about, theme, past speakers, a typical day, reflections, speak & partner |
 | Past Editions | `index.html?edition=past` | 2026 above 2025, each with its theme, speakers and pictures |
 | One past edition | `index.html?edition=2026` | Past Editions, scrolled to that year |
 
@@ -62,7 +62,7 @@ It is a static page: no build step, no framework, no server code.
 | Item | Where it goes | Notes |
 | --- | --- | --- |
 | 2027 theme line | `"2027"` → `theme.text` | Optional one-line description for the theme card. |
-| **Speak / partner links (needed before launch)** | `"2027"` → `involve.*.cta.href` | e.g. a `mailto:` or form link. Until set, the Speak and Partner cards have no button, so an interested speaker has no next step. |
+| **Vertical heads' contacts (needed before launch)** | `"2027"` → `involve.speakers.contact` and `involve.partners.contact` | `email` and/or `whatsapp` (international format, digits only), plus an optional `name`. No forms: "Express interest" opens a prefilled email, WhatsApp opens a prefilled chat, and the hero's Speak / Partner buttons reach the contact in one click. Until set, the cards have no button and the hero buttons only scroll to them. |
 | LinkedIn profiles | `linkedin` on each speaker | 26 of 31 are filled in, including all twelve featured speakers. Still empty (greyed-out icon): Amol Peshattiwar, Jitendra Chauhan, Ravindra Soni, Naveen Chhabra, Ramya Venkatesh. Paste the full profile URL to switch the icon on. |
 | Original speaker photos | `assets/img/speakers/*.jpg` (2026, 11 files) and `assets/img/speakers/2025/*.jpg` (20 files) | The current files are 640 × 640, enhanced with Real-ESRGAN from small sources: 2026 colour portraits are cropped from the event photos (stage-screen headshots and stage shots); Shirshendu Bhattacharya, Sashidhar Velaga and Vivek Wadhwa are still the black-and-white playbill photos; 2025 come from the decks. Supplied headshots have since replaced the photos of Sanchayan Paul, Rakesh Tiwary, Sambasivan G and Vidhyasagar Tyagi (2026) and Sunil Patil (2025). Originals are better still: replace each file **with the same name**, square, at least 600 × 600 px, natural colour, face in the upper half. No code change needed. |
 | Overview video | `"2027"` → `media.overview.youtube` | Paste the YouTube URL. |
@@ -85,12 +85,12 @@ page is replaced by the 2027 line-up in rows of three.
 | --- | --- |
 | Hero | Conclave logo, 2027, theme, date, venue, Speak / Partner buttons, key numbers, and a constellation of past speakers' company logos |
 | About | What the Conclave is |
-| Theme | The 2027 theme card and its three angles: Hype, Hope, Hard Truths (`theme.angles`; without them, links to previous themes) |
-| Past Speakers | Twelve featured past speakers, one from each of the best-known organisations (`featured: true` on the speaker), a link to all of them on Past Editions, and a logo wall of every organisation from 2025 and 2026. Becomes the 2027 line-up at six confirmed |
+| Theme | The theme card and its three angles: Hype, Hope, Hard Truths (`theme.subtitle`, `theme.angles`; without angles, links to previous themes) |
+| Speakers | Twelve featured past speakers, one from each of the best-known organisations (`featured: true` on the speaker), a link to all of them on Past Editions, and a logo wall of the organisations not already shown above (in the hero or on the cards). Becomes the 2027 line-up at six confirmed |
 | A Conclave Day | The typical day flow, without times, with photos |
 | Watch & Listen | Overview film, podcasts, LinkedIn post (when supplied) |
 | In Their Words | Speaker reflections from LinkedIn |
-| Be Part of 2027 | What speakers and partners get |
+| Speak & Partner | What speakers and partners get, with one-click contact to the vertical heads |
 | Past Editions | Cards linking to each past edition |
 
 **Past Editions:** for each year, newest first: theme, speakers, pictures.

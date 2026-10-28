@@ -62,7 +62,8 @@
     calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
     pin: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
-    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>'
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    chat: '<path d="M4 20l1.4-3.8A8 8 0 1 1 8.3 19L4 20z"/><path d="M9 10.5h6M9 13.5h4"/>'
   };
   function icon(name, cls) {
     return '<svg class="' + (cls || "icon") + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || "") + "</svg>";
@@ -175,7 +176,7 @@
   function subnav() {
     return '<nav class="subnav" aria-label="Page sections">' +
       '<div class="wrap subnav__inner">' +
-        '<a class="subnav__title" href="#top">' + (isPast ? "Past <b>Editions</b>" : "Business Conclave <b>" + esc(current) + "</b>") + "</a>" +
+        '<a class="subnav__title" href="#top">' + (isPast ? "Past <b>Editions</b>" : "Business <b>Conclave</b>") + "</a>" +
         (chapters.length ? '<div class="subnav__links">' + chapters.filter(function (c) { return c.nav !== false; }).map(function (c) {
           return '<a href="#' + c.id + '" data-spy="' + c.id + '">' + esc(c.label) + "</a>";
         }).join("") + "</div>" : "") +
@@ -186,7 +187,7 @@
   function breadcrumb() {
     return '<nav class="crumbs wrap" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/">Events</a><span>/</span>' +
       (isPast ? '<a href="?">Business Conclave</a><span>/</span><span aria-current="page">Past editions</span>'
-              : '<span aria-current="page">Business Conclave ' + esc(current) + "</span>") + "</nav>";
+              : '<span aria-current="page">Business Conclave</span>') + "</nav>";
   }
 
   /* ================================================================== */
@@ -196,12 +197,17 @@
   /* Constellation points (x%, y%): a loose lattice, each joined to its neighbours */
   var STARS = [[16, 9], [50, 5], [84, 10], [33, 27], [67, 25], [14, 46], [50, 45], [86, 47], [31, 66], [69, 64], [16, 85], [50, 87], [84, 84]];
 
-  function constellation() {
+  /* The organisations in the hero constellation: the named ones first, topped up in order */
+  function constellationOrgs() {
     var all = organisations(), byOrg = {};
     all.forEach(function (o) { byOrg[o.org] = o; });
     var picks = (cur.constellation || []).map(function (n) { return byOrg[n]; }).filter(Boolean);
     all.forEach(function (o) { if (picks.length < STARS.length && picks.indexOf(o) < 0) picks.push(o); });
-    picks = picks.slice(0, STARS.length);
+    return picks.slice(0, STARS.length);
+  }
+
+  function constellation() {
+    var picks = constellationOrgs();
     if (!picks.length) return "";
     var pts = STARS.slice(0, picks.length), lines = [], seen = {};
     pts.forEach(function (p, i) {
@@ -224,6 +230,23 @@
     "</div>";
   }
 
+  /* Interest goes straight to a vertical head: a prefilled email, and WhatsApp alongside */
+  function contactLinks(c) {
+    var k = (c && c.contact) || {};
+    var wa = String(k.whatsapp || "").replace(/\D/g, "");
+    return {
+      email: k.email ? "mailto:" + k.email + "?subject=" + encodeURIComponent(c.subject || "") + "&body=" + encodeURIComponent(c.message || "") : "",
+      whatsapp: wa ? "https://wa.me/" + wa + (c.message ? "?text=" + encodeURIComponent(c.message) : "") : ""
+    };
+  }
+  /* Hero buttons reach the contact in one click; until one is set they scroll to the card */
+  function heroAction(c, fallback, cls, label, arrow) {
+    if (!c) return "";
+    var l = contactLinks(c), href = l.email || l.whatsapp || fallback;
+    return '<a class="btn ' + cls + '" href="' + esc(href) + '"' + (href === l.whatsapp ? ' target="_blank" rel="noopener noreferrer"' : "") + ">" +
+      esc(label) + (arrow ? icon("arrow") : "") + "</a>";
+  }
+
   function homeHero() {
     var t = cur.theme || {};
     var involve = cur.involve || {};
@@ -234,15 +257,15 @@
             '<p class="hero__presents">BITS School of Management presents</p>' +
             '<h1 class="hero__title"><img class="hero__logo" src="assets/img/brand/conclave-logo-light.png" alt="BITSoM Conclave" width="560" height="173">' +
               '<span class="hero__year">' + esc(current) + "</span></h1>" +
-            '<p class="hero__kicker">Theme ' + esc(current) + "</p>" +
+            '<p class="hero__kicker">Theme</p>' +
             '<p class="hero__theme">' + themeHtml(t.title, "hero__theme-sub") + "</p>" +
             '<ul class="hero__meta">' +
               "<li>" + icon("calendar") + (cur.date ? '<time datetime="' + esc(cur.dateISO || "") + '">' + esc(cur.date) + "</time>" : "Date to be announced") + "</li>" +
               (cur.venue ? "<li>" + icon("pin") + esc(cur.venue) + "</li>" : "") +
             "</ul>" +
             '<div class="hero__actions">' +
-              (involve.speakers ? '<a class="btn btn--orange" href="#involve">Speak at the Conclave' + icon("arrow") + "</a>" : "") +
-              (involve.partners ? '<a class="btn btn--ghost" href="#involve-partners">Partner with us</a>' : "") +
+              heroAction(involve.speakers, "#involve-speakers", "btn--orange", "Speak at the Conclave", true) +
+              heroAction(involve.partners, "#involve-partners", "btn--ghost", "Partner with us", false) +
             "</div>" +
             (has(cur.stats) ? '<dl class="hero__stats">' + cur.stats.map(function (st) {
               var v = statValue(st);
@@ -286,10 +309,10 @@
     return '' +
       '<section class="chapter" id="theme">' +
         '<div class="wrap">' +
-          sectionHead(n, "The Theme", "One question for the year") +
+          sectionHead(n, "The Theme", t.subtitle || "The conversation for the year") +
           '<div class="themes">' +
             '<div class="theme-card reveal">' +
-              '<span class="chip chip--light">Theme ' + esc(current) + "</span>" +
+              '<span class="chip chip--light">Theme</span>' +
               '<p class="theme-card__title">' + themeHtml(t.title, "theme-card__sub") + "</p>" +
               (t.text ? '<p class="theme-card__text">' + brand(t.text) + "</p>"
                 : t.title ? "" : '<p class="theme-card__text">The ' + esc(current) + " theme will be announced here. Here is where the conversation has been so far.</p>") +
@@ -331,8 +354,8 @@
   }
 
   /* The 2027 line-up once six are confirmed; until then, the featured past
-     speakers (all of them if none is marked). Either way the chapter closes
-     with every organisation that has been on stage. */
+     speakers (all of them if none is marked). The chapter closes with the
+     organisations not already shown above, in the hero or on these cards. */
   function homeSpeakers() {
     var confirmed = cur.speakers || [];
     var lineUp = confirmed.length >= 6;
@@ -340,8 +363,10 @@
     if (!lineUp && !sp.length) return "";
     var featured = sp.filter(function (s) { return s.featured; });
     var shown = lineUp ? confirmed : featured.length ? featured : sp;
-    var orgs = organisations();
-    var n = chapter("speakers", lineUp ? "Speakers" : "Past Speakers");
+    var above = {};
+    constellationOrgs().concat(shown).forEach(function (o) { if (o.org) above[o.org] = 1; });
+    var orgs = organisations().filter(function (o) { return !above[o.org]; });
+    var n = chapter("speakers", "Speakers");
     return '' +
       '<section class="chapter" id="speakers">' +
         '<div class="wrap">' +
@@ -350,7 +375,7 @@
           '<ul class="speakers' + (lineUp ? " speakers--three" : "") + '">' +
             shown.map(function (s, i) { return speakerCard(s, i); }).join("") + "</ul>" +
           (sp.length > shown.length || lineUp ? '<p class="speakers__more reveal"><a class="btn btn--blue" href="?edition=past">Meet all ' + sp.length + " past speakers" + icon("arrow") + "</a></p>" : "") +
-          (orgs.length ? '<p class="speakers__label reveal">On the Conclave stage so far</p>' +
+          (orgs.length ? '<p class="speakers__label reveal">Also on the Conclave stage</p>' +
             '<ul class="logo-wall">' + orgs.map(function (o, i) {
               return '<li class="logo-wall__item reveal" style="--d:' + (i % 6) * 40 + 'ms"><img src="' + esc(o.logo) + '" alt="' + esc(o.org) + '" loading="lazy"></li>';
             }).join("") + "</ul>" : "") +
@@ -411,19 +436,24 @@
   function homeInvolve() {
     var inv = cur.involve;
     if (!inv || (!inv.speakers && !inv.partners)) return "";
-    var n = chapter("involve", "Get Involved");
+    var n = chapter("involve", "Speak & Partner");
     function card(c, id, cls, btn) {
       if (!c) return "";
+      var l = contactLinks(c), who = c.contact && c.contact.name;
       return '<article class="involve__card ' + cls + ' reveal" id="' + id + '">' +
         "<h3>" + brand(c.title) + "</h3>" +
         '<ul class="involve__points">' + (c.points || []).map(function (p) { return "<li>" + icon("check") + "<span>" + brand(p) + "</span></li>"; }).join("") + "</ul>" +
-        (c.cta && c.cta.href ? '<a class="btn ' + btn + '" href="' + esc(c.cta.href) + '">' + esc(c.cta.label) + icon("arrow") + "</a>" : "") +
+        (l.email || l.whatsapp ? '<div class="involve__cta">' +
+          (l.email ? '<a class="btn ' + btn + '" href="' + esc(l.email) + '">Express interest' + icon("arrow") + "</a>" : "") +
+          (l.whatsapp ? '<a class="btn btn--line" href="' + esc(l.whatsapp) + '" target="_blank" rel="noopener noreferrer">' + icon("chat") + "WhatsApp</a>" : "") +
+          (who ? '<p class="involve__who">Goes straight to ' + esc(who) + "</p>" : "") +
+        "</div>" : "") +
       "</article>";
     }
     return '' +
       '<section class="chapter" id="involve">' +
         '<div class="wrap">' +
-          sectionHead(n, "Be Part of " + current, "Take the stage, or stand behind it", true) +
+          sectionHead(n, "Speak & Partner", "Take the stage, or stand behind it", true) +
           '<div class="involve">' +
             card(inv.speakers, "involve-speakers", "involve__card--speak", "btn--orange") +
             card(inv.partners, "involve-partners", "involve__card--partner", "btn--blue") +

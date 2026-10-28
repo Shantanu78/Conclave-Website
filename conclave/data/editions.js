@@ -37,11 +37,13 @@ window.CONCLAVE_EDITIONS = {
     dateISO: "2027-01-30",
     venue: "BITS School of Management, Mumbai",
 
-    /* text: one line on the theme card. angles: the tiles beside it (without
-       them, the previous themes are listed there instead). */
+    /* subtitle: the line under the chapter title. text: one line on the theme
+       card. angles: the tiles beside it (without them, the previous themes are
+       listed there instead). */
     theme: {
       title: "Business Unscripted: Hype, Hope and Hard Truths",
-      text: "At Conclave 2027, leaders set the script aside to talk candidly about what is really moving Indian business, and what it takes to lead through it.",
+      subtitle: "Three conversations, one stage",
+      text: "Leaders set the script aside to talk candidly about what is really moving business today, and what it takes to lead through it.",
       angles: [
         { title: "Hype",        text: "Telling the trends that will reshape business from the noise around them" },
         { title: "Hope",        text: "Where leaders see real opportunity: the bets, markets and talent worth backing" },
@@ -64,9 +66,10 @@ window.CONCLAVE_EDITIONS = {
 
     about: {
       quote: "Not just an event. A legacy you build.",
-      lead: "The BITSoM Business Conclave is our flagship industry forum. Each year, CXOs, founders and policymakers come to campus to take on one defining question for Indian business.",
+      lead: "The BITSoM Business Conclave is our flagship industry forum, where CXOs, founders and policymakers come to campus to discuss the challenges and opportunities shaping today's business landscape.",
+      body: "First held in 2025 and now in its third year, the Conclave has become a meeting point for leaders from across industries and the managers who will succeed them.",
       pillars: [
-        { icon: "vision",   title: "Vision",   text: "A forum on the ideas shaping India's next decade of business" },
+        { icon: "vision",   title: "Vision",   text: "A forum on the ideas shaping the next decade of business" },
         { icon: "purpose",  title: "Purpose",  text: "Real conversations between industry leaders and young talent" },
         { icon: "audience", title: "Audience", text: "CXOs, founders, faculty and BITSoM's future managers" },
         { icon: "impact",   title: "Impact",   text: "Partnerships between academia and industry that last beyond the day" }
@@ -80,7 +83,7 @@ window.CONCLAVE_EDITIONS = {
       { title: "Fireside Chats",          icon: "podcast", image: "assets/img/gallery/2026/fireside-rakesh-tiwary.jpg",
         text: "Unscripted one-on-one conversations on careers, choices and conviction." },
       { title: "Panel Discussions",       icon: "panel",   image: "assets/img/gallery/2026/panel-2.jpg",
-        text: "Leaders from different industries take on the year's big question together." },
+        text: "Leaders from different industries debate the year's theme together." },
       { title: "Focus Groups",            icon: "huddle",  image: "assets/img/gallery/2026/focus-group-library.jpg",
         text: "Speakers sit down with small groups of students around one table." },
       { title: "Guest Speaker",           icon: "trophy",  image: "assets/img/gallery/2026/guest-dhanushkodi-sivanandhan.jpg",
@@ -109,30 +112,37 @@ window.CONCLAVE_EDITIONS = {
       ]
     },
 
-    /* Get involved: one card for speakers, one for partners.
-       TODO: cta.href, e.g. "mailto:conclave@bitsom.edu.in"; the button
-       appears once it is filled in. */
+    /* Speak & Partner: one card for speakers, one for partners. Interest goes
+       straight to the vertical head (no forms): fill in contact.email and/or
+       contact.whatsapp (international format, digits only, e.g. "919876543210").
+       The "Express interest" and WhatsApp buttons appear once they are set,
+       and the hero's Speak / Partner buttons then open them in one click.
+       subject and message prefill the email and the WhatsApp chat. */
     involve: {
       speakers: {
-        title: "Speak at Conclave 2027",
+        title: "Speak at the Conclave",
         points: [
           "Meet 350+ future managers headed into consulting, technology, FMCG and financial services",
-          "Lead the conversation on the year's defining business question",
+          "Shape the conversation on Hype, Hope and Hard Truths",
           "Join a circle of CXOs and founders from across industries",
           "Go beyond the keynote: fireside chats, focus groups and podcasts",
           "Red-carpet hospitality: campus stay, travel support and a dedicated point of contact"
         ],
-        cta: { label: "Express interest", href: "" }
+        contact: { name: "", email: "", whatsapp: "" }, // TODO: speaker vertical head
+        subject: "Speaking at the BITSoM Business Conclave 2027",
+        message: "Hello, I would like to express interest in speaking at the BITSoM Business Conclave 2027."
       },
       partners: {
-        title: "Partner with Conclave 2027",
+        title: "Partner with the Conclave",
         points: [
           "Put your brand in front of the leaders on stage and the managers of tomorrow",
           "Visibility across campus branding, LED screens, social media and the after-movie",
           "Stalls for product demonstrations and live projects with BITSoM students",
-          "Align your brand with BITS Pilani and the conversations shaping Indian business"
+          "Align your brand with BITS Pilani and the conversations shaping the next decade of business"
         ],
-        cta: { label: "Become a partner", href: "" }
+        contact: { name: "", email: "", whatsapp: "" }, // TODO: partnerships vertical head
+        subject: "Partnering with the BITSoM Business Conclave 2027",
+        message: "Hello, I would like to express interest in partnering with the BITSoM Business Conclave 2027."
       }
     }
   },

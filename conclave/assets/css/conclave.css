@@ -97,9 +97,8 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 
 .site-footer { background: var(--blue); color: rgba(255,255,255,.70); padding: 36px 0; font-size: 13px; }
 .site-footer__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; }
-.site-footer__brand { display: flex; align-items: center; gap: 24px; }
-.site-footer__brand img { height: 84px; width: auto; }
-.site-footer__event { padding: 10px 0 10px 24px; border-left: 1px solid rgba(255,255,255,.28); color: var(--white); font-family: var(--f-head); font-weight: 700; font-size: 13px; letter-spacing: .26em; text-transform: uppercase; }
+.site-footer__brand { display: flex; align-items: center; }
+.site-footer__brand img { height: 52px; width: auto; }
 .site-footer__meta { margin: 0; letter-spacing: .02em; }
 @media (max-width: 560px) {
   .site-footer__inner { flex-direction: column; text-align: center; }
@@ -359,7 +358,7 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 .quote figcaption span { display: flex; flex-direction: column; }
 .quote figcaption strong { color: var(--blue); font-size: 14px; font-family: var(--f-head); letter-spacing: .08em; text-transform: uppercase; }
 
-/* Get involved */
+/* Speak & Partner */
 .involve { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .involve__card { background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--orange); border-radius: var(--radius); padding: clamp(26px, 3vw, 36px); box-shadow: var(--shadow); display: flex; flex-direction: column; align-items: flex-start; scroll-margin-top: 90px; }
 .involve__card--partner { border-top-color: var(--blue); }
@@ -368,7 +367,11 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 .involve__points li { display: flex; gap: 12px; align-items: flex-start; font-size: 15.5px; }
 .involve__points .icon { width: 20px; height: 20px; margin-top: 3px; color: var(--orange); }
 .involve__card--partner .involve__points .icon { color: var(--blue); }
-.involve__card .btn { margin-top: auto; }
+.involve__cta { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
+.btn--line { color: var(--blue); border-color: rgba(37, 42, 96, .22); background: var(--card); }
+.btn--line:hover { border-color: var(--blue); }
+.btn--line .icon { width: 18px; height: 18px; color: #1DA851; }
+.involve__who { flex-basis: 100%; margin: 4px 0 0; font-size: 13.5px; color: var(--muted); }
 @media (max-width: 860px) { .involve { grid-template-columns: 1fr; } }
 
 /* Past editions teaser (home) */

@@ -97,8 +97,11 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 
 .site-footer { background: var(--blue); color: rgba(255,255,255,.70); padding: 36px 0; font-size: 13px; }
 .site-footer__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; }
-.site-footer__brand { display: flex; align-items: center; }
-.site-footer__brand img { height: 52px; width: auto; }
+.site-footer__brand { display: flex; align-items: center; gap: 24px; }
+.site-footer__brand img { width: auto; }
+.site-footer__logo { height: 84px; }
+.site-footer__conclave { height: 52px; }
+.site-footer__divider { align-self: stretch; width: 1px; margin: 6px 0; background: rgba(255, 255, 255, .75); }
 .site-footer__meta { margin: 0; letter-spacing: .02em; }
 @media (max-width: 560px) {
   .site-footer__inner { flex-direction: column; text-align: center; }
@@ -176,7 +179,6 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 .hstat dd { grid-row: 1; }
 .hstat dt { grid-row: 2; font-family: var(--f-head); font-weight: 500; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; white-space: nowrap; color: rgba(255,255,255,.72); margin-top: 6px; }
 .hstat dd { margin: 0; font-family: var(--f-head); font-weight: 800; font-size: clamp(32px, 3.4vw, 44px); line-height: 1; font-variant-numeric: tabular-nums; }
-.hstat__suffix { color: var(--orange); }
 .hero__side-cap { margin: 18px 0 0; text-align: center; font-family: var(--f-head); font-weight: 500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.72); }
 
 .constellation { position: relative; width: 100%; aspect-ratio: 1 / .92; }
@@ -226,8 +228,9 @@ h1, h2, h3 { font-family: var(--f-head); text-transform: uppercase; }
 /* About */
 .about { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
 .about__quote { margin: 0 0 22px; font-family: var(--f-head); font-weight: 800; font-size: clamp(26px, 3vw, 38px); line-height: 1.1; letter-spacing: .02em; text-transform: uppercase; color: var(--blue); text-wrap: balance; }
-.about__lead { margin: 0 0 14px; font-size: clamp(18px, 1.6vw, 20px); font-weight: 500; line-height: 1.6; }
-.about__body { margin: 0; color: var(--muted); font-size: 17px; }
+.about__text { margin: 0 0 16px; font-size: clamp(17px, 1.5vw, 19px); line-height: 1.7; color: var(--ink); }
+.about__text:last-child { margin-bottom: 0; }
+.about__theme { font-weight: 700; color: var(--blue); }
 .pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 .pillar { background: var(--soft); border-radius: var(--radius); padding: 22px 20px; }
 .pillar__icon { width: 30px; height: 30px; color: var(--orange); }

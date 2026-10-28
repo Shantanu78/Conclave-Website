@@ -66,8 +66,9 @@ window.CONCLAVE_EDITIONS = {
 
     about: {
       quote: "Not just an event. A legacy you build.",
-      lead: "The BITSoM Business Conclave is our flagship industry forum, where CXOs, founders and policymakers come to campus to discuss the challenges and opportunities shaping today's business landscape.",
-      body: "First held in 2025 and now in its third year, the Conclave has become a meeting point for leaders from across industries and the managers who will succeed them.",
+      lead: "The BITSoM Business Conclave is our flagship industry forum. Each year, CXOs, founders and policymakers come to campus to discuss the challenges and opportunities shaping today's business landscape.",
+      // {theme} is replaced by this year's theme title, in bold
+      body: "First held in 2025, the Conclave returns for its third edition with a theme that asks leaders to drop the script: {theme}.",
       pillars: [
         { icon: "vision",   title: "Vision",   text: "A forum on the ideas shaping the next decade of business" },
         { icon: "purpose",  title: "Purpose",  text: "Real conversations between industry leaders and young talent" },
@@ -86,8 +87,8 @@ window.CONCLAVE_EDITIONS = {
         text: "Leaders from different industries debate the year's theme together." },
       { title: "Focus Groups",            icon: "huddle",  image: "assets/img/gallery/2026/focus-group-library.jpg",
         text: "Speakers sit down with small groups of students around one table." },
-      { title: "Guest Speaker",           icon: "trophy",  image: "assets/img/gallery/2026/guest-dhanushkodi-sivanandhan.jpg",
-        text: "A distinguished guest brings a view from beyond the boardroom." },
+      { title: "Guest Speakers",          icon: "trophy",  image: "assets/img/gallery/2026/guest-dhanushkodi-sivanandhan.jpg",
+        text: "Distinguished guests bring a view from beyond the boardroom." },
       { title: "Showcase & Networking",   icon: "tea",     image: "assets/img/gallery/2026/showcase-atrium.jpg",
         text: "Performances, the Student Excellence Showcase and conversations over high tea." }
     ],

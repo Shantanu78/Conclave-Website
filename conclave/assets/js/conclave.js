@@ -276,7 +276,7 @@
             }).join("") + "</dl>" : "") +
           "</div>" +
           '<div class="hero__side">' + constellation() +
-            '<p class="hero__side-cap">Where our past speakers come from</p>' +
+            '<p class="hero__side-cap">Where our past speakers came from</p>' +
           "</div>" +
         "</div>" +
       "</section>";
@@ -293,8 +293,8 @@
           '<div class="about">' +
             '<div class="about__copy reveal">' +
               (a.quote ? '<blockquote class="about__quote">“' + esc(a.quote) + "”</blockquote>" : "") +
-              (a.lead ? '<p class="about__lead">' + brand(a.lead) + "</p>" : "") +
-              (a.body ? '<p class="about__body">' + brand(a.body) + "</p>" : "") +
+              (a.lead ? '<p class="about__text">' + brand(a.lead) + "</p>" : "") +
+              (a.body ? '<p class="about__text">' + brand(a.body).replace("{theme}", '<strong class="about__theme">' + brand((cur.theme || {}).title || "") + "</strong>") + "</p>" : "") +
             "</div>" +
             (has(a.pillars) ? '<div class="pillars reveal">' + a.pillars.map(function (p) {
               return '<article class="pillar">' + icon(p.icon, "pillar__icon") + "<h3>" + esc(p.title) + "</h3><p>" + brand(p.text) + "</p></article>";

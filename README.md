@@ -87,7 +87,7 @@ page is replaced by the 2027 line-up in rows of three.
 | About | What the Conclave is |
 | Theme | The theme card and its three angles: Hype, Hope, Hard Truths (`theme.subtitle`, `theme.angles`; without angles, links to previous themes) |
 | Speakers | Twelve featured past speakers, one from each of the best-known organisations (`featured: true` on the speaker), a link to all of them on Past Editions, and a logo wall of the organisations not already shown above (in the hero or on the cards). Becomes the 2027 line-up at six confirmed |
-| A Conclave Day | The typical day flow, without times, with photos |
+| A Day at the Conclave | The typical day flow, without times, with photos |
 | Watch & Listen | Overview film, podcasts, LinkedIn post (when supplied) |
 | In Their Words | Speaker reflections from LinkedIn |
 | Speak & Partner | What speakers and partners get, with one-click contact to the vertical heads |

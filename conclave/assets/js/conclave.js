@@ -343,7 +343,7 @@
     return '' +
       '<section class="chapter" id="day">' +
         '<div class="wrap">' +
-          sectionHead(n, "A Conclave Day", "How the day unfolds", true) +
+          sectionHead(n, "A Day at the Conclave", "How the day unfolds", true) +
           '<ol class="flow">' + cur.dayFlow.map(function (s, i) {
             return '<li class="flow__step reveal" style="--d:' + (i % 3) * 80 + 'ms">' +
               (s.image ? '<div class="flow__img"><img src="' + esc(s.image) + '" alt="" loading="lazy"></div>' : "") +
